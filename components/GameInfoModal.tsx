@@ -34,8 +34,12 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
           </button>
 
           <div className="flex flex-col gap-8">
-            <div className="w-full aspect-video border-4 border-mint/40 overflow-hidden bg-black/40 shadow-[8px_8px_0_0_rgba(0,0,0,0.5)]">
-              <img src={game.image} alt={game.name} className="w-full h-full object-cover" />
+            <div className="w-full flex justify-center overflow-hidden">
+              <img 
+                src={game.image} 
+                alt={game.name} 
+                className="max-w-full max-h-[200px] w-auto h-auto object-contain" 
+              />
             </div>
 
             <div className="space-y-6">
