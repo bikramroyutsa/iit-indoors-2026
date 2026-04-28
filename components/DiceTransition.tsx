@@ -8,11 +8,9 @@ export default function DiceTransition() {
   const [isInView, setIsInView] = useState(false);
   const [hasScrolledNext, setHasScrolledNext] = useState(false);
   const [isReverse, setIsReverse] = useState(false);
-
-  // Use a motion value for the animation progress (0 to 1)
+  
   const animProgress = useMotionValue(0);
 
-  // Animation values based on progress
   const diceRotate = useTransform(animProgress, [0.1, 0.9], [0, 720]);
   const diceX = useTransform(animProgress, [0.1, 0.5, 0.9], ["-150%", "0%", "150%"]);
   const diceY = useTransform(animProgress, [0.1, 0.3, 0.5, 0.7, 0.9], ["0px", "-120px", "0px", "-120px", "0px"]);
@@ -26,14 +24,11 @@ export default function DiceTransition() {
         if (entry.isIntersecting && !isInView) {
           setIsInView(true);
           
-          // Detect entry point relative to viewport
-          // top > 0: section is entering from bottom (coming from Schedule above)
-          // top < 0: section is entering from top (coming from Tech below)
-          const comingFromAbove = entry.boundingClientRect.top > 0;
+          const fromTop = entry.boundingClientRect.top > 0;
+          setIsReverse(!fromTop);
           
-          setIsReverse(!comingFromAbove);
-          const targetValue = comingFromAbove ? 1 : 0;
-          const startValue = comingFromAbove ? 0 : 1;
+          const targetValue = fromTop ? 1 : 0;
+          const startValue = fromTop ? 0 : 1;
           
           animProgress.set(startValue);
           
@@ -41,22 +36,20 @@ export default function DiceTransition() {
             duration: 4,
             ease: "easeInOut",
             onComplete: () => {
-              if (comingFromAbove) {
-                // Head down to tech
+              if (fromTop) {
                 const tech = document.getElementById('tech');
                 if (tech && !hasScrolledNext) {
                   setHasScrolledNext(true);
-                  tech.scrollIntoView({ behavior: 'smooth' });
+                  tech.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   setTimeout(() => {
                     setHasScrolledNext(false);
                     setIsInView(false);
                   }, 3000);
                 }
               } else {
-                // Head up to schedule
                 const schedule = document.getElementById('schedule');
                 if (schedule) {
-                  schedule.scrollIntoView({ behavior: 'smooth' });
+                  schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   setTimeout(() => {
                     setIsInView(false);
                   }, 3000);
@@ -68,7 +61,7 @@ export default function DiceTransition() {
           return () => controls.stop();
         }
       },
-      { threshold: 0.1 } // Catch it earlier for a smoother handoff
+      { threshold: 0.1 }
     );
 
     if (containerRef.current) {
@@ -79,51 +72,49 @@ export default function DiceTransition() {
   }, [isInView, hasScrolledNext, animProgress]);
 
   return (
-    <section
+    <section 
       ref={containerRef}
       id="dice-section"
       className="relative h-[100svh] w-full overflow-hidden pointer-events-none snap-start snap-always"
-      style={{ backgroundColor: "#00110F" }}
+      style={{ backgroundColor: "#00110F", scrollSnapStop: 'always' }}
     >
-      <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center overflow-hidden">
-        <motion.div
+      <div className="h-full w-full flex items-center justify-center">
+        <motion.div 
           className="relative flex items-center justify-center w-full"
           style={{ opacity }}
         >
-          {/* The Dice */}
-          <motion.div
-            style={{
-              x: diceX,
-              y: diceY,
+          <motion.div 
+            style={{ 
+              x: diceX, 
+              y: diceY, 
               rotate: diceRotate,
               scale: diceScale
             }}
             className="relative w-24 h-24 md:w-32 md:h-32"
           >
-            {/* Pixel Art Dice Body */}
             <div className="absolute inset-0 bg-[#f4f1ea] border-4 border-black shadow-[8px_8px_0_0_rgba(0,0,0,0.5)] flex items-center justify-center">
               <div className="grid grid-cols-3 grid-rows-3 gap-2 p-4 w-full h-full">
                 <div className="bg-black w-2 h-2 rounded-full" />
                 <div className="bg-transparent w-2 h-2" />
                 <div className="bg-black w-2 h-2 rounded-full" />
-
+                
                 <div className="bg-transparent w-2 h-2" />
                 <div className="bg-black w-2 h-2 rounded-full" />
                 <div className="bg-transparent w-2 h-2" />
-
+                
                 <div className="bg-black w-2 h-2 rounded-full" />
                 <div className="bg-transparent w-2 h-2" />
                 <div className="bg-black w-2 h-2 rounded-full" />
               </div>
             </div>
-
-            <motion.div
+            
+            <motion.div 
               className="absolute inset-0 bg-white/10 blur-xl rounded-full -z-10"
               style={{ scale: 1.5 }}
             />
           </motion.div>
-
-          <motion.div
+          
+          <motion.div 
             className="absolute mt-48 text-[#00EBA9] font-pixelify text-xl tracking-[0.2em] lowercase opacity-50"
             style={{ opacity: textOpacity }}
           >
@@ -137,6 +128,3 @@ export default function DiceTransition() {
     </section>
   );
 }
-
-
-

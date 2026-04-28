@@ -17,15 +17,15 @@ export default function EpicFooter() {
         className="object-cover object-bottom opacity-40 select-none"
       />
 
-      <div className="relative z-20 w-full flex flex-col items-center gap-12 pb-12">
-        <div className="w-full flex flex-col items-center bg-black/40 backdrop-blur-md py-8 border-y border-[var(--mint)]/10">
+      <div className="relative z-20 w-full flex flex-col items-center gap-16">
+        <div className="w-full flex flex-col items-center bg-black/40 backdrop-blur-md py-12 border-y border-[var(--mint)]/10">
           <CreditsSection />
         </div>
 
         <div className="text-center drop-shadow-2xl">
-          <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mt-4 font-pixelify">YOU'VE REACHED</p>
+          <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mb-4 font-pixelify">YOU'VE REACHED</p>
           <h2 className="text-6xl md:text-8xl text-[var(--mint)] font-bold tracking-widest uppercase" style={{ textShadow: '0 0 30px var(--mint)' }}>THE CORE</h2>
-          <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mt-4 font-pixelify">END OF THE LINE</p>
+          <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mt-4 font-pixelify uppercase">end of the line</p>
         </div>
       </div>
     </section>

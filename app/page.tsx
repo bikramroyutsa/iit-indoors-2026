@@ -16,9 +16,7 @@ export default function Home() {
       <ScheduleSection />
       <DiceTransition />
       <TechUnderground>
-        <PageContainer>
-          <LandingSection />
-        </PageContainer>
+        <LandingSection />
       </TechUnderground>
       <EpicFooter />
     </main>
