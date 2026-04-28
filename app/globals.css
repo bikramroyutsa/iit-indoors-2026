@@ -10,9 +10,12 @@
 
 body {
   background:
-    radial-gradient(circle at 12% 18%, rgba(22, 219, 171, 0.2), transparent 40%),
-    radial-gradient(circle at 88% 78%, rgba(102, 245, 207, 0.22), transparent 38%),
-    linear-gradient(160deg, #001715 0%, var(--deep-teal) 55%, #00110f 100%);
+    linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
+    radial-gradient(circle at 12% 18%, rgba(22, 219, 171, 0.12), transparent 40%),
+    radial-gradient(circle at 88% 78%, rgba(102, 245, 207, 0.12), transparent 38%),
+    linear-gradient(160deg, #001715 0%, var(--deep-teal) 55%, #00110f 100%),
+    url('/assets/iit-building.png') center/cover no-repeat;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-pixelify), sans-serif;
 }
