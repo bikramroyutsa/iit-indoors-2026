@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Portal from "./Portal";
+import { useState } from "react";
 import GameInfoModal from "./GameInfoModal";
 
 interface Game {
@@ -53,66 +52,36 @@ const SCHEDULE_DATA = {
 };
 
 export default function ScheduleCarousel() {
-  const [startIndex, setStartIndex] = useState(0);
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
 
-  // Auto-swipe effect
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setStartIndex((prev) => {
-        if (prev + 3 >= GAMES.length) return 0;
-        return prev + 1;
-      });
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextGames = () => {
-    if (startIndex + 1 < GAMES.length) {
-      setStartIndex((prev) => prev + 1);
-    } else {
-      setStartIndex(0);
-    }
-  };
-
-  const prevGames = () => {
-    if (startIndex > 0) {
-      setStartIndex((prev) => prev - 1);
-    } else {
-      setStartIndex(GAMES.length - 3);
+  const scrollLineup = (direction: "left" | "right") => {
+    const el = document.getElementById('lineup-scroll');
+    if (el) {
+      const scrollAmount = 150;
+      el.scrollBy({ left: direction === "left" ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="w-full py-12 px-2 md:px-4 select-none font-pixelify flex flex-col gap-20">
+    <div className="w-full py-8 px-2 md:px-4 select-none font-pixelify flex flex-col gap-12">
 
       {/* --- GAMES SECTION --- */}
       <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-        <h2 className="text-center text-[#00EBA9] text-3xl md:text-4xl tracking-[0.2em] lowercase mb-10 drop-shadow-[0_0_10px_rgba(0,235,169,0.4)]">
+        <h2 className="text-center text-white text-2xl md:text-3xl tracking-[0.2em] lowercase mb-6 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           lineup
         </h2>
 
-        {/* Pixel Panel for Lineup */}
+        {/* Paper Panel for Lineup */}
         <div className="relative w-full group">
-          {/* Main Panel Body */}
-          <div className="relative bg-[#001a17]/85 backdrop-blur-sm p-4 md:p-8 border-4 border-[#00EBA9] shadow-[8px_8px_0_0_rgba(0,0,0,0.5),inset_-4px_-4px_0_0_rgba(0,235,169,0.2)] overflow-hidden">
-            {/* Background Pixel Grid Pattern */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00EBA9 1px, transparent 0)', backgroundSize: '8px 8px' }} />
-            
-        {/* Lineup Container */}
-        <div className="relative w-full group">
-          {/* Main Panel Body */}
-          <div className="relative bg-[#001a17]/85 backdrop-blur-sm p-4 md:p-8 border-4 border-[#00EBA9] shadow-[8px_8px_0_0_rgba(0,0,0,0.5),inset_-4px_-4px_0_0_rgba(0,235,169,0.2)]">
-            {/* Background Pixel Grid Pattern */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00EBA9 1px, transparent 0)', backgroundSize: '8px 8px' }} />
+          <div className="relative bg-[#f4f1ea] p-3 md:p-5 border-4 border-black shadow-[8px_8px_0_0_rgba(0,0,0,0.8)] overflow-hidden">
+            {/* Paper Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '4px 4px' }} />
             
             <div className="relative z-10 flex items-center gap-4">
               <button 
-                onClick={() => {
-                  const el = document.getElementById('lineup-scroll');
-                  el?.scrollBy({ left: -300, behavior: 'smooth' });
-                }} 
-                className="z-20 p-2 text-[#00EBA9] hover:scale-125 transition-all hover:text-white active:scale-95 bg-[#00201d] border-2 border-[#00EBA9] hidden md:block"
+                onClick={() => scrollLineup("left")} 
+                className="z-20 p-2 text-black hover:scale-110 transition-all active:scale-95 bg-white border-2 border-black hidden md:block shadow-[2px_2px_0_0_rgba(0,0,0,0.8)]"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
               </button>
@@ -125,30 +94,25 @@ export default function ScheduleCarousel() {
                   <button 
                     key={game.id} 
                     onClick={() => setSelectedGame(game)} 
-                    className="w-40 md:w-48 flex-shrink-0 cursor-pointer group/card snap-center text-left appearance-none"
+                    className="w-20 md:w-24 flex-shrink-0 cursor-pointer group/card snap-center text-left appearance-none"
                   >
-                    <div className="aspect-square border-4 border-[#00EBA9]/20 bg-[#00201d] overflow-hidden relative transition-all duration-300 group-hover/card:border-[#00EBA9] group-hover/card:-translate-y-2 p-3">
-                      <img src={game.image} alt={game.name} className="w-full h-full object-contain opacity-70 group-hover/card:opacity-100 transition-opacity grayscale group-hover/card:grayscale-0" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity" />
-                      <div className="absolute bottom-2 left-0 right-0 text-center text-[10px] text-[#00EBA9] opacity-0 group-hover/card:opacity-100 transition-opacity uppercase tracking-tighter font-bold font-pixelify">[ view ]</div>
+                    <div className="aspect-square border-2 border-black/10 bg-white/50 overflow-hidden relative transition-all duration-300 group-hover/card:border-black group-hover/card:-translate-y-1 p-1">
+                      <img src={game.image} alt={game.name} className="w-full h-full object-contain opacity-60 group-hover/card:opacity-100 transition-all brightness-0" />
+                      <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/card:opacity-100 transition-opacity" />
+                      <div className="absolute bottom-1 left-0 right-0 text-center text-[8px] text-black opacity-0 group-hover/card:opacity-100 transition-opacity uppercase tracking-tighter font-bold font-pixelify">[ select ]</div>
                     </div>
-                    <p className="mt-4 text-center text-lg md:text-xl text-[#00EBA9] tracking-wider lowercase truncate px-1 font-medium group-hover/card:text-white transition-colors">{game.name}</p>
+                    <p className="mt-1 text-center text-[8px] md:text-[10px] text-black/70 tracking-tighter lowercase truncate px-0.5 font-medium group-hover/card:text-black transition-colors leading-none">{game.name}</p>
                   </button>
                 ))}
               </div>
 
               <button 
-                onClick={() => {
-                  const el = document.getElementById('lineup-scroll');
-                  el?.scrollBy({ left: 300, behavior: 'smooth' });
-                }} 
-                className="z-20 p-2 text-[#00EBA9] hover:scale-125 transition-all hover:text-white active:scale-95 bg-[#00201d] border-2 border-[#00EBA9] hidden md:block"
+                onClick={() => scrollLineup("right")} 
+                className="z-20 p-2 text-black hover:scale-110 transition-all active:scale-95 bg-white border-2 border-black hidden md:block shadow-[2px_2px_0_0_rgba(0,0,0,0.8)]"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
               </button>
             </div>
-          </div>
-        </div>
           </div>
         </div>
       </div>
@@ -162,33 +126,35 @@ export default function ScheduleCarousel() {
 
       {/* --- SCHEDULE SECTION --- */}
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-        <h2 className="text-center text-[#00EBA9] text-3xl md:text-4xl tracking-[0.2em] lowercase mb-12 drop-shadow-[0_0_10px_rgba(0,235,169,0.4)]">
+        <h2 className="text-center text-white text-2xl md:text-3xl tracking-[0.2em] lowercase mb-8 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           event schedule
         </h2>
         
         <div className="w-full flex lg:grid lg:grid-cols-2 gap-8 md:gap-16 overflow-x-auto lg:overflow-visible snap-x snap-mandatory pb-8 lg:pb-0 custom-scrollbar">
           {/* Day 01 */}
           <div className="w-[90vw] sm:w-[80vw] lg:w-full flex-shrink-0 snap-center lg:snap-align-none relative group ml-[5vw] sm:ml-[10vw] lg:ml-0">
-            <div className="relative bg-[#001a17]/85 backdrop-blur-sm p-6 md:p-10 border-4 border-[#00EBA9] shadow-[12px_12px_0_0_rgba(0,0,0,0.5),inset_-4px_-4px_0_0_rgba(0,235,169,0.1)] h-full">
-              <div className="flex items-center justify-between mb-10 border-b-2 border-[#00EBA9]/20 pb-4">
-                <h3 className="text-[#00EBA9] text-2xl md:text-3xl tracking-[0.1em] lowercase">
+            <div className="relative bg-[#f4f1ea] p-6 md:p-10 border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden">
+              {/* Paper Texture Overlay */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
+              <div className="flex items-center justify-between mb-10 border-b-2 border-black/10 pb-4">
+                <h3 className="text-black text-xl md:text-2xl tracking-[0.1em] lowercase font-bold">
                   day 01
                 </h3>
-                <span className="text-[#00EBA9]/60 text-xs md:text-sm lowercase tracking-widest font-bold">may 10, 2026</span>
+                <span className="text-black/50 text-xs md:text-sm lowercase tracking-widest font-bold">may 10, 2026</span>
               </div>
-              <div className="space-y-8">
+              <div className="space-y-6 max-h-[350px] overflow-y-auto custom-scrollbar pr-2">
                 {SCHEDULE_DATA.day1.map((item, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#00EBA9]/10 pb-4 group/item hover:bg-[#00EBA9]/5 transition-colors px-2">
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/10 pb-4 group/item hover:bg-black/5 transition-colors px-2">
                     <div className="flex items-center gap-4">
-                      <span className="text-[#00EBA9] text-lg md:text-xl font-bold tracking-tight min-w-[90px]">
+                      <span className="text-black text-lg md:text-xl font-black tracking-tight min-w-[90px]">
                         {item.time}
                       </span>
-                      <div className="h-4 w-px bg-[#00EBA9]/40 hidden sm:block" />
-                      <span className="text-xl md:text-2xl text-[#00EBA9] lowercase tracking-wide font-medium group-hover/item:text-white transition-colors">
+                      <div className="h-4 w-px bg-black/20 hidden sm:block" />
+                      <span className="text-xl md:text-2xl text-black/80 lowercase tracking-wide font-medium group-hover/item:text-black transition-colors">
                         {item.event}
                       </span>
                     </div>
-                    <span className="text-[10px] md:text-xs text-[#00EBA9]/50 uppercase tracking-[0.2em] italic font-bold">
+                    <span className="text-[10px] md:text-xs text-red-700/60 uppercase tracking-[0.2em] italic font-bold">
                       @{item.venue}
                     </span>
                   </div>
@@ -199,26 +165,28 @@ export default function ScheduleCarousel() {
 
           {/* Day 02 */}
           <div className="w-[90vw] sm:w-[80vw] lg:w-full flex-shrink-0 snap-center lg:snap-align-none relative group mr-[5vw] sm:mr-[10vw] lg:mr-0">
-            <div className="relative bg-[#001a17]/85 backdrop-blur-sm p-6 md:p-10 border-4 border-[#00EBA9] shadow-[12px_12px_0_0_rgba(0,0,0,0.5),inset_-4px_-4px_0_0_rgba(0,235,169,0.1)] h-full">
-              <div className="flex items-center justify-between mb-10 border-b-2 border-[#00EBA9]/20 pb-4">
-                <h3 className="text-[#00EBA9] text-2xl md:text-3xl tracking-[0.1em] lowercase">
+            <div className="relative bg-[#f4f1ea] p-6 md:p-10 border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden">
+              {/* Paper Texture Overlay */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
+              <div className="flex items-center justify-between mb-10 border-b-2 border-black/10 pb-4">
+                <h3 className="text-black text-xl md:text-2xl tracking-[0.1em] lowercase font-bold">
                   day 02
                 </h3>
-                <span className="text-[#00EBA9]/60 text-xs md:text-sm lowercase tracking-widest font-bold">may 11, 2026</span>
+                <span className="text-black/50 text-xs md:text-sm lowercase tracking-widest font-bold">may 11, 2026</span>
               </div>
-              <div className="space-y-8">
+              <div className="space-y-6 max-h-[350px] overflow-y-auto custom-scrollbar pr-2">
                 {SCHEDULE_DATA.day2.map((item, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#00EBA9]/10 pb-4 group/item hover:bg-[#00EBA9]/5 transition-colors px-2">
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/10 pb-4 group/item hover:bg-black/5 transition-colors px-2">
                     <div className="flex items-center gap-4">
-                      <span className="text-[#00EBA9] text-lg md:text-xl font-bold tracking-tight min-w-[90px]">
+                      <span className="text-black text-lg md:text-xl font-black tracking-tight min-w-[90px]">
                         {item.time}
                       </span>
-                      <div className="h-4 w-px bg-[#00EBA9]/40 hidden sm:block" />
-                      <span className="text-xl md:text-2xl text-[#00EBA9] lowercase tracking-wide font-medium group-hover/item:text-white transition-colors">
+                      <div className="h-4 w-px bg-black/20 hidden sm:block" />
+                      <span className="text-xl md:text-2xl text-black/80 lowercase tracking-wide font-medium group-hover/item:text-black transition-colors">
                         {item.event}
                       </span>
                     </div>
-                    <span className="text-[10px] md:text-xs text-[#00EBA9]/50 uppercase tracking-[0.2em] italic font-bold">
+                    <span className="text-[10px] md:text-xs text-red-700/60 uppercase tracking-[0.2em] italic font-bold">
                       @{item.venue}
                     </span>
                   </div>
