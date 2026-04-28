@@ -1,0 +1,115 @@
+import { ReactNode } from "react";
+
+interface SkySectionProps {
+  children: ReactNode;
+}
+
+const getDitherSVG = (c1: string, c2: string) => {
+  // Creates a mathematically perfect 4-step pixel dither transition
+  // 16x16 SVG, 4x4 pixel blocks for a finer texture
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+    <rect width="16" height="16" fill="${c1}" />
+    <!-- 25% density -->
+    <rect x="4" y="0" width="4" height="4" fill="${c2}" />
+    <!-- 50% density -->
+    <rect x="0" y="4" width="4" height="4" fill="${c2}" />
+    <rect x="8" y="4" width="4" height="4" fill="${c2}" />
+    <!-- 50% density offset -->
+    <rect x="4" y="8" width="4" height="4" fill="${c2}" />
+    <rect x="12" y="8" width="4" height="4" fill="${c2}" />
+    <!-- 75% density -->
+    <rect x="0" y="12" width="16" height="4" fill="${c2}" />
+    <rect x="0" y="12" width="4" height="4" fill="${c1}" />
+  </svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+};
+
+export default function SkySection({ children }: SkySectionProps) {
+  const c1 = "#004650";
+  const c2 = "#00556C";
+  const c3 = "#006488";
+  const c4 = "#0073A3";
+  const c5 = "#0083BF";
+  const c6 = "#0092DB"; // Building top edge color
+
+  return (
+    <section 
+      className="w-full relative z-10 flex flex-col items-center justify-center min-h-[100svh] p-10"
+      style={{
+        background: `linear-gradient(
+          to bottom,
+          ${c1} 0%, ${c1} 20%,
+          ${c2} 20%, ${c2} 40%,
+          ${c3} 40%, ${c3} 60%,
+          ${c4} 60%, ${c4} 80%,
+          ${c5} 80%, ${c5} 100%
+        )`
+      }}
+    >
+      <style>{`
+        @keyframes drift {
+          from { transform: translateX(-200px); }
+          to { transform: translateX(110vw); }
+        }
+        .pixel-cloud {
+          position: absolute;
+          image-rendering: pixelated;
+          animation: drift linear infinite;
+          opacity: 0.8;
+          pointer-events: none;
+        }
+      `}</style>
+
+      {/* Cloud layer wrapper (keeps clouds from spilling out of the sky) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Cloud 1 - Slow, big, background */}
+        <img 
+          src="/assets/cloud1.svg" 
+          className="pixel-cloud top-[15%] w-56 h-auto opacity-40" 
+          style={{ animationDuration: '55s', animationDelay: '-10s' }} 
+          alt="" 
+          aria-hidden 
+        />
+        
+        {/* Cloud 2 - Faster, smaller, foreground */}
+        <img 
+          src="/assets/cloud2.svg" 
+          className="pixel-cloud top-[35%] w-36 h-auto opacity-70" 
+          style={{ animationDuration: '35s', animationDelay: '-5s' }} 
+          alt="" 
+          aria-hidden 
+        />
+
+        {/* Cloud 1 - Medium, midground */}
+        <img 
+          src="/assets/cloud1.svg" 
+          className="pixel-cloud top-[65%] w-48 h-auto opacity-60" 
+          style={{ animationDuration: '45s', animationDelay: '-25s' }} 
+          alt="" 
+          aria-hidden 
+        />
+
+        {/* Cloud 2 - Very slow, far background */}
+        <img 
+          src="/assets/cloud2.svg" 
+          className="pixel-cloud top-[80%] w-28 h-auto opacity-30" 
+          style={{ animationDuration: '70s', animationDelay: '0s' }} 
+          alt="" 
+          aria-hidden 
+        />
+      </div>
+      
+      {/* Dither Junction Layers */}
+      <div className="absolute left-0 w-full h-[16px] pointer-events-none" style={{ top: 'calc(20% - 8px)', backgroundImage: getDitherSVG(c1, c2) }} />
+      <div className="absolute left-0 w-full h-[16px] pointer-events-none" style={{ top: 'calc(40% - 8px)', backgroundImage: getDitherSVG(c2, c3) }} />
+      <div className="absolute left-0 w-full h-[16px] pointer-events-none" style={{ top: 'calc(60% - 8px)', backgroundImage: getDitherSVG(c3, c4) }} />
+      <div className="absolute left-0 w-full h-[16px] pointer-events-none" style={{ top: 'calc(80% - 8px)', backgroundImage: getDitherSVG(c4, c5) }} />
+      {/* Bottom transition at the end of the sky section */}
+      <div className="absolute left-0 w-full h-[16px] pointer-events-none" style={{ bottom: 0, backgroundImage: getDitherSVG(c5, c6) }} />
+
+      <div className="relative z-10 w-full flex justify-center">
+        {children}
+      </div>
+    </section>
+  );
+}
