@@ -18,8 +18,8 @@ const pixelifySans = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "IIT Indoors 2026",
-  description: "IIT Indoors 2026",
+  title: "iit indoors 2026",
+  description: "iit indoors 2026",
 };
 
 export default function RootLayout({
