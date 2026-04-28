@@ -23,6 +23,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
   
   return (
     <section 
+      id="schedule"
       className="w-full relative min-h-[896px] flex flex-col items-center justify-center p-10 overflow-hidden"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
