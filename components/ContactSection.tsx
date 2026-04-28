@@ -127,60 +127,7 @@ export default function ContactSection() {
         ))}
       </div>
 
-      {/* divider */}
-      <div
-        className="w-full h-px"
-        style={{ background: "linear-gradient(to right, transparent, rgba(22,219,171,0.3), transparent)" }}
-      />
-
-      {/* faq */}
-      <div className="w-full space-y-4 md:space-y-6">
-        <p
-          className="text-sm md:text-base tracking-widest uppercase"
-          style={{ color: "var(--mint-soft)", opacity: 0.6 }}
-        >
-          frequently asked
-        </p>
-
-        {FAQ.map((item, i) => (
-          <div
-            key={i}
-            className="rounded-lg border overflow-hidden"
-            style={{ borderColor: "rgba(22, 219, 171, 0.15)" }}
-          >
-            <button
-              onClick={() => setOpenFaq(openFaq === i ? null : i)}
-              className="w-full flex items-center justify-between gap-4 px-4 py-3 md:px-5 md:py-4 text-left tracking-wide transition-colors hover:opacity-80"
-              style={{ color: "var(--foreground)" }}
-              aria-expanded={openFaq === i}
-            >
-              <span className="text-base md:text-lg lg:text-xl">{item.q}</span>
-              <span
-                className="shrink-0 text-lg md:text-xl font-bold transition-transform duration-300"
-                style={{
-                  color: "var(--mint)",
-                  display: "inline-block",
-                  transform: openFaq === i ? "rotate(45deg)" : "rotate(0deg)",
-                }}
-              >
-                +
-              </span>
-            </button>
-
-            <div
-              className="overflow-hidden transition-all duration-300 ease-in-out"
-              style={{ maxHeight: openFaq === i ? "150px" : "0px", opacity: openFaq === i ? 1 : 0 }}
-            >
-              <p
-                className="px-4 pb-4 md:px-5 md:pb-5 text-base md:text-lg leading-relaxed"
-                style={{ color: "var(--foreground)", opacity: 0.55 }}
-              >
-                {item.a}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* FAQ hidden to save space */}
 
       {/* footer note */}
       <p

@@ -8,7 +8,7 @@ import EpicFooter from "@/components/EpicFooter";
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-col min-h-screen">
+    <main className="w-full flex flex-col h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
       <SkySection>
         <Hero />
       </SkySection>

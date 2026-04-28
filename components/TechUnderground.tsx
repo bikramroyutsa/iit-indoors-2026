@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 
 interface TechUndergroundProps {
@@ -44,9 +46,33 @@ const getTechDither = (c1: string, c2: string) => {
 
 export default function TechUnderground({ children }: TechUndergroundProps) {
   const footerColor = "#000000";
+
+  const scrollToCore = () => {
+    const core = document.getElementById('core');
+    if (core) {
+      core.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
   return (
-    <section className="w-full relative min-h-[800px] flex flex-col items-center p-10 overflow-hidden">
+    <section id="tech" className="w-full relative min-h-[100svh] flex flex-col items-center justify-center p-10 overflow-hidden snap-start snap-always">
+      <style>{`
+        @keyframes arrow-bounce {
+          0%, 100% { transform: translateY(0); opacity: 0.3; }
+          50% { transform: translateY(10px); opacity: 1; }
+        }
+        @keyframes text-blink {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 0.6; }
+        }
+        .scroll-arrow {
+          animation: arrow-bounce 2s infinite ease-in-out;
+        }
+        .scroll-text {
+          animation: text-blink 0.4s steps(1, start) infinite;
+        }
+      `}</style>
+
       {/* Blurred Abstract Tech Layer */}
       <div 
         className="absolute inset-0 z-0 blur-[6px] opacity-60" 
@@ -69,15 +95,8 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
         }}
       />
       
-      <div className="container mx-auto z-10">
-        {children || (
-          <div className="text-center mt-20 max-w-2xl mx-auto">
-            <h2 className="text-4xl text-[var(--mint)] mb-4 drop-shadow-[0_0_10px_rgba(22,219,171,0.5)]">Software Systems</h2>
-            <p className="text-xl text-[var(--foreground)] bg-[#00110F]/80 p-6 rounded border border-[var(--mint)]/30 backdrop-blur">
-              Continuous background repeating downward infinitely. Perfect for adding any future content, sponsors, or FAQs.
-            </p>
-          </div>
-        )}
+      <div className="container mx-auto z-10 flex flex-col items-center">
+        {children}
       </div>
 
       {/* Tech to Footer Transition */}
@@ -91,6 +110,20 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
       
       {/* Darker gradient at the bottom */}
       <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black via-black/40 to-transparent z-20 pointer-events-none" />
+
+      {/* Scroll Down Button to Core Section */}
+      <button 
+        onClick={scrollToCore}
+        className="absolute bottom-4 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity z-[50]"
+        aria-label="Scroll to core"
+      >
+        <div className="flex flex-col items-center gap-[-24px]">
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.2s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.4s' }}>^</span>
+        </div>
+        <span className="text-[10px] tracking-[0.2em] text-[var(--mint)] mt-1 opacity-60 font-pixelify scroll-text">scroll down or click</span>
+      </button>
     </section>
   );
 }
