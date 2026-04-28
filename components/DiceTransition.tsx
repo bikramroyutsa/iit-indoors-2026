@@ -21,30 +21,28 @@ export default function DiceTransition() {
   const textOpacity = useTransform(animProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const currentScrollY = window.scrollY;
-        const isScrollingDown = currentScrollY > lastScrollY;
-        lastScrollY = currentScrollY;
-
         if (entry.isIntersecting && !isInView) {
           setIsInView(true);
-
-          const fromTop = entry.boundingClientRect.top > 0;
-          setIsReverse(!fromTop);
-
-          const targetValue = fromTop ? 1 : 0;
-          const startValue = fromTop ? 0 : 1;
-
+          
+          // Detect entry point relative to viewport
+          // top > 0: section is entering from bottom (coming from Schedule above)
+          // top < 0: section is entering from top (coming from Tech below)
+          const comingFromAbove = entry.boundingClientRect.top > 0;
+          
+          setIsReverse(!comingFromAbove);
+          const targetValue = comingFromAbove ? 1 : 0;
+          const startValue = comingFromAbove ? 0 : 1;
+          
           animProgress.set(startValue);
-
+          
           const controls = animate(animProgress, targetValue, {
-            duration: 4, // Even slower for cinematic impact
+            duration: 4,
             ease: "easeInOut",
             onComplete: () => {
-              if (fromTop) {
+              if (comingFromAbove) {
+                // Head down to tech
                 const tech = document.getElementById('tech');
                 if (tech && !hasScrolledNext) {
                   setHasScrolledNext(true);
@@ -55,6 +53,7 @@ export default function DiceTransition() {
                   }, 3000);
                 }
               } else {
+                // Head up to schedule
                 const schedule = document.getElementById('schedule');
                 if (schedule) {
                   schedule.scrollIntoView({ behavior: 'smooth' });
@@ -69,7 +68,7 @@ export default function DiceTransition() {
           return () => controls.stop();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 } // Catch it earlier for a smoother handoff
     );
 
     if (containerRef.current) {

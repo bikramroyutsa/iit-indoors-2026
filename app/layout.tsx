@@ -18,8 +18,11 @@ const pixelifySans = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "iit indoors 2026",
-  description: "iit indoors 2026",
+  title: "IIT Indoors'26",
+  description: "IIT Indoor Games 2026",
+  icons: {
+    icon: "/assets/17logo.png",
+  },
 };
 
 export default function RootLayout({
