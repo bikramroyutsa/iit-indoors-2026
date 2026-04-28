@@ -85,7 +85,7 @@ export default function DiceTransition() {
       className="relative h-[100svh] w-full overflow-hidden pointer-events-none snap-start snap-always"
       style={{ backgroundColor: "#00110F" }}
     >
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center overflow-hidden">
         <motion.div
           className="relative flex items-center justify-center w-full"
           style={{ opacity }}
