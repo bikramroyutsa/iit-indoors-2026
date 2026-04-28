@@ -74,8 +74,15 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
       {/* Subtle Blur for depth */}
       <div className="absolute bottom-0 left-0 w-full h-48 backdrop-blur-[1px] z-10 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
 
-      <div className="relative z-40 w-full flex justify-center items-center md:-mt-10">
+      <div className="relative z-40 w-full flex flex-col justify-center items-center md:-mt-10">
         {children || <ScheduleCarousel />}
+        
+        {/* Subtle ground-level hint of tech */}
+        <div className="mt-8 opacity-20 pointer-events-none flex flex-col items-center">
+          <div className="w-1 h-12 bg-gradient-to-b from-transparent to-[var(--mint)]" />
+          <div className="w-24 h-1 bg-[var(--mint)] blur-[2px]" />
+          <span className="text-[8px] tracking-[0.4em] text-[var(--mint)] mt-2 uppercase font-pixelify">system interface active</span>
+        </div>
       </div>
 
       {/* Scroll Down Button to Tech Section */}
