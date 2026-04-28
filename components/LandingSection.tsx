@@ -11,7 +11,7 @@ export default function LandingSection() {
     <div className="flex flex-col w-full items-center">
 
       {/* Registration CTA Section - Appears on scroll */}
-      <div className="py-32 flex flex-col items-center gap-8 w-full text-center px-6 pixel-pattern cta-glow">
+      <div className="flex flex-col items-center gap-8 w-full text-center px-6 pixel-pattern cta-glow">
         <div className="space-y-4 max-w-2xl">
           <h3 className="text-xl md:text-2xl font-pixelify text-mint-soft tracking-widest animate-pulse">
             ready to show your skills?

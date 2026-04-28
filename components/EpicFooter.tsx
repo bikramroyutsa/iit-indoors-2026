@@ -23,6 +23,7 @@ export default function EpicFooter() {
         </div>
 
         <div className="text-center drop-shadow-2xl">
+          <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mt-4 font-pixelify">YOU'VE REACHED</p>
           <h2 className="text-6xl md:text-8xl text-[var(--mint)] font-bold tracking-widest uppercase" style={{ textShadow: '0 0 30px var(--mint)' }}>THE CORE</h2>
           <p className="text-[var(--foreground)] opacity-50 tracking-[0.5em] mt-4 font-pixelify">END OF THE LINE</p>
         </div>

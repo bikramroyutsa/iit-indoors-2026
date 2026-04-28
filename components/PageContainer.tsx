@@ -4,8 +4,8 @@ interface PageContainerProps {
 
 export default function PageContainer({ children }: PageContainerProps) {
   return (
-    <main className="min-h-screen w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       {children}
-    </main>
+    </div>
   );
 }
