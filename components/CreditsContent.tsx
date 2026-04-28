@@ -17,7 +17,6 @@ const TECH = [
 
 const ACKNOWLEDGEMENTS = [
   "the iit community for making this event possible",
-  "every volunteer who stayed up late",
   "our sponsors and partners",
   "the athletes & participants — you're the reason",
 ];
@@ -147,16 +146,6 @@ export default function CreditsContent() {
           style={{ color: "var(--mint-soft)", opacity: 0.35 }}
         >
           iit indoors 2026 — all rights reserved
-        </p>
-        <p
-          className="text-[10px] md:text-xs tracking-widest"
-          style={{
-            color: "var(--mint)",
-            textShadow: "0 0 10px rgba(22, 219, 171, 0.4)",
-            opacity: 0.5,
-          }}
-        >
-          made with ♥ at iit
         </p>
       </div>
     </div>

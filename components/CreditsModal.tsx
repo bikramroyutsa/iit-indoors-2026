@@ -28,9 +28,6 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
             <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest uppercase">
               credits
             </h2>
-            <p className="text-mint-soft opacity-60 tracking-widest text-sm md:text-base">
-              built with purpose
-            </p>
           </div>
 
           <CreditsContent />
