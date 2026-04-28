@@ -60,20 +60,11 @@ export default function ContactSection() {
 
   return (
     <section
-      className={`w-full max-w-3xl flex flex-col items-center gap-8 md:gap-12 px-4 py-8 md:p-0 transition-all duration-700 ${entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      className={`w-full max-w-3xl flex flex-col items-center gap-4 md:gap-12 px-4 py-8 md:p-0 transition-all duration-700 ${entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       aria-label="contact page"
     >
-      {/* back link */}
-      <div className="w-full">
-        <Link
-          href="/"
-          className="text-base md:text-lg tracking-widest transition-opacity hover:opacity-60"
-          style={{ color: "var(--mint-soft)" }}
-        >
-          ← back
-        </Link>
-      </div>
+
 
       {/* heading */}
       <div className="text-center space-y-2 md:space-y-3">

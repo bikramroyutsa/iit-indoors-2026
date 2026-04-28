@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import ScheduleCarousel from "./ScheduleCarousel";
 
 interface ScheduleSectionProps {
   children?: ReactNode;
@@ -24,7 +25,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
   return (
     <section 
       id="schedule"
-      className="w-full relative min-h-[896px] flex flex-col items-center justify-center p-10 overflow-hidden"
+      className="w-full relative min-h-[896px] flex flex-col items-center justify-center p-4 md:p-10 overflow-hidden"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
         backgroundSize: "cover",
@@ -47,13 +48,8 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
       {/* Subtle Blur for depth */}
       <div className="absolute bottom-0 left-0 w-full h-48 backdrop-blur-[1px] z-10 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
 
-      <div className="container mx-auto relative z-40">
-        {children || (
-          <div className="bg-black/60 backdrop-blur-sm p-8 rounded-xl border border-[var(--mint-soft)] text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl text-[var(--mint-soft)] mb-4">Schedule</h2>
-            <p className="text-lg">Schedule events will appear here, perfectly situated over the IIT Indoors building!</p>
-          </div>
-        )}
+      <div className="relative z-40 w-full flex justify-center items-center">
+        {children || <ScheduleCarousel />}
       </div>
     </section>
   );
