@@ -8,9 +8,13 @@
   --deep-teal: #00342e;
 }
 
-html {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+html, body {
+  overflow: hidden;
+  height: 100svh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 body {
@@ -22,8 +26,6 @@ body {
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-pixelify), sans-serif;
-  position: relative;
-  overflow-x: hidden;
 }
 
 body::after {
