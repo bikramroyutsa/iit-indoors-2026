@@ -1,10 +1,10 @@
-import Hero from "@/components/Hero";
+import LandingSection from "@/components/LandingSection";
 import PageContainer from "@/components/PageContainer";
 
 export default function Home() {
   return (
     <PageContainer>
-      <Hero />
+      <LandingSection />
     </PageContainer>
   );
 }

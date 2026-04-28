@@ -4,7 +4,7 @@ interface PageContainerProps {
 
 export default function PageContainer({ children }: PageContainerProps) {
   return (
-    <main className="min-h-screen flex items-center justify-center p-10">
+    <main className="min-h-screen w-full flex flex-col items-center">
       {children}
     </main>
   );

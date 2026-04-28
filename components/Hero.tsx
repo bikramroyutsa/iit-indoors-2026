@@ -13,7 +13,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="w-full max-w-4xl flex flex-col items-center gap-4" aria-label="IIT Indoors hero section">
+    <section className="w-full max-w-4xl flex flex-col items-center gap-4" aria-label="iit indoors hero section">
       <p
         className="tracking-widest text-xl md:text-3xl drop-shadow-lg hero-kicker"
         style={{
@@ -26,7 +26,7 @@ export default function Hero() {
       <Image
         className={`w-3/4 h-auto hero-logo ${entered ? 'logo-enter' : ''}`}
         src="/assets/Logo.png"
-        alt="IIT Indoors 2026 logo"
+        alt="iit indoors 2026 logo"
         width={1599}
         height={780}
         priority
