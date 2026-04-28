@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useRef, useEffect, useState, use } from "react";
+import { useScroll } from "framer-motion";
 
 interface TechUndergroundProps {
   children?: ReactNode;
@@ -45,7 +46,30 @@ const getTechDither = (c1: string, c2: string) => {
 };
 
 export default function TechUnderground({ children }: TechUndergroundProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasScrolledNext, setHasScrolledNext] = useState(false);
   const footerColor = "#000000";
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Auto-scroll to core logic
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((latest) => {
+      // Trigger auto-scroll to the final footer once user scrolls past 0.7 in this section
+      if (latest > 0.7 && !hasScrolledNext) {
+        const core = document.getElementById('core');
+        if (core) {
+          setHasScrolledNext(true);
+          core.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => setHasScrolledNext(false), 2000);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, hasScrolledNext]);
 
   const scrollToCore = () => {
     const core = document.getElementById('core');
@@ -55,7 +79,7 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
   };
   
   return (
-    <section id="tech" className="w-full relative min-h-[100svh] flex flex-col items-center justify-center p-10 overflow-hidden snap-start snap-always">
+    <section ref={containerRef} id="tech" className="w-full relative min-h-[100svh] flex flex-col items-center justify-center p-10 overflow-hidden snap-start snap-always">
       <style>{`
         @keyframes arrow-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.3; }
