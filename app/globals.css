@@ -272,3 +272,22 @@ body::after {
 .animate-success-pop {
   animation: success-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--deep-teal);
+  border-left: 2px solid #000;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--mint);
+  border: 2px solid #000;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--mint-soft);
+}
