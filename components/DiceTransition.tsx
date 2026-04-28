@@ -75,10 +75,10 @@ export default function DiceTransition() {
     <section 
       ref={containerRef}
       id="dice-section"
-      className="relative h-[100svh] min-h-[100svh] w-full overflow-hidden pointer-events-none snap-start snap-always"
+      className="relative w-full h-[100svh] overflow-hidden pointer-events-none snap-start snap-always"
       style={{ backgroundColor: "#00110F", scrollSnapStop: 'always' }}
     >
-      <div className="h-full w-full flex items-center justify-center">
+      <div className="h-full w-full flex flex-col items-center justify-center">
         <motion.div 
           className="relative flex items-center justify-center w-full"
           style={{ opacity }}
