@@ -9,15 +9,6 @@ export default function LandingSection() {
 
   return (
     <div className="flex flex-col w-full items-center">
-      {/* Hero Section - Centered on screen */}
-      <div className="min-h-screen flex flex-col items-center justify-center w-full relative">
-        <Hero />
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 animate-bounce text-mint-soft opacity-70">
-          <p className="text-xs tracking-widest mb-2 font-pixelify">scroll down</p>
-          <div className="w-1 h-8 bg-mint mx-auto rounded-full shadow-[0_0_8px_var(--mint)]"></div>
-        </div>
-      </div>
 
       {/* Registration CTA Section - Appears on scroll */}
       <div className="py-32 flex flex-col items-center gap-8 w-full text-center px-6 pixel-pattern cta-glow">
@@ -29,8 +20,8 @@ export default function LandingSection() {
             why wait?<br />register now!
           </p>
         </div>
-        
-        <button 
+
+        <button
           onClick={() => setIsModalOpen(true)}
           className="pixel-button scale-125 mt-8 hover:scale-135 transition-transform animate-bounce-subtle"
         >
@@ -38,9 +29,9 @@ export default function LandingSection() {
         </button>
       </div>
 
-      <RegistrationModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <RegistrationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
