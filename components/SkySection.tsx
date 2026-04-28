@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 
 interface SkySectionProps {
@@ -32,6 +34,13 @@ export default function SkySection({ children }: SkySectionProps) {
   const c5 = "#0083BF";
   const c6 = "#0092DB"; // Building top edge color
 
+  const scrollToSchedule = () => {
+    const schedule = document.getElementById('schedule');
+    if (schedule) {
+      schedule.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section 
       className="w-full relative z-10 flex flex-col items-center justify-center min-h-[100svh] p-10"
@@ -51,12 +60,26 @@ export default function SkySection({ children }: SkySectionProps) {
           from { transform: translateX(-200px); }
           to { transform: translateX(110vw); }
         }
+        @keyframes arrow-bounce {
+          0%, 100% { transform: translateY(0); opacity: 0.3; }
+          50% { transform: translateY(10px); opacity: 1; }
+        }
+        @keyframes text-blink {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 0.6; }
+        }
         .pixel-cloud {
           position: absolute;
           image-rendering: pixelated;
           animation: drift linear infinite;
           opacity: 0.8;
           pointer-events: none;
+        }
+        .scroll-arrow {
+          animation: arrow-bounce 2s infinite ease-in-out;
+        }
+        .scroll-text {
+          animation: text-blink 0.4s steps(1, start) infinite;
         }
       `}</style>
 
@@ -110,6 +133,20 @@ export default function SkySection({ children }: SkySectionProps) {
       <div className="relative z-10 w-full flex justify-center">
         {children}
       </div>
+
+      {/* Scroll Down Button */}
+      <button 
+        onClick={scrollToSchedule}
+        className="absolute bottom-6 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity"
+        aria-label="Scroll to schedule"
+      >
+        <div className="flex flex-col items-center gap-[-24px]">
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.2s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.4s' }}>^</span>
+        </div>
+        <span className="text-[10px] tracking-[0.2em] text-[var(--mint)] mt-1 opacity-60 font-pixelify scroll-text">scroll down or click</span>
+      </button>
     </section>
   );
 }
