@@ -79,7 +79,7 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
   };
   
   return (
-    <section ref={containerRef} id="tech" className="w-full relative min-h-[100svh] flex flex-col items-center justify-center p-10 overflow-hidden snap-start snap-always">
+    <section ref={containerRef} id="tech" className="w-full relative h-[100svh] flex flex-col items-center justify-center p-10 overflow-hidden snap-start snap-always">
       <style>{`
         @keyframes arrow-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.3; }

@@ -6,7 +6,7 @@ import CreditsSection from "./CreditsSection";
 
 export default function EpicFooter() {
   return (
-    <section id="core" className="w-full relative min-h-[100svh] flex flex-col items-center justify-end bg-black overflow-hidden pt-16 md:pt-32 pb-12 snap-start snap-always">
+    <section id="core" className="w-full relative h-[100svh] flex flex-col items-center justify-end bg-black overflow-hidden pt-16 md:pt-32 pb-12 snap-start snap-always">
       {/* Gradient fading the tech pattern into the epic footer */}
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-[#00110F] to-transparent z-10" />
 

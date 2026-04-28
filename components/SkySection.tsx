@@ -43,7 +43,7 @@ export default function SkySection({ children }: SkySectionProps) {
 
   return (
     <section 
-      className="w-full relative z-10 flex flex-col items-center justify-center min-h-[100svh] p-10 snap-start snap-always"
+      className="w-full relative z-10 flex flex-col items-center justify-center h-[100svh] p-10 snap-start snap-always"
       style={{
         background: `linear-gradient(
           to bottom,

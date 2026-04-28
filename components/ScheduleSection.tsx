@@ -34,7 +34,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
   return (
     <section
       id="schedule"
-      className="w-full relative min-h-[100svh] flex flex-col items-center justify-center p-0 overflow-hidden snap-start snap-always"
+      className="w-full relative h-[100svh] flex flex-col items-center justify-center p-0 overflow-hidden snap-start snap-always"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
         backgroundSize: "cover",
