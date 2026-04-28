@@ -119,7 +119,7 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
         }}
       />
       
-      <div className="container mx-auto z-10 flex flex-col items-center">
+      <div className="relative z-10 w-full flex flex-col items-center">
         {children}
       </div>
 
