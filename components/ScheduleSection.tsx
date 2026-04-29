@@ -22,19 +22,14 @@ const getGroundDither = (c1: string, c2: string) => {
 };
 
 export default function ScheduleSection({ children }: ScheduleSectionProps) {
-  const techColor = "#000000";
+  const techColor = "#00110F";
 
-  const scrollToDice = () => {
-    const dice = document.getElementById('dice-section');
-    if (dice) {
-      dice.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+
 
   return (
     <section
       id="schedule"
-      className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-4 md:pt-8 p-0 overflow-hidden z-50"
+      className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-4 md:pt-8 p-0 overflow-hidden snap-start snap-always z-50"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
         backgroundSize: "cover",
@@ -85,19 +80,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
         </div>
       </div>
 
-      {/* Scroll Down Button to Tech Section */}
-      <button
-        onClick={scrollToDice}
-        className="absolute bottom-4 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity z-[50]"
-        aria-label="Scroll to transition"
-      >
-        <div className="flex flex-col items-center gap-[-24px]">
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.2s' }}>^</span>
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.4s' }}>^</span>
-        </div>
-        <span className="text-[10px] tracking-[0.2em] text-[var(--mint)] mt-1 opacity-60 font-pixelify scroll-text">scroll down or click</span>
-      </button>
+
     </section>
   );
 }

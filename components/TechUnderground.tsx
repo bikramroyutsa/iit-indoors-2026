@@ -94,15 +94,8 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
 
       {/* Sharp Pixelated Overlay Removed */}
 
-      <div className="relative z-10 w-full flex flex-col items-center">
+      <div className="relative z-10 w-full flex flex-col items-center gap-12 md:gap-20">
         {children}
-      </div>
-
-      {/* Overlays Removed to keep collage clean */}
-
-      {/* Darker gradient at the bottom removed */}
-
-      <div className="absolute bottom-8 w-full flex justify-center z-[50]">
         <CreditsSection />
       </div>
     </section>

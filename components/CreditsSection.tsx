@@ -32,21 +32,21 @@ export default function CreditsSection() {
       <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
         <button
           onClick={() => setIsContactOpen(true)}
-          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
+          className="pixel-button text-sm md:text-base opacity-70 hover:opacity-100 transition-opacity scale-75 md:scale-90"
         >
           contact
         </button>
 
         <button
           onClick={() => setIsFAQOpen(true)}
-          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
+          className="pixel-button text-sm md:text-base opacity-70 hover:opacity-100 transition-opacity scale-75 md:scale-90"
         >
           faq
         </button>
 
         <button
           onClick={handleOpenCredits}
-          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
+          className="pixel-button text-sm md:text-base opacity-70 hover:opacity-100 transition-opacity scale-75 md:scale-90"
         >
           view credits
         </button>

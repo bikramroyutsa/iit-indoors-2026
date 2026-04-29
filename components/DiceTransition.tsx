@@ -3,12 +3,14 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
-export default function DiceTransition() {
+export default function DiceTransition({ scrollContainer }: { scrollContainer?: React.RefObject<HTMLElement | null> }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Use scroll progress of this section to drive the animation
+  // We explicitly pass the container because the page uses a custom scroll element (main)
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    container: scrollContainer,
     offset: ["start end", "end start"]
   });
 

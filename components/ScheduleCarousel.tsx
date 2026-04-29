@@ -145,7 +145,7 @@ export default function ScheduleCarousel() {
     <div className="w-full py-0 px-2 md:px-4 select-none font-pixelify flex flex-col gap-4 md:gap-6">
 
       {/* --- GAMES SECTION --- */}
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+      <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
         <h2 className="text-center text-white text-lg md:text-2xl tracking-[0.2em] lowercase mb-1 md:mb-2 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           lineup
         </h2>
