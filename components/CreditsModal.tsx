@@ -25,7 +25,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
 
         <div className="space-y-6">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest uppercase">
+            <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest lowercase">
               credits
             </h2>
           </div>

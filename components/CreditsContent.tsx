@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const TEAM = [
-  { role: "1702", name: "Bikram Roy Utsa" },
-  { role: "1703", name: "Saeed Ahmed Mahin" },
-  { role: "1728", name: "Md. Rakinuzzaman Talukder" },
+  { role: "1702", name: "bikram roy utsa" },
+  { role: "1703", name: "saeed ahmed mahin" },
+  { role: "1728", name: "md. rakinuzzaman talukder" },
 ];
 
 const TECH = [
@@ -35,7 +35,7 @@ export default function CreditsContent() {
       {/* team */}
       <div className="w-full space-y-4">
         <p
-          className="text-xs md:text-sm tracking-widest uppercase"
+          className="text-xs md:text-sm tracking-widest lowercase"
           style={{ color: "var(--mint-soft)", opacity: 0.6 }}
         >
           the team
@@ -52,7 +52,7 @@ export default function CreditsContent() {
               }}
             >
               <span
-                className="text-[10px] md:text-xs tracking-widest uppercase"
+                className="text-[10px] md:text-xs tracking-widest lowercase"
                 style={{ color: "var(--mint-soft)", opacity: 0.55 }}
               >
                 {member.role}
@@ -77,7 +77,7 @@ export default function CreditsContent() {
       {/* tech stack */}
       <div className="w-full space-y-4">
         <p
-          className="text-xs md:text-sm tracking-widest uppercase"
+          className="text-xs md:text-sm tracking-widest lowercase"
           style={{ color: "var(--mint-soft)", opacity: 0.6 }}
         >
           technology
@@ -119,7 +119,7 @@ export default function CreditsContent() {
       {/* acknowledgements */}
       <div className="w-full space-y-4">
         <p
-          className="text-xs md:text-sm tracking-widest uppercase"
+          className="text-xs md:text-sm tracking-widest lowercase"
           style={{ color: "var(--mint-soft)", opacity: 0.6 }}
         >
           acknowledgements

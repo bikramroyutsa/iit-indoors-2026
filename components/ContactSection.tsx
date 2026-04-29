@@ -134,7 +134,7 @@ export default function ContactSection() {
         className="text-sm md:text-base tracking-widest text-center pb-4"
         style={{ color: "var(--mint-soft)", opacity: 0.35 }}
       >
-        iit indoors 2026 — we read every message
+        iit indoors 2026
       </p>
     </section>
   );

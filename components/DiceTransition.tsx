@@ -18,9 +18,13 @@ export default function DiceTransition() {
   const opacity = useTransform(animProgress, [0.1, 0.2, 0.8, 0.9], [0, 1, 1, 0]);
   const textOpacity = useTransform(animProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
 
+  const isCurrentlyInView = useRef(false);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        isCurrentlyInView.current = entry.isIntersecting;
+
         if (entry.isIntersecting && !isInView) {
           setIsInView(true);
           
@@ -36,6 +40,12 @@ export default function DiceTransition() {
             duration: 4,
             ease: "easeInOut",
             onComplete: () => {
+              // ONLY scroll if the user is still looking at the dice
+              if (!isCurrentlyInView.current) {
+                setIsInView(false);
+                return;
+              }
+
               if (fromTop) {
                 const tech = document.getElementById('tech');
                 if (tech && !hasScrolledNext) {

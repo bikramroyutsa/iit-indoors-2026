@@ -46,12 +46,9 @@ export default function FAQModal({ isOpen, onClose }: FAQModalProps) {
 
           <div className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest uppercase">
+              <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest lowercase">
                 faq
               </h2>
-              <p className="text-mint-soft opacity-60 tracking-widest text-sm md:text-base">
-                intel core
-              </p>
             </div>
 
             <div className="space-y-4 pr-2">
@@ -88,15 +85,15 @@ export default function FAQModal({ isOpen, onClose }: FAQModalProps) {
               ))}
             </div>
 
-            <p className="text-center text-[10px] tracking-[0.3em] text-mint opacity-40 font-pixelify uppercase">
-              iit indoors 2026 — knowledge base
+            <p className="text-center text-[10px] tracking-[0.3em] text-mint opacity-40 font-pixelify lowercase">
+              iit indoors 2026
             </p>
           </div>
         </div>
-        
+
         {/* Click outside to close */}
-        <div 
-          className="absolute inset-0 -z-10" 
+        <div
+          className="absolute inset-0 -z-10"
           onClick={onClose}
         />
       </div>

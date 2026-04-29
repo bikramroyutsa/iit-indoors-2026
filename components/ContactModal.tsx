@@ -51,7 +51,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
           <div className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest uppercase">
+              <h2 className="text-3xl md:text-5xl font-bold text-mint tracking-widest lowercase">
                 contact
               </h2>
               <p className="text-mint-soft opacity-60 tracking-widest text-sm md:text-base">
@@ -68,7 +68,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   rel="noopener noreferrer"
                   className="group flex flex-col gap-1 p-4 rounded border border-mint/20 bg-mint/5 transition-all hover:-translate-y-1 hover:border-mint/50 hover:bg-mint/10"
                 >
-                  <span className="text-[10px] tracking-widest uppercase text-mint opacity-60">
+                  <span className="text-[10px] tracking-widest lowercase text-mint opacity-60">
                     {link.label}
                   </span>
                   <span className="text-lg md:text-xl font-bold text-[var(--foreground)] tracking-wide truncate">
@@ -78,15 +78,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               ))}
             </div>
 
-            <p className="text-center text-[10px] tracking-[0.3em] text-mint opacity-40 font-pixelify uppercase">
-              iit indoors 2026 — we read every message
+            <p className="text-center text-[10px] tracking-[0.3em] text-mint opacity-40 font-pixelify lowercase">
+              iit indoors 2026
             </p>
           </div>
         </div>
-        
+
         {/* Click outside to close */}
-        <div 
-          className="absolute inset-0 -z-10" 
+        <div
+          className="absolute inset-0 -z-10"
           onClick={onClose}
         />
       </div>
