@@ -43,6 +43,7 @@ export default function SkySection({ children }: SkySectionProps) {
 
   return (
     <section 
+      id="sky"
       className="w-full relative z-10 flex flex-col items-center justify-center h-[100svh] p-10 snap-start snap-always"
       style={{
         background: `linear-gradient(
@@ -134,7 +135,7 @@ export default function SkySection({ children }: SkySectionProps) {
         {children}
       </div>
 
-      {/* Scroll Down Button */}
+      {/* Scroll Down Button to Schedule Section */}
       <button 
         onClick={scrollToSchedule}
         className="absolute bottom-6 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity"

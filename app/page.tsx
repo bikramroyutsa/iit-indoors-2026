@@ -1,5 +1,4 @@
 import LandingSection from "@/components/LandingSection";
-import PageContainer from "@/components/PageContainer";
 import Hero from "@/components/Hero";
 import SkySection from "@/components/SkySection";
 import ScheduleSection from "@/components/ScheduleSection";
@@ -13,7 +12,9 @@ export default function Home() {
       <SkySection>
         <Hero />
       </SkySection>
+
       <ScheduleSection />
+
       <DiceTransition />
       <TechUnderground>
         <LandingSection />

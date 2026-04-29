@@ -34,7 +34,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
   return (
     <section
       id="schedule"
-      className="w-full relative h-[100svh] flex flex-col items-center justify-center p-0 overflow-hidden snap-start snap-always"
+      className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-12 md:pt-20 p-0 overflow-hidden snap-start snap-always z-50"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
         backgroundSize: "cover",
@@ -74,7 +74,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
       {/* Subtle Blur for depth */}
       <div className="absolute bottom-0 left-0 w-full h-48 backdrop-blur-[1px] z-10 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
 
-      <div className="relative z-40 w-full flex flex-col justify-center items-center md:-mt-10">
+      <div className="relative z-40 w-full flex flex-col justify-center items-center">
         {children || <ScheduleCarousel />}
         
         {/* Subtle ground-level hint of tech */}
@@ -89,7 +89,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
       <button
         onClick={scrollToTech}
         className="absolute bottom-4 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity z-[50]"
-        aria-label="Scroll to systems"
+        aria-label="Scroll to tech"
       >
         <div className="flex flex-col items-center gap-[-24px]">
           <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
