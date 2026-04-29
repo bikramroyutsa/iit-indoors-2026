@@ -7,7 +7,6 @@ import SkySection from "@/components/SkySection";
 import ScheduleSection from "@/components/ScheduleSection";
 import DiceTransition from "@/components/DiceTransition";
 import TechUnderground from "@/components/TechUnderground";
-import EpicFooter from "@/components/EpicFooter";
 
 export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
@@ -27,8 +26,12 @@ export default function Home() {
       // This prevents the 'Schedule -> Sky' jump when returning from below.
       if (scrollPos > vh * 1.05) {
         if (snapType !== "none") setSnapType("none");
-      } else if (scrollPos < vh * 0.5) {
-        if (snapType !== "mandatory") setSnapType("mandatory");
+      } else {
+        if (window.innerWidth < 768) {
+          if (snapType !== "mandatory") setSnapType("mandatory");
+        } else if (scrollPos < vh * 0.5) {
+          if (snapType !== "mandatory") setSnapType("mandatory");
+        }
       }
     };
 
