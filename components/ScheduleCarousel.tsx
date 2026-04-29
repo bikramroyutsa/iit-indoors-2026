@@ -142,11 +142,11 @@ export default function ScheduleCarousel() {
   };
 
   return (
-    <div className="w-full py-4 px-2 md:px-4 select-none font-pixelify flex flex-col gap-8 md:gap-12">
+    <div className="w-full py-0 px-2 md:px-4 select-none font-pixelify flex flex-col gap-4 md:gap-6">
 
       {/* --- GAMES SECTION --- */}
-      <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-        <h2 className="text-center text-white text-xl md:text-2xl tracking-[0.2em] lowercase mb-4 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+        <h2 className="text-center text-white text-lg md:text-2xl tracking-[0.2em] lowercase mb-1 md:mb-2 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           lineup
         </h2>
 
@@ -167,7 +167,7 @@ export default function ScheduleCarousel() {
                   <button
                     key={`${game.id}-${idx}`}
                     onClick={() => setSelectedGame(game)}
-                    className="w-16 md:w-20 flex-shrink-0 cursor-pointer group/card snap-center text-left appearance-none"
+                    className="w-16 md:w-16 flex-shrink-0 cursor-pointer group/card snap-center text-left appearance-none"
                   >
                     <div className="aspect-square border-2 border-black/10 bg-white/50 overflow-hidden relative transition-all duration-300 group-hover/card:border-black group-hover/card:-translate-y-1 p-1">
                       <img src={game.image} alt={game.name} className="w-full h-full object-contain opacity-60 group-hover/card:opacity-100 transition-all brightness-0" />
@@ -202,13 +202,13 @@ export default function ScheduleCarousel() {
       />
 
       {/* --- SCHEDULE SECTION --- */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
-        <h2 className="text-center text-white text-xl md:text-2xl tracking-[0.2em] lowercase mb-4 md:mb-6 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
+      <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
+        <h2 className="text-center text-white text-lg md:text-2xl tracking-[0.2em] lowercase mb-1 md:mb-2 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           event schedule
         </h2>
 
         {/* Day Switcher - Mobile only */}
-        <div className="flex lg:hidden gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide w-full justify-center px-4">
+        <div className="flex lg:hidden gap-3 mb-4 overflow-x-auto pb-1 scrollbar-hide w-full justify-center px-4">
           {SCHEDULE_DATA.map((day, idx) => (
             <button
               key={idx}
@@ -227,7 +227,7 @@ export default function ScheduleCarousel() {
         {/* Schedule Display */}
         <div className="w-full px-2 md:px-0">
           {/* Desktop Layout: Grid (Day 1 and Day 2 side by side) */}
-          <div className="hidden lg:grid lg:grid-cols-2 gap-8 w-full">
+          <div className="hidden lg:grid lg:grid-cols-2 gap-20 w-full">
             {SCHEDULE_DATA.map((day, idx) => (
               <div key={idx} className="h-full">
                 <ScheduleDayCard day={day} />
@@ -236,7 +236,7 @@ export default function ScheduleCarousel() {
           </div>
 
           {/* Mobile Layout: Single Box with Transition */}
-          <div className="lg:hidden w-full overflow-hidden min-h-[450px]">
+          <div className="lg:hidden w-full overflow-hidden min-h-[520px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeDayIdx}
@@ -259,24 +259,24 @@ export default function ScheduleCarousel() {
 // Helper component for the Schedule Card
 function ScheduleDayCard({ day }: { day: any }) {
   return (
-    <div className="relative bg-[#f4f1ea] p-4 md:p-8 border-2 md:border-4 border-black shadow-[10px_10px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden w-full mx-auto">
+    <div className="relative bg-[#f4f1ea] p-4 md:p-5 border-2 md:border-4 border-black shadow-[10px_10px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden w-full mx-auto">
       {/* Paper Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
-      <div className="flex items-center justify-between mb-4 md:mb-8 border-b-2 border-black/10 pb-3">
-        <h3 className="text-black text-xl md:text-2xl tracking-[0.1em] lowercase font-black">
+      <div className="flex items-center justify-between mb-2 md:mb-4 border-b-2 border-black/10 pb-2">
+        <h3 className="text-black text-xl md:text-xl tracking-[0.1em] lowercase font-black">
           {day.dayLabel}
         </h3>
-        <span className="text-black/50 text-base md:text-2xl lowercase tracking-widest font-black">{day.date}</span>
+        <span className="text-black/50 text-base md:text-lg lowercase tracking-widest font-black">{day.date}</span>
       </div>
-      <div className="space-y-3 md:space-y-5 max-h-[350px] md:max-h-[450px] overflow-y-auto custom-scrollbar pr-3">
+      <div className="space-y-1.5 md:space-y-2 max-h-[400px] md:max-h-[300px] overflow-y-auto custom-scrollbar pr-3">
         {day.events.map((item: any, eventIdx: number) => (
-          <div key={eventIdx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-black/10 pb-3 group/item hover:bg-black/5 transition-colors px-2">
+          <div key={eventIdx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-black/10 pb-2 group/item hover:bg-black/5 transition-colors px-2">
             <div className="flex items-center gap-4">
-              <span className="text-black text-lg md:text-2xl font-black tracking-tight min-w-[85px] md:min-w-[110px]">
+              <span className="text-black text-lg md:text-xl font-black tracking-tight min-w-[85px] md:min-w-[100px]">
                 {item.time}
               </span>
               <div className="h-4 w-px bg-black/20 hidden sm:block" />
-              <span className="text-lg md:text-2xl text-black/80 lowercase tracking-wide font-bold group-hover/item:text-black transition-colors">
+              <span className="text-lg md:text-xl text-black/80 lowercase tracking-wide font-bold group-hover/item:text-black transition-colors">
                 {item.event}
               </span>
             </div>
