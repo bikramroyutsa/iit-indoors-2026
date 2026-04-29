@@ -25,15 +25,15 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
-     inkscape:zoom="1.546"
-     inkscape:cx="308.21475"
-     inkscape:cy="215.71798"
+     inkscape:zoom="0.773"
+     inkscape:cx="834.41139"
+     inkscape:cy="668.17594"
      inkscape:window-width="1920"
      inkscape:window-height="991"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g58" /><!-- Sky Bands --><rect
+     inkscape:current-layer="svg51" /><!-- Sky Bands --><rect
      width="1295.0841"
      height="185.01201"
      y="0"
@@ -453,7 +453,7 @@
      id="g58"
      transform="matrix(0.81027195,0,0,0.81027195,30.538478,0)"><path
        id="rect52"
-       style="fill:#ffffff;fill-rule:evenodd;stroke-width:37.8834;paint-order:markers fill stroke"
+       style="fill:#aad4e1;fill-rule:evenodd;stroke-width:37.8834;paint-order:markers fill stroke;fill-opacity:1"
        d="M 78.984229,0 V 456.88224 L 160.95922,586.39115 242.9342,456.88224 V 0 Z" /><g
        id="g55"
        transform="matrix(0.5185577,0,0,0.5185577,99.140655,22.455368)"><path
@@ -688,9 +688,9 @@
          transform="matrix(1.2611764,0,0,1.9486848,-39.305356,-309.82243)"><tspan
            x="111.61914"
            y="343.28555"
-           id="tspan10"><tspan
+           id="tspan19"><tspan
              style="font-weight:normal;-inkscape-font-specification:Silkscreen"
-             id="tspan9">ORGANized by</tspan></tspan></text><g
+             id="tspan18">ORGANized by</tspan></tspan></text><g
          id="g56"
          transform="translate(3.8809839)"><text
            xml:space="preserve"
@@ -699,7 +699,7 @@
            transform="matrix(1.5881248,0,0,2.6191963,-96.1092,-405.79449)"><tspan
              x="128.86914"
              y="343.28555"
-             id="tspan11">BSSE 17</tspan></text><g
+             id="tspan20">BSSE 17</tspan></text><g
            id="g29"
            transform="matrix(0.11512712,0,0,0.11512712,8.5107724,202.59647)"><g
              id="g35"><path
@@ -720,7 +720,7 @@
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:353.8px;line-height:1.7;font-family:ThaleahFat;-inkscape-font-specification:'ThaleahFat Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect6-1);display:inline;fill:#00eeac;fill-opacity:1;fill-rule:evenodd;stroke:#00241f;stroke-width:15.292;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"><tspan
          x="-1505.6207"
          y="-372.73016"
-         id="tspan12">26</tspan></text><g
+         id="tspan21">26</tspan></text><g
        id="g7-1"
        transform="matrix(0.97975489,0,0,1.0208703,44.245585,-196.22579)"><rect
          style="fill:#008463;fill-opacity:1;fill-rule:evenodd;stroke:#00241f;stroke-width:6.31236;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
@@ -735,7 +735,7 @@
          style="font-weight:500;font-size:96px;line-height:1.7;font-family:ThaleahFat;-inkscape-font-specification:'ThaleahFat Medium';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1-3);display:inline;fill:#00eeac;fill-opacity:1;fill-rule:evenodd;stroke:#00241f;stroke-width:3.03117;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"><tspan
            x="265.22266"
            y="300.18985"
-           id="tspan13">INDOORS</tspan></text></g><g
+           id="tspan22">INDOORS</tspan></text></g><g
        id="g6-2"
        transform="matrix(0.64698122,0,0,0.64698122,-168.94962,-24.969862)"><text
          xml:space="preserve"
@@ -744,27 +744,27 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:354.288px;line-height:1.7;font-family:Silkscreen;-inkscape-font-specification:'Silkscreen Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect5-59);display:inline;fill:#00241f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:15.292;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"><tspan
            x="-600.6336"
            y="-161.60729"
-           id="tspan15"><tspan
+           id="tspan24"><tspan
              style="font-family:ThaleahFat;-inkscape-font-specification:'ThaleahFat Bold'"
-             id="tspan14">iit</tspan></tspan></text><text
+             id="tspan23">iit</tspan></tspan></text><text
          xml:space="preserve"
          transform="matrix(0.55766408,0,0,0.5556322,-24.618155,14.764098)"
          id="text8-9"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:354.288px;line-height:1.7;font-family:Silkscreen;-inkscape-font-specification:'Silkscreen Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect8-84);display:inline;fill:#00241f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:15.292;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"><tspan
            x="-600.6336"
            y="-161.60729"
-           id="tspan17"><tspan
+           id="tspan26"><tspan
              style="font-family:ThaleahFat;-inkscape-font-specification:'ThaleahFat Bold'"
-             id="tspan16">iit</tspan></tspan></text><text
+             id="tspan25">iit</tspan></tspan></text><text
          xml:space="preserve"
          transform="matrix(0.55766409,0,0,0.55766409,-30.474093,21.885571)"
          id="text5-1-7"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:354.288px;line-height:1.7;font-family:Silkscreen;-inkscape-font-specification:'Silkscreen Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect5-5-0);display:inline;fill:#00eeac;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:15.292;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"><tspan
            x="-600.6336"
            y="-161.60729"
-           id="tspan19"><tspan
+           id="tspan28"><tspan
              style="font-family:ThaleahFat;-inkscape-font-specification:'ThaleahFat Bold'"
-             id="tspan18">iit</tspan></tspan></text></g><path
+             id="tspan27">iit</tspan></tspan></text></g><path
        sodipodi:type="star"
        style="fill:#00eeac;fill-opacity:1;fill-rule:evenodd;stroke:#00241f;stroke-width:11.2558;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        id="path7-3"
@@ -818,9 +818,9 @@
        id="text55-4-9"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.2732px;line-height:0.6;font-family:Silkscreen;-inkscape-font-specification:'Silkscreen Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect55-0-3);display:inline;fill:#008463;fill-opacity:1;fill-rule:evenodd;stroke-width:18.0775;paint-order:markers fill stroke"
        transform="matrix(1.2430843,0,0,2.1222613,-63.123592,-48.501775)"><tspan
-         x="112.92483"
+         x="139.14681"
          y="355.5445"
-         id="tspan20">MARCH 8 - 9</tspan></text></g><g
+         id="tspan29">MAY 8 - 9</tspan></text></g><g
      id="g271-2"
      transform="matrix(0.94603503,0,0,0.94603503,41.050841,104.16055)"><g
        id="g269-4-8"
@@ -859,7 +859,7 @@
        transform="matrix(1.2430843,0,0,2.1222613,-63.123592,-48.501775)"><tspan
          x="159.31756"
          y="355.5445"
-         id="tspan21">ALL DAY</tspan></text></g><g
+         id="tspan30">ALL DAY</tspan></text></g><g
      id="g273"><g
        id="g269"
        transform="matrix(1.0599369,0,0,1.0599369,-55.370328,-53.578789)"><rect
@@ -899,51 +899,47 @@
          transform="translate(505.21087,-27.531695)"><tspan
            x="67.691406"
            y="544.97874"
-           id="tspan23"><tspan
+           id="tspan32"><tspan
    style="font-weight:bold;-inkscape-font-specification:'Silkscreen Bold'"
-   id="tspan22">TEAM BASED EVENTS:</tspan>
+   id="tspan31">TEAM BASED EVENTS:</tspan>
 </tspan><tspan
            x="67.691406"
            y="579.11204"
-           id="tspan24">* Short-pitch Cricket
+           id="tspan33">* Short-pitch Cricket
 </tspan><tspan
            x="67.691406"
            y="613.24534"
-           id="tspan25">* valorant
+           id="tspan34">* valorant
 </tspan><tspan
            x="67.691406"
            y="647.37864"
-           id="tspan26">* Cards 29
+           id="tspan35">* Cards 29
 </tspan><tspan
            x="67.691406"
            y="681.51194"
-           id="tspan27">* Dumb Charedes
+           id="tspan36">* Dumb Charedes
 </tspan><tspan
            x="67.691406"
            y="715.64524"
-           id="tspan28">
+           id="tspan37">* Carrom
 </tspan><tspan
            x="67.691406"
            y="749.77854"
-           id="tspan30"><tspan
-   style="font-weight:bold;-inkscape-font-specification:'Silkscreen Bold'"
-   id="tspan29">Solo Showdown:</tspan>
+           id="tspan38">
 </tspan><tspan
            x="67.691406"
            y="783.91184"
-           id="tspan31">* Chess
+           id="tspan40"><tspan
+   style="font-weight:bold"
+   id="tspan39">Casual Games:</tspan>
 </tspan><tspan
            x="67.691406"
            y="818.04515"
-           id="tspan32">* pucket
+           id="tspan41">* UNO No mercy
 </tspan><tspan
            x="67.691406"
            y="852.17845"
-           id="tspan33">* Scrabble
-</tspan><tspan
-           x="67.691406"
-           y="886.31175"
-           id="tspan34">* Musical Chairs
+           id="tspan42">* LUDO
 </tspan></text><text
          xml:space="preserve"
          id="text267-9"
@@ -951,43 +947,49 @@
          transform="translate(848.3267,-27.531695)"><tspan
            x="67.691406"
            y="544.97874"
-           id="tspan36"><tspan
+           id="tspan44"><tspan
    style="font-weight:bold;-inkscape-font-specification:'Silkscreen Bold'"
-   id="tspan35">FUN NEVER ENDS:</tspan>
+   id="tspan43">FUN NEVER ENDS:</tspan>
 </tspan><tspan
            x="67.691406"
            y="579.11204"
-           id="tspan37">* WIRE LOOP
+           id="tspan45">* WIRE LOOP
 </tspan><tspan
            x="67.691406"
            y="613.24534"
-           id="tspan38">* Rubik's cube
+           id="tspan46">* Rubik's cube
 </tspan><tspan
            x="67.691406"
            y="647.37864"
-           id="tspan39">* dart
+           id="tspan47">* dart
 </tspan><tspan
            x="67.691406"
            y="681.51194"
-           id="tspan40">* speed-typing
+           id="tspan48">* speed-typing
 </tspan><tspan
            x="67.691406"
            y="715.64524"
-           id="tspan41">
+           id="tspan49">
 </tspan><tspan
            x="67.691406"
            y="749.77854"
-           id="tspan44"><tspan
-   style="font-weight:bold;-inkscape-font-specification:'Silkscreen Bold'"
-   id="tspan42">Casual Games</tspan><tspan
-   style="font-weight:bold;-inkscape-font-specification:'Silkscreen Bold'"
-   id="tspan43">:</tspan>
+           id="tspan51"><tspan
+   style="font-weight:bold"
+   id="tspan50">Solo Showdown:</tspan>
 </tspan><tspan
            x="67.691406"
            y="783.91184"
-           id="tspan45">* UNO No mercy
+           id="tspan54">* Chess
 </tspan><tspan
            x="67.691406"
            y="818.04515"
-           id="tspan46">* LUDO
+           id="tspan55">* pucket
+</tspan><tspan
+           x="67.691406"
+           y="852.17845"
+           id="tspan56">* Scrabble
+</tspan><tspan
+           x="67.691406"
+           y="886.31175"
+           id="tspan57">* Musical Chairs
 </tspan></text></g></g></svg>
