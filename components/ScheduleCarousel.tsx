@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
 
 interface Game {
@@ -92,8 +93,8 @@ const SCHEDULE_DATA = (() => {
 
 export default function ScheduleCarousel() {
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [activeDayIdx, setActiveDayIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const scheduleScrollRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll logic for Lineup
   useEffect(() => {
@@ -107,15 +108,6 @@ export default function ScheduleCarousel() {
   useEffect(() => {
     const el = scrollRef.current;
     if (el) {
-      const singleSetWidth = el.scrollWidth / 3;
-      el.scrollLeft = singleSetWidth;
-    }
-  }, []);
-
-  // Initial scroll position for Schedule (Mobile only)
-  useEffect(() => {
-    const el = scheduleScrollRef.current;
-    if (el && window.innerWidth < 1024) {
       const singleSetWidth = el.scrollWidth / 3;
       el.scrollLeft = singleSetWidth;
     }
@@ -145,33 +137,6 @@ export default function ScheduleCarousel() {
       el.scrollLeft -= singleSetWidth;
     }
     else if (el.scrollLeft <= 0) {
-      el.scrollLeft += singleSetWidth;
-    }
-  };
-
-  const scrollSchedule = (direction: "left" | "right") => {
-    const el = scheduleScrollRef.current;
-    if (el) {
-      const singleSetWidth = el.scrollWidth / 3;
-      const cardWidth = singleSetWidth / SCHEDULE_DATA.length;
-
-      if (direction === "right" && el.scrollLeft >= singleSetWidth * 2) {
-        el.scrollLeft -= singleSetWidth;
-      } else if (direction === "left" && el.scrollLeft <= singleSetWidth) {
-        el.scrollLeft += singleSetWidth;
-      }
-
-      el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: 'smooth' });
-    }
-  };
-
-  const handleScheduleScroll = () => {
-    const el = scheduleScrollRef.current;
-    if (!el) return;
-    const singleSetWidth = el.scrollWidth / 3;
-    if (el.scrollLeft >= singleSetWidth * 2) {
-      el.scrollLeft -= singleSetWidth;
-    } else if (el.scrollLeft <= 0) {
       el.scrollLeft += singleSetWidth;
     }
   };
@@ -237,79 +202,90 @@ export default function ScheduleCarousel() {
       />
 
       {/* --- SCHEDULE SECTION --- */}
-      <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
         <h2 className="text-center text-white text-xl md:text-2xl tracking-[0.2em] lowercase mb-4 md:mb-6 drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)] font-bold animate-glitch-slow hover:animate-glitch cursor-default transition-all">
           event schedule
         </h2>
 
-        {/* Day Switcher - Now on all screens */}
-        <div className="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide w-full justify-center px-4">
+        {/* Day Switcher - Mobile only */}
+        <div className="flex lg:hidden gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide w-full justify-center px-4">
           {SCHEDULE_DATA.map((day, idx) => (
             <button
               key={idx}
-              onClick={() => {
-                const el = scheduleScrollRef.current;
-                if (el) {
-                  const singleSetWidth = el.scrollWidth / 3;
-                  const cardWidth = singleSetWidth / SCHEDULE_DATA.length;
-                  el.scrollTo({
-                    left: singleSetWidth + (idx * cardWidth),
-                    behavior: 'smooth'
-                  });
-                }
-              }}
-              className="px-6 py-2 bg-[#f4f1ea] border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] text-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest active:scale-95 active:rotate-1 active:bg-[#16dbab] active:text-[#00201d] active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-white transition-all duration-100 whitespace-nowrap flex-shrink-0"
+              onClick={() => setActiveDayIdx(idx)}
+              className={`px-6 py-2 border-2 border-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest transition-all duration-100 whitespace-nowrap flex-shrink-0 ${
+                activeDayIdx === idx 
+                ? "bg-black text-white shadow-none translate-x-1 translate-y-1" 
+                : "bg-[#f4f1ea] text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] hover:bg-white active:scale-95 active:rotate-1 active:bg-[#16dbab]"
+              }`}
             >
               {day.dayLabel}
             </button>
           ))}
         </div>
 
-        <div className="relative w-full flex items-center group">
-          <div
-            ref={scheduleScrollRef}
-            onScroll={handleScheduleScroll}
-            className="w-full flex overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
-          >
-            {[...SCHEDULE_DATA, ...SCHEDULE_DATA, ...SCHEDULE_DATA].map((day, idx) => (
-              <div
-                key={idx}
-                className="w-full flex-shrink-0 snap-center relative group"
-              >
-                <div className="relative bg-[#f4f1ea] p-4 md:p-8 border-2 md:border-4 border-black shadow-[10px_10px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden max-w-5xl mx-auto">
-                  {/* Paper Texture Overlay */}
-                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
-                  <div className="flex items-center justify-between mb-4 md:mb-8 border-b-2 border-black/10 pb-3">
-                    <h3 className="text-black text-xl md:text-2xl tracking-[0.1em] lowercase font-black">
-                      {day.dayLabel}
-                    </h3>
-                    <span className="text-black/50 text-base md:text-2xl lowercase tracking-widest font-black">{day.date}</span>
-                  </div>
-                  <div className="space-y-3 md:space-y-5 max-h-[350px] md:max-h-[450px] overflow-y-auto custom-scrollbar pr-3">
-                    {day.events.map((item, eventIdx) => (
-                      <div key={eventIdx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-black/10 pb-3 group/item hover:bg-black/5 transition-colors px-2">
-                        <div className="flex items-center gap-4">
-                          <span className="text-black text-lg md:text-2xl font-black tracking-tight min-w-[85px] md:min-w-[110px]">
-                            {item.time}
-                          </span>
-                          <div className="h-4 w-px bg-black/20 hidden sm:block" />
-                          <span className="text-lg md:text-2xl text-black/80 lowercase tracking-wide font-bold group-hover/item:text-black transition-colors">
-                            {item.event}
-                          </span>
-                        </div>
-                        <span className="text-[10px] md:text-[14px] text-red-700/60 uppercase tracking-[0.2em] italic font-black">
-                          @{item.venue}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        {/* Schedule Display */}
+        <div className="w-full px-2 md:px-0">
+          {/* Desktop Layout: Grid (Day 1 and Day 2 side by side) */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-8 w-full">
+            {SCHEDULE_DATA.map((day, idx) => (
+              <div key={idx} className="h-full">
+                <ScheduleDayCard day={day} />
               </div>
             ))}
+          </div>
+
+          {/* Mobile Layout: Single Box with Transition */}
+          <div className="lg:hidden w-full overflow-hidden min-h-[450px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeDayIdx}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="w-full"
+              >
+                <ScheduleDayCard day={SCHEDULE_DATA[activeDayIdx]} />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
     </div>
+  );
+}
 
+// Helper component for the Schedule Card
+function ScheduleDayCard({ day }: { day: any }) {
+  return (
+    <div className="relative bg-[#f4f1ea] p-4 md:p-8 border-2 md:border-4 border-black shadow-[10px_10px_0_0_rgba(0,0,0,0.8)] h-full overflow-hidden w-full mx-auto">
+      {/* Paper Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, #000 2px, #000 3px)' }} />
+      <div className="flex items-center justify-between mb-4 md:mb-8 border-b-2 border-black/10 pb-3">
+        <h3 className="text-black text-xl md:text-2xl tracking-[0.1em] lowercase font-black">
+          {day.dayLabel}
+        </h3>
+        <span className="text-black/50 text-base md:text-2xl lowercase tracking-widest font-black">{day.date}</span>
+      </div>
+      <div className="space-y-3 md:space-y-5 max-h-[350px] md:max-h-[450px] overflow-y-auto custom-scrollbar pr-3">
+        {day.events.map((item: any, eventIdx: number) => (
+          <div key={eventIdx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-black/10 pb-3 group/item hover:bg-black/5 transition-colors px-2">
+            <div className="flex items-center gap-4">
+              <span className="text-black text-lg md:text-2xl font-black tracking-tight min-w-[85px] md:min-w-[110px]">
+                {item.time}
+              </span>
+              <div className="h-4 w-px bg-black/20 hidden sm:block" />
+              <span className="text-lg md:text-2xl text-black/80 lowercase tracking-wide font-bold group-hover/item:text-black transition-colors">
+                {item.event}
+              </span>
+            </div>
+            <span className="text-[10px] md:text-[14px] text-red-700/60 uppercase tracking-[0.2em] italic font-black">
+              @{item.venue}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
