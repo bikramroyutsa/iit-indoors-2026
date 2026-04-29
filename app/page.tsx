@@ -23,7 +23,7 @@ export default function Home() {
 
       // Once we've scrolled slightly past the Schedule section (1.1vh)
       // we disable mandatory snapping to allow fluid scrolling through the underground.
-      if (scrollPos > vh * 1.25) {
+      if (scrollPos > vh * 1.05) {
         if (snapType !== "none") setSnapType("none");
       } else {
         if (snapType !== "mandatory") setSnapType("mandatory");
