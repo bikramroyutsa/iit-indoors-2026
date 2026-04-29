@@ -1,94 +1,55 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, animate, useMotionValue, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function DiceTransition() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [hasScrolledNext, setHasScrolledNext] = useState(false);
-  const [isReverse, setIsReverse] = useState(false);
   
-  const animProgress = useMotionValue(0);
+  // Use scroll progress of this section to drive the animation
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-  const diceRotate = useTransform(animProgress, [0.1, 0.9], [0, 720]);
-  const diceX = useTransform(animProgress, [0.1, 0.5, 0.9], ["-150%", "0%", "150%"]);
-  const diceY = useTransform(animProgress, [0.1, 0.3, 0.5, 0.7, 0.9], ["0px", "-120px", "0px", "-120px", "0px"]);
-  const diceScale = useTransform(animProgress, [0.1, 0.5, 0.9], [0.6, 1.8, 0.6]);
-  const opacity = useTransform(animProgress, [0.1, 0.2, 0.8, 0.9], [0, 1, 1, 0]);
-  const textOpacity = useTransform(animProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
-
-  const isCurrentlyInView = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isCurrentlyInView.current = entry.isIntersecting;
-
-        if (entry.isIntersecting && !isInView) {
-          setIsInView(true);
-          
-          const fromTop = entry.boundingClientRect.top > 0;
-          setIsReverse(!fromTop);
-          
-          const targetValue = fromTop ? 1 : 0;
-          const startValue = fromTop ? 0 : 1;
-          
-          animProgress.set(startValue);
-          
-          const controls = animate(animProgress, targetValue, {
-            duration: 4,
-            ease: "easeInOut",
-            onComplete: () => {
-              // ONLY scroll if the user is still looking at the dice
-              if (!isCurrentlyInView.current) {
-                setIsInView(false);
-                return;
-              }
-
-              if (fromTop) {
-                const tech = document.getElementById('tech');
-                if (tech && !hasScrolledNext) {
-                  setHasScrolledNext(true);
-                  tech.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  setTimeout(() => {
-                    setHasScrolledNext(false);
-                    setIsInView(false);
-                  }, 3000);
-                }
-              } else {
-                const schedule = document.getElementById('schedule');
-                if (schedule) {
-                  schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  setTimeout(() => {
-                    setIsInView(false);
-                  }, 3000);
-                }
-              }
-            }
-          });
-
-          return () => controls.stop();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isInView, hasScrolledNext, animProgress]);
+  // Map progress to dice properties
+  // The animation should happen mostly in the middle of the scroll
+  const diceRotate = useTransform(scrollYProgress, [0.2, 0.8], [0, 1080]);
+  const diceX = useTransform(scrollYProgress, [0.2, 0.5, 0.8], ["-120%", "0%", "120%"]);
+  const diceY = useTransform(scrollYProgress, 
+    [0.2, 0.35, 0.5, 0.65, 0.8], 
+    ["0px", "-120px", "0px", "-120px", "0px"]
+  );
+  const diceScale = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.8, 2, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
 
   return (
     <section 
       ref={containerRef}
       id="dice-section"
-      className="relative w-full h-[100.5svh] m-0 p-0 overflow-hidden pointer-events-none snap-start snap-always"
-      style={{ backgroundColor: "#00110F", scrollSnapStop: 'always' }}
+      className="relative w-full h-[100vh] m-0 p-0 overflow-hidden pointer-events-none z-50"
+      style={{ backgroundColor: "#000" }}
     >
-      <div className="h-full w-full flex flex-col items-center justify-center">
+      {/* Background Collage Layer */}
+      <div 
+        className="absolute inset-0 z-0" 
+        style={{
+          backgroundImage: 'url(/assets/collage.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      {/* Dark Overlay with smooth transition to the next section */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none" 
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.4) 100%)'
+        }}
+      />
+
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-50">
         <motion.div 
           className="relative flex items-center justify-center w-full"
           style={{ opacity }}
@@ -119,22 +80,24 @@ export default function DiceTransition() {
             </div>
             
             <motion.div 
-              className="absolute inset-0 bg-white/10 blur-xl rounded-full -z-10"
-              style={{ scale: 1.5 }}
+              className="absolute inset-0 bg-[#FF4D4D]/20 blur-2xl rounded-full -z-10"
+              style={{ scale: 2 }}
             />
           </motion.div>
           
           <motion.div 
-            className="absolute mt-48 text-[#00EBA9] font-pixelify text-xl tracking-[0.2em] lowercase opacity-50"
+            className="absolute mt-72 text-[#FF4D4D] font-pixelify text-2xl tracking-[0.3em] lowercase text-center px-4"
             style={{ opacity: textOpacity }}
           >
-            {isReverse ? "exiting the underground..." : "entering the underground..."}
+            entering the underground...
           </motion.div>
         </motion.div>
 
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#00110F] to-transparent z-10" />
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#00110F] to-transparent z-10" />
+        {/* Decorative elements to blend sections */}
+        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent z-10" />
       </div>
     </section>
   );
 }
+
