@@ -90,7 +90,15 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
       />
 
       {/* Slight Dark Overlay for Readability */}
-      <div className="absolute inset-0 z-[1] bg-black/70 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-black/55 pointer-events-none" />
+
+      {/* Top Seam Overlay for the landing section */}
+      <div
+        className="absolute top-0 left-0 w-full h-40 z-[2] pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 32%, rgba(0,0,0,0.14) 76%, rgba(0,0,0,0) 100%)',
+        }}
+      />
 
       {/* Sharp Pixelated Overlay Removed */}
 

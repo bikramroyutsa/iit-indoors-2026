@@ -8,7 +8,6 @@ export default function LandingSection() {
 
   return (
     <div className="flex flex-col w-full items-center">
-
       {/* Registration CTA Section - Appears on scroll */}
       <div className="flex flex-col items-center gap-8 w-full text-center px-6">
         <div className="space-y-4 max-w-2xl">

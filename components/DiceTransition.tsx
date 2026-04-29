@@ -37,7 +37,7 @@ export default function DiceTransition({ scrollContainer }: { scrollContainer?: 
       <div 
         className="absolute inset-0 z-0" 
         style={{
-          backgroundImage: 'url(/assets/collage.png)',
+          backgroundImage: 'url(/assets/library.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -47,7 +47,7 @@ export default function DiceTransition({ scrollContainer }: { scrollContainer?: 
       <div 
         className="absolute inset-0 z-[1] pointer-events-none" 
         style={{
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.4) 100%)'
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.68) 70%, rgba(0,0,0,0.24) 100%)'
         }}
       />
 
@@ -91,13 +91,24 @@ export default function DiceTransition({ scrollContainer }: { scrollContainer?: 
             className="absolute mt-72 text-[#FF4D4D] font-pixelify text-2xl tracking-[0.3em] lowercase text-center px-4"
             style={{ opacity: textOpacity }}
           >
-            entering the underground...
+            exiting the library for a while...
           </motion.div>
         </motion.div>
 
         {/* Decorative elements to blend sections */}
         <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent z-10" />
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent z-10" />
+        <div
+          className="absolute bottom-0 left-0 w-full h-80 z-10 pointer-events-none"
+          style={{
+            background: `
+              linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 24%, rgba(0,0,0,0.52) 68%, rgba(0,0,0,0.9) 100%),
+              radial-gradient(circle at 50% 12%, rgba(255,77,77,0.12) 0%, rgba(255,77,77,0.04) 18%, transparent 52%),
+              repeating-linear-gradient(90deg, rgba(255,255,255,0.032) 0 1px, transparent 1px 30px),
+              repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 30px)
+            `,
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 16%, black 100%)',
+          }}
+        />
       </div>
     </section>
   );
