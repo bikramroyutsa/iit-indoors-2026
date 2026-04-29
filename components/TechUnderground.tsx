@@ -57,7 +57,7 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
 
   // Auto-scroll to core logic
   useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange((latest) => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
       // Trigger auto-scroll to the final footer once user scrolls past 0.7 in this section
       if (latest > 0.7 && !hasScrolledNext) {
         const core = document.getElementById('core');
