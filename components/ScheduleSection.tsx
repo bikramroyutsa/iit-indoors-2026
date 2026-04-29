@@ -80,6 +80,16 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
         </div>
       </div>
 
+      {/* Scroll Down Indicator */}
+      <div className="absolute bottom-4 flex flex-col items-center pointer-events-none opacity-60 z-[50]">
+        <div className="flex flex-col items-center gap-[-24px]">
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.2s' }}>^</span>
+          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.4s' }}>^</span>
+        </div>
+        <span className="text-[10px] tracking-[0.2em] text-[var(--mint)] mt-1 opacity-60 font-pixelify scroll-text">scroll</span>
+      </div>
+
 
     </section>
   );

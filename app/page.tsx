@@ -21,10 +21,9 @@ export default function Home() {
       const scrollPos = main.scrollTop;
       const vh = window.innerHeight;
 
-      // Once we've scrolled past the threshold of the Schedule section (approx 1.8vh)
+      // Once we've scrolled slightly past the Schedule section (1.1vh)
       // we disable mandatory snapping to allow fluid scrolling through the underground.
-      // We re-enable it if the user scrolls back towards the top.
-      if (scrollPos > vh * 1.5) {
+      if (scrollPos > vh * 1.25) {
         if (snapType !== "none") setSnapType("none");
       } else {
         if (snapType !== "mandatory") setSnapType("mandatory");
