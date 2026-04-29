@@ -52,9 +52,9 @@ export default function CreditsSection() {
         </button>
       </div>
       
-      <p className="text-mint-soft/40 text-sm tracking-[0.3em] font-pixelify uppercase">
+      {/* <p className="text-mint-soft/40 text-sm tracking-[0.3em] font-pixelify uppercase">
         behind the mainframe
-      </p>
+      </p> */}
 
       <CreditsModal 
         isOpen={isCreditsOpen} 

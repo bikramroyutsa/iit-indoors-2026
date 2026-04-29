@@ -15,80 +15,175 @@ interface Game {
 }
 
 const GAMES: Game[] = [
-  { id: 1, name: "valorant", image: "/game-assets/Valorant.png", date: "may 8", time: "10:00 am", venue: "computer lab 1", notes: "5v5 tactical shooter. bring your own mouse if preferred." },
-  { id: 2, name: "chess", image: "/game-assets/Chess.png", date: "may 8", time: "11:30 am", venue: "common room", notes: "classical time format. clocks provided." },
-  { id: 3, name: "table tennis", image: "/game-assets/Table-Tennis.png", date: "may 8", time: "02:00 pm", venue: "student lounge", notes: "singles tournament. butterfly tables." },
-  { id: 4, name: "scrabble", image: "/game-assets/Scrabble.png", date: "may 8", time: "12:00 pm", venue: "library annexe", notes: "standard dictionary rules apply." },
-  { id: 5, name: "ludo", image: "/game-assets/Ludo.png", date: "may 8", time: "03:30 pm", venue: "cafeteria", notes: "4-player matches. fast-paced rules." },
-  { id: 6, name: "uno", image: "/game-assets/UNO.png", date: "may 9", time: "12:00 pm", venue: "common room", notes: "stacking allowed up to +4." },
-  { id: 7, name: "dart", image: "/game-assets/Dart.png", date: "may 9", time: "01:30 pm", venue: "sports hall", notes: "501 format. double out." },
-  { id: 8, name: "rubiks cube", image: "/game-assets/Rubiks-Cube.png", date: "may 8", time: "11:00 am", venue: "innovation hub", notes: "3x3 speedcubing. 3 attempts per person." },
-  { id: 9, name: "cricket", image: "/game-assets/Short-Pitch Cricket.png", date: "may 9", time: "09:00 am", venue: "back field", notes: "short pitch format. 6 overs per side." },
-  { id: 10, name: "musical chairs", image: "/game-assets/Musical-Chairs.png", date: "may 9", time: "05:00 pm", venue: "main courtyard", notes: "the classic. unexpected playlist." },
-  { id: 11, name: "typing speed", image: "/game-assets/Typing-Speed-Contest.png", date: "may 9", time: "04:00 pm", venue: "computer lab 2", notes: "wpm challenge. 5-minute test." },
-  { id: 12, name: "pucket", image: "/game-assets/Pucket.png", date: "may 9", time: "10:00 am", venue: "student lounge", notes: "wooden board game. speed is key." },
-  { id: 13, name: "dumb charades", image: "/game-assets/Dumb-Charedes.png", date: "may 9", time: "03:00 pm", venue: "seminar hall", notes: "teams of 3. no verbal cues." },
-  { id: 14, name: "cards", image: "/game-assets/Cards-29.png", date: "may 8", time: "05:00 pm", venue: "cafeteria", notes: "29 format. strictly recreational." },
-  { id: 15, name: "wire loop", image: "/game-assets/Wire-Loop.png", date: "may 9", time: "11:00 am", venue: "tech stall", notes: "don't touch the wire. steady hands win." },
+  { 
+    id: 1, 
+    name: "valorant", 
+    image: "/game-assets/Valorant.png", 
+    date: "TBA", 
+    time: "TBA", 
+    venue: "Online", 
+    notes: "Standard 5v5 competitive settings (13 rounds). Teams drafted via player auction." 
+  },
+  { 
+    id: 2, 
+    name: "chess", 
+    image: "/game-assets/Chess.png", 
+    date: "may 08", 
+    time: "3:00 pm", 
+    venue: "IIT", 
+    notes: "5min + 5s Blitz format using the Swiss System." 
+  },
+  { 
+    id: 3, 
+    name: "table tennis", 
+    image: "/game-assets/Table-Tennis.png", 
+    date: "may 12", 
+    time: "02:00 pm", 
+    venue: "student lounge", 
+    notes: "singles tournament. butterfly tables." 
+  }, // TABLE TENNIS IS NOT HAPPENING MY NIGGA 🥀
+  { 
+    id: 4, 
+    name: "scrabble", 
+    image: "/game-assets/Scrabble.png", 
+    date: "may 08", 
+    time: "5:00 pm", 
+    venue: "IIT", 
+    notes: "Competitive spelling for high stakes. Form the highest-scoring words possible." 
+  },
+  { 
+    id: 5, 
+    name: "ludo", 
+    image: "/game-assets/Ludo.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "No need to say about this game, just come to IIT and have fun." 
+  },
+  { 
+    id: 6, 
+    name: "uno", 
+    image: "/game-assets/UNO.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "Absolute chaos with 'Draw 10' stacks enabled." 
+  },
+  { 
+    id: 7, 
+    name: "dart", 
+    image: "/game-assets/Dart.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "The art of throwing sharp metal sticks at a wall." 
+  },
+  { 
+    id: 8, 
+    name: "rubiks cube", 
+    image: "/game-assets/Rubiks-Cube.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "Aggressive finger aerobics; speed-solving challenge." 
+  },
+  { 
+    id: 9, 
+    name: "cricket", 
+    image: "/game-assets/Short-Pitch Cricket.png", 
+    date: "may 09", 
+    time: "9:00 am", 
+    venue: "TBA", 
+    notes: "Group stages leading into knockouts. Squads of 7." 
+  },
+  { 
+    id: 10, 
+    name: "musical chairs", 
+    image: "/game-assets/Musical-Chairs.png", 
+    date: "may 09", 
+    time: "4:00 pm", 
+    venue: "IIT", 
+    notes: "A cutthroat elimination sprint. High-stakes adult duck-duck-goose." 
+  },
+  { 
+    id: 11, 
+    name: "typing speed", 
+    image: "/game-assets/Typing-Speed-Contest.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "A digital drag race. Prove your WPM is higher than your friends'." 
+  },
+  { 
+    id: 12, 
+    name: "pucket", 
+    image: "/game-assets/Pucket.png", 
+    date: "may 09", 
+    time: "2:00 pm", 
+    venue: "IIT", 
+    notes: "1v1 rapid-fire dexterity. Clear your side to move to the next bracket." 
+  },
+  { 
+    id: 13, 
+    name: "dumb charades", 
+    image: "/game-assets/Dumb-Charedes.png", 
+    date: "may 09", 
+    time: "5:00 pm", 
+    venue: "IIT", 
+    notes: "A team-based test of silence and frantic gesturing." 
+  },
+  { 
+    id: 14, 
+    name: "cards", 
+    image: "/game-assets/Cards-29.png", 
+    date: "may 09", 
+    time: "9:00 am", 
+    venue: "IIT", 
+    notes: "Strategic trick-taking battle in 29 format. Team up with a partner." 
+  },
+  { 
+    id: 15, 
+    name: "wire loop", 
+    image: "/game-assets/Wire-Loop.png", 
+    date: "may 08-09", 
+    time: "all day", 
+    venue: "IIT", 
+    notes: "Don't touch the wire. A test of steady hands and nerves of steel." 
+  },
+  { 
+    id: 16, 
+    name: "carrom", 
+    image: "/game-assets/Carrom.png", 
+    date: "may 09", 
+    time: "9:00 pm", 
+    venue: "IIT", 
+    notes: "Classic 2v2 striker action featuring an intense group stage." 
+  },
 ];
 
-// Helper to group and sort events from the GAMES array
-const SCHEDULE_DATA = (() => {
-  const grouped: Record<string, any[]> = {};
+const SCHEDULE_DATA = [
+  {
+    dayLabel: "day 01",
+    date: "may 08, 2026",
+    events: [
+      { time: "03:00 pm", event: "chess blitz", venue: "IIT" },
+      { time: "05:00 pm", event: "scrabble competition", venue: "IIT" },
+      { time: "all day", event: "ludo, uno, darts, rubiks, typing, wire loop, carrom", venue: "IIT" },
+    ]
+  },
+  {
+    dayLabel: "day 02",
+    date: "may 09, 2026",
+    events: [
+      { time: "09:00 am", event: "cards 29", venue: "IIT" },
+      { time: "09:00 am", event: "cricket match", venue: "TBA" },
+      { time: "02:00 pm", event: "pucket tournament", venue: "IIT" },
+      { time: "04:00 pm", event: "musical chairs", venue: "IIT" },
+      { time: "05:00 pm", event: "dumb charades", venue: "IIT" },
+    ]
+  }
+];
 
-  // Core event ceremonies
-  const baseEvents = [
-    { date: "may 8", time: "09:00 am", event: "opening ceremony", venue: "main auditorium" },
-    { date: "may 9", time: "06:30 pm", event: "closing & awards", venue: "main hall" },
-  ];
-
-  // Add all games
-  GAMES.forEach(game => {
-    if (!grouped[game.date]) grouped[game.date] = [];
-    grouped[game.date].push({
-      time: game.time,
-      event: game.name,
-      venue: game.venue
-    });
-  });
-
-  // Add base events
-  baseEvents.forEach(be => {
-    if (!grouped[be.date]) grouped[be.date] = [];
-    grouped[be.date].push({
-      time: be.time,
-      event: be.event,
-      venue: be.venue
-    });
-  });
-
-  // Sort dates chronologically
-  const sortedDates = Object.keys(grouped).sort((a, b) => {
-    const dA = parseInt(a.split(" ")[1]);
-    const dB = parseInt(b.split(" ")[1]);
-    return dA - dB;
-  });
-
-  // Format into final structure
-  return sortedDates.map((date, idx) => {
-    const events = grouped[date].sort((a, b) => {
-      const parse = (t: string) => {
-        const [time, period] = t.split(" ");
-        let [h, m] = time.split(":").map(Number);
-        if (period.toLowerCase() === "pm" && h !== 12) h += 12;
-        if (period.toLowerCase() === "am" && h === 12) h = 0;
-        return h * 60 + m;
-      };
-      return parse(a.time) - parse(b.time);
-    });
-
-    return {
-      dayLabel: `day 0${idx + 1}`,
-      date: `${date}, 2026`,
-      events
-    };
-  });
-})();
 
 
 export default function ScheduleCarousel() {
