@@ -21,11 +21,13 @@ export default function Home() {
       const scrollPos = main.scrollTop;
       const vh = window.innerHeight;
 
-      // Once we've scrolled slightly past the Schedule section (1.1vh)
-      // we disable mandatory snapping to allow fluid scrolling through the underground.
+      // HYBRID SNAPPING LOGIC:
+      // 1. Disable snapping once we enter the underground (downwards)
+      // 2. Re-enable snapping only when we are deep in the 'Sky' zone (upwards)
+      // This prevents the 'Schedule -> Sky' jump when returning from below.
       if (scrollPos > vh * 1.05) {
         if (snapType !== "none") setSnapType("none");
-      } else {
+      } else if (scrollPos < vh * 0.5) {
         if (snapType !== "mandatory") setSnapType("mandatory");
       }
     };
