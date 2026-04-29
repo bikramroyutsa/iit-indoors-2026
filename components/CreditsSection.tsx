@@ -7,29 +7,46 @@ import FAQModal from "./FAQModal";
 
 export default function CreditsSection() {
   const [isCreditsOpen, setIsCreditsOpen] = useState(false);
+  const [shuffledTeam, setShuffledTeam] = useState<any[]>([]);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isFAQOpen, setIsFAQOpen] = useState(false);
 
+  const TEAM = [
+    { name: "bikram roy utsa" },
+    { name: "saeed ahmed mahin" },
+    { name: "md. rakinuzzaman talukder" },
+  ];
+
+  const handleOpenCredits = () => {
+    const array = [...TEAM];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    setShuffledTeam(array);
+    setIsCreditsOpen(true);
+  };
+
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+      <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
         <button
           onClick={() => setIsContactOpen(true)}
-          className="pixel-button text-xl md:text-2xl"
+          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
         >
           contact
         </button>
 
         <button
           onClick={() => setIsFAQOpen(true)}
-          className="pixel-button text-xl md:text-2xl"
+          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
         >
           faq
         </button>
 
         <button
-          onClick={() => setIsCreditsOpen(true)}
-          className="pixel-button text-xl md:text-2xl"
+          onClick={handleOpenCredits}
+          className="pixel-button text-base md:text-lg opacity-70 hover:opacity-100 transition-opacity"
         >
           view credits
         </button>
@@ -41,7 +58,8 @@ export default function CreditsSection() {
 
       <CreditsModal 
         isOpen={isCreditsOpen} 
-        onClose={() => setIsCreditsOpen(false)} 
+        onClose={() => setIsCreditsOpen(false)}
+        team={shuffledTeam}
       />
 
       <ContactModal

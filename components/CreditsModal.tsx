@@ -6,9 +6,10 @@ import Portal from "./Portal";
 interface CreditsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  team: any[];
 }
 
-export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
+export default function CreditsModal({ isOpen, onClose, team }: CreditsModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -30,7 +31,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
             </h2>
           </div>
 
-          <CreditsContent />
+          <CreditsContent team={team} />
         </div>
       </div>
       

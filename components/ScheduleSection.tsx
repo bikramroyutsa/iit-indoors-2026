@@ -22,19 +22,19 @@ const getGroundDither = (c1: string, c2: string) => {
 };
 
 export default function ScheduleSection({ children }: ScheduleSectionProps) {
-  const techColor = "#00110F";
+  const techColor = "#000000";
 
-  const scrollToTech = () => {
-    const tech = document.getElementById('tech');
-    if (tech) {
-      tech.scrollIntoView({ behavior: 'smooth' });
+  const scrollToDice = () => {
+    const dice = document.getElementById('dice-section');
+    if (dice) {
+      dice.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <section
       id="schedule"
-      className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-4 md:pt-8 p-0 overflow-hidden snap-start snap-always z-50"
+      className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-4 md:pt-8 p-0 overflow-hidden z-50"
       style={{
         backgroundImage: "url('/assets/iit-building.png')",
         backgroundSize: "cover",
@@ -69,7 +69,7 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
       />
 
       {/* Dramatic Ground Fog / Glow */}
-      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#00110F] via-[#00110F]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black via-black/80 to-transparent z-20 pointer-events-none" />
 
       {/* Subtle Blur for depth */}
       <div className="absolute bottom-0 left-0 w-full h-48 backdrop-blur-[1px] z-10 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
@@ -87,9 +87,9 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
 
       {/* Scroll Down Button to Tech Section */}
       <button
-        onClick={scrollToTech}
+        onClick={scrollToDice}
         className="absolute bottom-4 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity z-[50]"
-        aria-label="Scroll to tech"
+        aria-label="Scroll to transition"
       >
         <div className="flex flex-col items-center gap-[-24px]">
           <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>

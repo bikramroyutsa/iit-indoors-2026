@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactNode, useRef, useEffect, useState, use } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { useScroll } from "framer-motion";
+import CreditsSection from "./CreditsSection";
 
 interface TechUndergroundProps {
   children?: ReactNode;
@@ -55,31 +56,11 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
     offset: ["start end", "end start"]
   });
 
-  // Auto-scroll to core logic
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Trigger auto-scroll to the final footer once user scrolls past 0.7 in this section
-      if (latest > 0.7 && !hasScrolledNext) {
-        const core = document.getElementById('core');
-        if (core) {
-          setHasScrolledNext(true);
-          core.scrollIntoView({ behavior: 'smooth' });
-          setTimeout(() => setHasScrolledNext(false), 2000);
-        }
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress, hasScrolledNext]);
+  // Auto-scroll logic removed to allow for fluid scroll experience
 
-  const scrollToCore = () => {
-    const core = document.getElementById('core');
-    if (core) {
-      core.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  
+
   return (
-    <section ref={containerRef} id="tech" className="w-full relative h-[100svh] flex flex-col items-center justify-center overflow-hidden snap-start snap-always">
+    <section ref={containerRef} id="tech" className="w-full relative h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-black">
       <style>{`
         @keyframes arrow-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.3; }
@@ -97,57 +78,33 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
         }
       `}</style>
 
-      {/* Blurred Abstract Tech Layer */}
-      <div 
-        className="absolute inset-0 z-0 blur-[6px] opacity-60" 
+      {/* Background Collage Layer - Original Color */}
+      <div
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: getTechPattern(),
-          backgroundSize: '128px 128px',
-          backgroundRepeat: 'repeat',
-          imageRendering: 'pixelated'
+          backgroundImage: 'url(/assets/collage.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       />
-      
-      {/* Sharp Pixelated Overlay (Retains the "pixel" feel) */}
-      <div 
-        className="absolute inset-0 z-[1] opacity-[0.12] pointer-events-none" 
-        style={{
-          backgroundImage: getTechPattern(),
-          backgroundSize: '128px 128px',
-          backgroundRepeat: 'repeat',
-          imageRendering: 'pixelated'
-        }}
-      />
-      
+
+      {/* Slight Dark Overlay for Readability */}
+      <div className="absolute inset-0 z-[1] bg-black/70 pointer-events-none" />
+
+      {/* Sharp Pixelated Overlay Removed */}
+
       <div className="relative z-10 w-full flex flex-col items-center">
         {children}
       </div>
 
-      {/* Tech to Footer Transition */}
-      <div 
-        className="absolute bottom-0 left-0 w-full h-[32px] z-30 pointer-events-none" 
-        style={{ 
-          backgroundImage: getTechDither('transparent', footerColor),
-          transform: 'scaleY(-1)'
-        }} 
-      />
-      
-      {/* Darker gradient at the bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black via-black/40 to-transparent z-20 pointer-events-none" />
+      {/* Overlays Removed to keep collage clean */}
 
-      {/* Scroll Down Button to Core Section */}
-      <button 
-        onClick={scrollToCore}
-        className="absolute bottom-4 flex flex-col items-center cursor-pointer group hover:opacity-100 transition-opacity z-[50]"
-        aria-label="Scroll to core"
-      >
-        <div className="flex flex-col items-center gap-[-24px]">
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0s' }}>^</span>
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.2s' }}>^</span>
-          <span className="scroll-arrow text-7xl text-[var(--mint)] font-bold select-none leading-[0.1]" style={{ animationDelay: '0.4s' }}>^</span>
-        </div>
-        <span className="text-[10px] tracking-[0.2em] text-[var(--mint)] mt-1 opacity-60 font-pixelify scroll-text">scroll down or click</span>
-      </button>
+      {/* Darker gradient at the bottom removed */}
+
+      <div className="absolute bottom-8 w-full flex justify-center z-[50]">
+        <CreditsSection />
+      </div>
     </section>
   );
 }
