@@ -236,7 +236,7 @@ export default function ScheduleCarousel() {
           </div>
 
           {/* Mobile Layout: Single Box with Transition */}
-          <div className="lg:hidden w-full overflow-hidden min-h-[520px]">
+          <div className="lg:hidden w-full overflow-hidden min-h-[450px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeDayIdx}
@@ -268,7 +268,7 @@ function ScheduleDayCard({ day }: { day: any }) {
         </h3>
         <span className="text-black/50 text-base md:text-lg lowercase tracking-widest font-black">{day.date}</span>
       </div>
-      <div className="space-y-1.5 md:space-y-2 max-h-[400px] md:max-h-[300px] overflow-y-auto custom-scrollbar pr-3">
+      <div className="space-y-1.5 md:space-y-2 max-h-[280px] md:max-h-[300px] overflow-y-auto custom-scrollbar pr-3">
         {day.events.map((item: any, eventIdx: number) => (
           <div key={eventIdx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-black/10 pb-2 group/item hover:bg-black/5 transition-colors px-2">
             <div className="flex items-center gap-4">
