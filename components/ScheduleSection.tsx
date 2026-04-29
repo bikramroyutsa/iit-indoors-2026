@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import ScheduleCarousel from "./ScheduleCarousel";
+import { useSound } from "../hooks/useSound";
 
 interface ScheduleSectionProps {
   children?: ReactNode;
@@ -22,12 +23,45 @@ const getGroundDither = (c1: string, c2: string) => {
 };
 
 export default function ScheduleSection({ children }: ScheduleSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { playDigitalBird } = useSound();
+  const [isInView, setIsInView] = useState(false);
   const techColor = "#00110F";
 
+  // Intersection Observer to detect when schedule is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
 
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Ambient Birds Logic
+  useEffect(() => {
+    if (!isInView) return;
+
+    const playRandomChirp = () => {
+      playDigitalBird();
+      // Random delay between chirps: 0.8-3 seconds
+      const nextDelay = 800 + Math.random() * 2200;
+      timeoutId = setTimeout(playRandomChirp, nextDelay);
+    };
+
+    let timeoutId = setTimeout(playRandomChirp, 1500);
+    return () => clearTimeout(timeoutId);
+  }, [isInView, playDigitalBird]);
 
   return (
     <section
+      ref={sectionRef}
       id="schedule"
       className="w-full relative h-[100svh] flex flex-col items-center justify-start pt-4 md:pt-8 p-0 overflow-hidden snap-start snap-always z-50"
       style={{

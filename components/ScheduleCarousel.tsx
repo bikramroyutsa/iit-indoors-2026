@@ -34,15 +34,6 @@ const GAMES: Game[] = [
     notes: "5min + 5s Blitz format using the Swiss System." 
   },
   { 
-    id: 3, 
-    name: "table tennis", 
-    image: "/game-assets/Table-Tennis.png", 
-    date: "may 12", 
-    time: "02:00 pm", 
-    venue: "student lounge", 
-    notes: "singles tournament. butterfly tables." 
-  }, // TABLE TENNIS IS NOT HAPPENING MY NIGGA 🥀
-  { 
     id: 4, 
     name: "scrabble", 
     image: "/game-assets/Scrabble.png", 

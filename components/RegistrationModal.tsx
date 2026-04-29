@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Portal from "./Portal";
+import { useSound } from "../hooks/useSound";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -9,12 +10,20 @@ interface RegistrationModalProps {
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
+  const { playSuccessChime } = useSound();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     batch: "1",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Play success chime when submission is successful
+  useEffect(() => {
+    if (isSubmitted) {
+      playSuccessChime();
+    }
+  }, [isSubmitted, playSuccessChime]);
 
   if (!isOpen) return null;
 

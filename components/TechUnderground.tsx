@@ -1,8 +1,9 @@
 "use client";
 
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useRef, useState, useEffect } from "react";
 import { useScroll } from "framer-motion";
 import CreditsSection from "./CreditsSection";
+import { useSound } from "../hooks/useSound";
 
 interface TechUndergroundProps {
   children?: ReactNode;
@@ -48,8 +49,39 @@ const getTechDither = (c1: string, c2: string) => {
 
 export default function TechUnderground({ children }: TechUndergroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hasScrolledNext, setHasScrolledNext] = useState(false);
+  const { startBGM, stopBGM } = useSound();
+  const [isInView, setIsInView] = useState(false);
   const footerColor = "#000000";
+
+  // Intersection Observer to detect when tech section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Background Music Logic
+  useEffect(() => {
+    if (isInView) {
+      startBGM('/assets/bgm.mp3');
+    } else {
+      stopBGM();
+    }
+    
+    return () => {
+      // Don't necessarily stop on unmount if we might come back quickly, 
+      // but IntersectionObserver handles it via isInView
+    };
+  }, [isInView, startBGM, stopBGM]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -102,7 +134,7 @@ export default function TechUnderground({ children }: TechUndergroundProps) {
 
       {/* Sharp Pixelated Overlay Removed */}
 
-      <div className="relative z-10 w-full flex flex-col items-center gap-12 md:gap-20">
+      <div className="relative z-10 w-full flex flex-col items-center gap-20 md:gap-32">
         {children}
         <CreditsSection />
       </div>

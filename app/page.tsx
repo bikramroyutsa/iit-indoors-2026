@@ -7,6 +7,7 @@ import SkySection from "@/components/SkySection";
 import ScheduleSection from "@/components/ScheduleSection";
 import DiceTransition from "@/components/DiceTransition";
 import TechUnderground from "@/components/TechUnderground";
+import AudioToggle from "@/components/AudioToggle";
 
 export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
@@ -58,6 +59,8 @@ export default function Home() {
       <TechUnderground>
         <LandingSection />
       </TechUnderground>
+
+      <AudioToggle />
     </main>
   );
 }

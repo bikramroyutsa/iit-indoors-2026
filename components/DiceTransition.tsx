@@ -1,10 +1,13 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useSound } from "../hooks/useSound";
 
 export default function DiceTransition({ scrollContainer }: { scrollContainer?: React.RefObject<HTMLElement | null> }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { playDiceThump } = useSound();
+  const lastThumpProgress = useRef(0);
   
   // Use scroll progress of this section to drive the animation
   // We explicitly pass the container because the page uses a custom scroll element (main)
@@ -25,6 +28,21 @@ export default function DiceTransition({ scrollContainer }: { scrollContainer?: 
   const diceScale = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.8, 2, 0.8]);
   const opacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
   const textOpacity = useTransform(scrollYProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
+
+  // Dice Roll Sound Logic
+  // Play a thump every time the dice "hits" the virtual ground (peaks of diceY)
+  // or just every 10% of progress while it's visible.
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Only play between 0.2 and 0.8 progress
+    if (latest < 0.2 || latest > 0.8) return;
+
+    // Trigger thumps at specific intervals to simulate rolling
+    const interval = 0.05; 
+    if (Math.floor(latest / interval) !== Math.floor(lastThumpProgress.current / interval)) {
+      playDiceThump();
+    }
+    lastThumpProgress.current = latest;
+  });
 
   return (
     <section 

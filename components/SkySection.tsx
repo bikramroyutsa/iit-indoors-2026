@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { useSound } from "../hooks/useSound";
 
 interface SkySectionProps {
   children: ReactNode;
@@ -27,12 +28,47 @@ const getDitherSVG = (c1: string, c2: string) => {
 };
 
 export default function SkySection({ children }: SkySectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { playDigitalBird } = useSound();
+  const [isInView, setIsInView] = useState(false);
+
   const c1 = "#004650";
   const c2 = "#00556C";
   const c3 = "#006488";
   const c4 = "#0073A3";
   const c5 = "#0083BF";
   const c6 = "#0092DB"; // Building top edge color
+
+  // Intersection Observer to detect when sky is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Ambient Birds Logic
+  useEffect(() => {
+    if (!isInView) return;
+
+    const playRandomChirp = () => {
+      playDigitalBird();
+      // Random delay between chirps: 0.8-3 seconds
+      const nextDelay = 800 + Math.random() * 2200;
+      timeoutId = setTimeout(playRandomChirp, nextDelay);
+    };
+
+    let timeoutId = setTimeout(playRandomChirp, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [isInView, playDigitalBird]);
 
   const scrollToSchedule = () => {
     const schedule = document.getElementById('schedule');
@@ -43,6 +79,7 @@ export default function SkySection({ children }: SkySectionProps) {
 
   return (
     <section 
+      ref={sectionRef}
       id="sky"
       className="w-full relative z-10 flex flex-col items-center justify-center h-[100svh] p-10 snap-start snap-always"
       style={{
