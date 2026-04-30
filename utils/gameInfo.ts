@@ -8,6 +8,7 @@ interface Game {
   notes: string;
   fee: number;
   type: string;
+  members: number | null;
 }
 
 const GAMES: Game[] = [
@@ -20,7 +21,8 @@ const GAMES: Game[] = [
     venue: "Online", 
     notes: "Standard 5v5 competitive settings (13 rounds). Individual sign-ups only; teams will be drafted via a high-stakes player auction.",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 2, 
@@ -31,7 +33,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "5min + 5s Blitz format using the Swiss System. Expect a high-speed mental gauntlet where every second counts.",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 3, 
@@ -42,7 +45,8 @@ const GAMES: Game[] = [
     venue: "student lounge", 
     notes: "singles tournament. butterfly tables.",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 4, 
@@ -53,7 +57,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "Competitive spelling for high stakes at IIT. Form the highest-scoring words possible and prepare to defend your made-up vocabulary against skeptical opponents. ",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 5, 
@@ -64,7 +69,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "No need to say about this game, just come to IIT and have fun.",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 6, 
@@ -75,7 +81,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "Absolute chaos with Draw 10 stacks enabled. Just keep drawing until someone cries or wins.",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 7, 
@@ -86,7 +93,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "Darts is just the art of throwing sharp metal sticks at a wall and pretending you meant to hit the tiny red bit instead of the drywall.",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 8, 
@@ -97,7 +105,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "Speed-solving a Rubik's Cube is just aggressive finger aerobics where you try to outrun a stopwatch before your brain realizes it's actually just doing math at 200 mph. ",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 9, 
@@ -108,7 +117,8 @@ const GAMES: Game[] = [
     venue: "TBA", 
     notes: "Group stages leading into knockouts. Form your squad of 7 and prepare for a full day at IIT. Short-pitch format with 6 overs per side. Expect high-scoring matches and plenty of boundary action.",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 10, 
@@ -119,7 +129,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "A cutthroat elimination sprint happening at IIT. It's essentially high-stakes adult duck-duck-goose where the music stops and friendships end. ",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 11, 
@@ -130,7 +141,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "A digital drag race available all day Friday and Saturday at IIT. Prove your WPM is higher than your friends’ in a battle of aggressive keyboard clicking and zero typos. ",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 12, 
@@ -141,7 +153,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "1v1 rapid-fire dexterity. First person to clear their side of the board moves to the next bracket.",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 13, 
@@ -152,7 +165,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "A team-based test of silence and frantic gesturing at IIT. It’s essentially competitive professional mime-work where you’ll watch your teammates guess every possible word in the dictionary except the right one. ",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 14, 
@@ -163,7 +177,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "A strategic trick-taking battle starting Saturday morning at 9:00 AM at IIT. Team up with a partner and pray your communication is better than your bidding strategy.",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
   { 
     id: 15, 
@@ -174,7 +189,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "An all-day test of steady hands and nerves of steel located at IIT. It’s a simple game of don't touch the wire, or as most people call it, discovering you have an undiagnosed hand tremor.",
     fee: 100,
-    type: "single"
+    type: "single",
+    members: null
   },
   { 
     id: 16, 
@@ -185,7 +201,8 @@ const GAMES: Game[] = [
     venue: "IIT", 
     notes: "Classic 2v2 striker action featuring a intense group stage at IIT. Expect a test of geometry and patience as you try to sink the Queen without scratching like a total rookie",
     fee: 100,
-    type: "single"
+    type: "multiplayer",
+    members: 4
   },
 ];
 

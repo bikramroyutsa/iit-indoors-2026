@@ -3,9 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
+import { Game, GAMES } from "@/utils/gameInfo";
 
-import { GAMES } from "@/utils/gameinfo";
-import { Game } from "@/utils/gameinfo";
 const SCHEDULE_DATA = [
   {
     dayLabel: "day 01",
