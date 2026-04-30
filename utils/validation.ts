@@ -10,6 +10,10 @@ export const registrationSchema = z.object({
   transactionId: z.string().min(1, "Transaction ID is required").max(100, "Transaction ID is too long").trim(),
   selectedGames: z.array(z.number()).min(1, "Please select at least one game"),
   teammates: z.record(z.string(), z.array(z.string().trim().max(100, "Teammate name is too long"))),
+  cocPlayerId: z.string().optional(),
+  cocTownHall: z.string().optional(),
+  pesOvr: z.string().optional(),
+  pesPlayerId: z.string().optional(),
 });
 
 export type RegistrationData = z.infer<typeof registrationSchema>;

@@ -24,6 +24,10 @@ interface FormDataType {
   paymentMethod: string;
   selectedGames: number[];
   teammates: { [gameId: number]: string[] };
+  cocPlayerId: string;
+  cocTownHall: string;
+  pesOvr: string;
+  pesPlayerId: string;
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
@@ -40,6 +44,10 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     transactionId: "",
     selectedGames: [],
     teammates: {},
+    cocPlayerId: "",
+    cocTownHall: "",
+    pesOvr: "",
+    pesPlayerId: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -186,6 +194,10 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           transactionId: "",
           selectedGames: [],
           teammates: {},
+          cocPlayerId: "",
+          cocTownHall: "",
+          pesOvr: "",
+          pesPlayerId: "",
         });
       }, 2500);
     } catch (error) {
@@ -401,6 +413,29 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Game Specific Details */}
+                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18)) && (
+                  <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
+                    <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">game details</h3>
+                    <div className="space-y-5">
+                      {formData.selectedGames.includes(19) && (
+                        <div className="space-y-3">
+                          <h4 className="text-mint font-bold capitalize text-sm">Clash of Clans</h4>
+                          <input type="text" placeholder="Player ID (#TAG)" className="pixel-input w-full text-sm" required value={formData.cocPlayerId} onChange={e => setFormData({...formData, cocPlayerId: e.target.value})} />
+                          <input type="text" placeholder="Town Hall Level" className="pixel-input w-full text-sm" required value={formData.cocTownHall} onChange={e => setFormData({...formData, cocTownHall: e.target.value})} />
+                        </div>
+                      )}
+                      {formData.selectedGames.includes(18) && (
+                        <div className="space-y-3">
+                          <h4 className="text-mint font-bold capitalize text-sm">PES</h4>
+                          <input type="text" placeholder="Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({...formData, pesPlayerId: e.target.value})} />
+                          <input type="text" placeholder="OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({...formData, pesOvr: e.target.value})} />
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

@@ -23,20 +23,32 @@ export default function GamesTab() {
     }
   };
 
+  const isCoc = selectedGameTab?.toLowerCase() === "clash of clans";
+  const isPes = selectedGameTab?.toLowerCase() === "pes";
+
   const handleDownloadCSV = () => {
     if (!selectedGameTab || gameParticipants.length === 0) return;
-    const headers = ["Name", "Batch", "Roll", "Email", "Phone", "Amount Paid", "Pay Method", "Transaction ID", "Teammates"];
-    const rows = gameParticipants.map(p => [
-      `"${p.name || ""}"`,
-      `"${p.batch || ""}"`,
-      `"${p.bsse_roll || ""}"`,
-      `"${p.mail || ""}"`,
-      `"${p.phone || ""}"`,
-      `"${p.total_payment || 0}"`,
-      `"${p.paymentMethod || ""}"`,
-      `"${p.transactionId || ""}"`,
-      `"${p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : ""}"`
-    ]);
+    const headers = ["Name", "Batch", "Roll", "Email", "Phone", "Amount Paid", "Pay Method", "Transaction ID"];
+    if (isCoc) { headers.push("CoC ID", "Town Hall Level"); }
+    if (isPes) { headers.push("PES ID", "PES OVR"); }
+    headers.push("Teammates");
+
+    const rows = gameParticipants.map(p => {
+      const row = [
+        `"${p.name || ""}"`,
+        `"${p.batch || ""}"`,
+        `"${p.bsse_roll || ""}"`,
+        `"${p.mail || ""}"`,
+        `"${p.phone || ""}"`,
+        `"${p.total_payment || 0}"`,
+        `"${p.paymentMethod || ""}"`,
+        `"${p.transactionId || ""}"`
+      ];
+      if (isCoc) { row.push(`"${p.cocPlayerId || ""}"`, `"${p.cocTownHall || ""}"`); }
+      if (isPes) { row.push(`"${p.pesPlayerId || ""}"`, `"${p.pesOvr || ""}"`); }
+      row.push(`"${p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : ""}"`);
+      return row;
+    });
     const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
@@ -90,9 +102,9 @@ export default function GamesTab() {
               loading participants...
             </div>
           ) : (
-            <div className="overflow-x-auto custom-scrollbar">
-              <table className="w-full text-left font-pixelify text-foreground border-collapse">
-                <thead>
+            <div className="overflow-x-auto overflow-y-auto max-h-[60vh] border-2 border-black custom-scrollbar">
+              <table className="w-full text-left font-pixelify text-foreground border-collapse relative">
+                <thead className="sticky top-0 z-10 shadow-[0_2px_0_0_#000]">
                   <tr className="bg-mint text-deep-teal uppercase text-sm tracking-widest">
                     <th className="p-3 border-2 border-black whitespace-nowrap">Name</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Batch</th>
@@ -102,13 +114,25 @@ export default function GamesTab() {
                     <th className="p-3 border-2 border-black whitespace-nowrap">Amount Paid</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Pay Method</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Txn ID</th>
+                    {isCoc && (
+                      <>
+                        <th className="p-3 border-2 border-black whitespace-nowrap">CoC ID</th>
+                        <th className="p-3 border-2 border-black whitespace-nowrap">TH Level</th>
+                      </>
+                    )}
+                    {isPes && (
+                      <>
+                        <th className="p-3 border-2 border-black whitespace-nowrap">PES ID</th>
+                        <th className="p-3 border-2 border-black whitespace-nowrap">OVR</th>
+                      </>
+                    )}
                     <th className="p-3 border-2 border-black whitespace-nowrap">Teammates</th>
                   </tr>
                 </thead>
                 <tbody>
                   {gameParticipants.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="p-4 text-center text-mint-soft border-2 border-black">
+                      <td colSpan={9 + (isCoc || isPes ? 2 : 0)} className="p-4 text-center text-mint-soft border-2 border-black">
                         No participants found for {selectedGameTab}.
                       </td>
                     </tr>
@@ -123,6 +147,18 @@ export default function GamesTab() {
                         <td className="p-3 border-2 border-black">৳ {p.total_payment || 0}</td>
                         <td className="p-3 border-2 border-black capitalize">{p.paymentMethod || "—"}</td>
                         <td className="p-3 border-2 border-black font-mono text-sm">{p.transactionId}</td>
+                        {isCoc && (
+                          <>
+                            <td className="p-3 border-2 border-black font-mono text-sm">{p.cocPlayerId || "—"}</td>
+                            <td className="p-3 border-2 border-black text-sm">{p.cocTownHall || "—"}</td>
+                          </>
+                        )}
+                        {isPes && (
+                          <>
+                            <td className="p-3 border-2 border-black font-mono text-sm">{p.pesPlayerId || "—"}</td>
+                            <td className="p-3 border-2 border-black text-sm">{p.pesOvr || "—"}</td>
+                          </>
+                        )}
                         <td className="p-3 border-2 border-black">
                           {p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : "—"}
                         </td>

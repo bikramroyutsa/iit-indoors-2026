@@ -19,6 +19,7 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "rejected" | "games">("pending");
   const [selectedReg, setSelectedReg] = useState<any | null>(null);
   const [loadingRegistrations, setLoadingRegistrations] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const fetchRegistrations = async () => {
     setLoadingRegistrations(true);
@@ -64,7 +65,13 @@ export default function AdminPage() {
   }, []);
 
   const handleLogout = async () => {
-    await signOut(auth);
+    setIsLoggingOut(true);
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Logout failed", error);
+      setIsLoggingOut(false);
+    }
   };
 
   if (loading) {
@@ -90,8 +97,8 @@ export default function AdminPage() {
           <h1 className="text-4xl font-bold text-mint tracking-widest uppercase">
             admin dashboard
           </h1>
-          <button onClick={handleLogout} className="pixel-button !py-2 !px-4 text-sm">
-            logout
+          <button onClick={handleLogout} disabled={isLoggingOut} className="pixel-button !py-2 !px-4 text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+            {isLoggingOut ? "logging out..." : "logout"}
           </button>
         </div>
         
@@ -121,9 +128,9 @@ export default function AdminPage() {
               loading registrations...
             </div>
           ) : (
-            <div className="overflow-x-auto custom-scrollbar">
-              <table className="w-full text-left font-pixelify text-foreground border-collapse">
-                <thead>
+            <div className="overflow-x-auto overflow-y-auto max-h-[60vh] border-2 border-black custom-scrollbar">
+              <table className="w-full text-left font-pixelify text-foreground border-collapse relative">
+                <thead className="sticky top-0 z-10 shadow-[0_2px_0_0_#000]">
                   <tr className="bg-mint text-deep-teal uppercase text-sm tracking-widest">
                     <th className="p-3 border-2 border-black whitespace-nowrap">Name</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Batch</th>
