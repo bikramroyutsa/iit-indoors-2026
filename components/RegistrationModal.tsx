@@ -19,7 +19,6 @@ interface FormDataType {
   mail: string;
   phone: string;
   transactionId: string;
-  totalPayment: number;
   selectedGames: number[];
   teammates: { [gameId: number]: string[] };
 }
@@ -34,7 +33,6 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     mail: "",
     phone: "",
     transactionId: "",
-    totalPayment: 0,
     selectedGames: [],
     teammates: {},
   });
@@ -91,8 +89,6 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const handleGameDetailsNext = (e: React.FormEvent) => {
     e.preventDefault();
-    const sum = selectedGames.reduce((s, g) => s + (g.fee || 0), 0);
-    setFormData((prev) => ({ ...prev, totalPayment: sum }));
     setStep(3);
   };
 
@@ -100,24 +96,6 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
   const selectedMultiplayerGames = GAMES.filter(
     (g) => g.type === "multiplayer" && formData.selectedGames.includes(g.id)
   );
-
-  const handleCloseModal = () => {
-    onClose();
-    // Reset form state so it's clean next time it's opened
-    setIsSubmitted(false);
-    setStep(1);
-    setFormData({
-      name: "",
-      batch: "1",
-      bsse_roll: "",
-      mail: "",
-      phone: "",
-      transactionId: "",
-      totalPayment: 0,
-      selectedGames: [],
-      teammates: {},
-    });
-  };
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,20 +113,33 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
         teammatesByName[gameName] = mates;
       });
 
-      const totalPayment = GAMES.filter(g => formData.selectedGames.includes(g.id)).reduce((sum, g) => sum + g.fee, 0);
-
       const submissionData = {
         ...formData,
         selectedGames: selectedGameNames,
         teammates: teammatesByName,
         payment_verified: false,
-        total_payment: totalPayment,
         createdAt: serverTimestamp()
       };
 
       await addDoc(collection(db, "registrations"), submissionData);
       console.log("Final Form Data:", submissionData);
       setIsSubmitted(true);
+      // Auto-close after 2.5 seconds on success
+      setTimeout(() => {
+        onClose();
+        setIsSubmitted(false);
+        setStep(1);
+        setFormData({
+          name: "",
+          batch: "1",
+          bsse_roll: "",
+          mail: "",
+          phone: "",
+          transactionId: "",
+          selectedGames: [],
+          teammates: {},
+        });
+      }, 2500);
     } catch (error) {
       console.error("Error saving registration: ", error);
       alert("Error saving registration. Please try again.");
@@ -160,7 +151,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       <div className="fixed inset-0 z-[9999] flex items-center justify-center pixel-modal-overlay p-4 animate-fade-in">
         <div className="pixel-modal-content animate-modal-slide-up max-h-[90vh] w-[min(92vw,720px)] overflow-hidden flex flex-col">
           <button
-            onClick={handleCloseModal}
+            onClick={onClose}
             className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint text-2xl transition-colors"
             aria-label="Close modal"
           >
@@ -174,12 +165,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <h2 className="text-2xl font-bold text-mint tracking-widest text-center mb-2">
                   success!
                 </h2>
-                <p className="text-mint-soft text-center font-pixelify mb-8">
+                <p className="text-mint-soft text-center font-pixelify">
                   you have been registered for iit indoors 2026.
                 </p>
-                <button onClick={handleCloseModal} className="pixel-button">
-                  close window
-                </button>
               </div>
             ) : step === 1 ? (
               <>
