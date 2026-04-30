@@ -24,7 +24,6 @@ const getGroundDither = (c1: string, c2: string) => {
 
 export default function ScheduleSection({ children }: ScheduleSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { playDigitalBird } = useSound();
   const [isInView, setIsInView] = useState(false);
   const techColor = "#00110F";
 
@@ -45,19 +44,13 @@ export default function ScheduleSection({ children }: ScheduleSectionProps) {
   }, []);
 
   // Ambient Birds Logic
+  const { startBirds, stopBirds } = useSound();
   useEffect(() => {
-    if (!isInView) return;
-
-    const playRandomChirp = () => {
-      playDigitalBird();
-      // Random delay between chirps: 0.8-3 seconds
-      const nextDelay = 800 + Math.random() * 2200;
-      timeoutId = setTimeout(playRandomChirp, nextDelay);
-    };
-
-    let timeoutId = setTimeout(playRandomChirp, 1500);
-    return () => clearTimeout(timeoutId);
-  }, [isInView, playDigitalBird]);
+    if (isInView) {
+      startBirds();
+      return () => stopBirds();
+    }
+  }, [isInView, startBirds, stopBirds]);
 
   return (
     <section

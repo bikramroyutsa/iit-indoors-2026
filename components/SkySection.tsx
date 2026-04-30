@@ -29,7 +29,6 @@ const getDitherSVG = (c1: string, c2: string) => {
 
 export default function SkySection({ children }: SkySectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { playDigitalBird } = useSound();
   const [isInView, setIsInView] = useState(false);
 
   const c1 = "#004650";
@@ -56,19 +55,13 @@ export default function SkySection({ children }: SkySectionProps) {
   }, []);
 
   // Ambient Birds Logic
+  const { startBirds, stopBirds } = useSound();
   useEffect(() => {
-    if (!isInView) return;
-
-    const playRandomChirp = () => {
-      playDigitalBird();
-      // Random delay between chirps: 0.8-3 seconds
-      const nextDelay = 800 + Math.random() * 2200;
-      timeoutId = setTimeout(playRandomChirp, nextDelay);
-    };
-
-    let timeoutId = setTimeout(playRandomChirp, 1000);
-    return () => clearTimeout(timeoutId);
-  }, [isInView, playDigitalBird]);
+    if (isInView) {
+      startBirds();
+      return () => stopBirds();
+    }
+  }, [isInView, startBirds, stopBirds]);
 
   const scrollToSchedule = () => {
     const schedule = document.getElementById('schedule');

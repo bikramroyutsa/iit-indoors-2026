@@ -3,6 +3,8 @@ import { useCallback, useRef, useEffect, useState } from "react";
 // Global state for mute to persist across component re-renders
 let globalIsMuted = false;
 let globalBgmAudio: HTMLAudioElement | null = null;
+let globalBirdsAudio: HTMLAudioElement | null = null;
+let globalBirdsActiveCount = 0;
 
 export const useSound = () => {
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -12,9 +14,12 @@ export const useSound = () => {
     globalIsMuted = !globalIsMuted;
     setIsMuted(globalIsMuted);
 
-    // Also mute/unmute active BGM
+    // Also mute/unmute active sounds
     if (globalBgmAudio) {
       globalBgmAudio.muted = globalIsMuted;
+    }
+    if (globalBirdsAudio) {
+      globalBirdsAudio.muted = globalIsMuted;
     }
   }, []);
 
@@ -41,6 +46,21 @@ export const useSound = () => {
 
   // Digital Birds: Randomized high-pitched chirps with variety
   const playDigitalBird = useCallback(() => {
+    // START_NEW: Using birds.m4a file instead of synthetic chirps
+    if (typeof window !== "undefined") {
+      if (!globalBirdsAudio) {
+        globalBirdsAudio = new Audio("/assets/birds.m4a");
+        globalBirdsAudio.loop = true;
+        globalBirdsAudio.volume = 0.5;
+        globalBirdsAudio.muted = globalIsMuted;
+      }
+      if (globalBirdsAudio.paused && !globalIsMuted) {
+        globalBirdsAudio.play().catch(e => console.log("Birds play failed:", e));
+      }
+    }
+    // END_NEW
+
+    /* --- OLD SYNTHETIC CODE (KEPT BUT NOT USED) ---
     const ctx = getAudioContext();
     if (!ctx) return;
     const now = ctx.currentTime;
@@ -111,7 +131,22 @@ export const useSound = () => {
         osc.stop(now + 0.3);
         break;
     }
+    --------------------------------------------- */
   }, [getAudioContext]);
+
+  const startBirds = useCallback(() => {
+    globalBirdsActiveCount++;
+    playDigitalBird();
+  }, [playDigitalBird]);
+
+  const stopBirds = useCallback(() => {
+    globalBirdsActiveCount = Math.max(0, globalBirdsActiveCount - 1);
+    if (globalBirdsActiveCount === 0 && globalBirdsAudio) {
+      globalBirdsAudio.pause();
+    }
+  }, []);
+
+
 
   // Dice Roll: Filtered noise "thump"
   const playDiceThump = useCallback(() => {
@@ -272,5 +307,5 @@ export const useSound = () => {
     }, 100);
   }, []);
 
-  return { playDigitalBird, playDiceThump, playSuccessChime, playBattleDrum, startBGM, stopBGM, toggleMute, isMuted };
+  return { playDigitalBird, startBirds, stopBirds, playDiceThump, playSuccessChime, playBattleDrum, startBGM, stopBGM, toggleMute, isMuted };
 };

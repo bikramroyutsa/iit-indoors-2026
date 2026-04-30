@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('/assets/Silkscreen-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+30-39;
+  size-adjust: 85%;
+}
+
 :root {
   --background: #00201d;
   --foreground: #dbfff4;
@@ -8,7 +17,8 @@
   --deep-teal: #00342e;
 }
 
-html, body {
+html,
+body {
   overflow: hidden;
   height: 100svh;
   width: 100vw;
@@ -19,13 +29,13 @@ html, body {
 
 body {
   background:
-    linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
+    linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
     radial-gradient(circle at 12% 18%, rgba(22, 219, 171, 0.12), transparent 40%),
     radial-gradient(circle at 88% 78%, rgba(102, 245, 207, 0.12), transparent 38%),
     linear-gradient(160deg, #001715 0%, var(--deep-teal) 55%, #00110f 100%);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: var(--font-pixelify), sans-serif;
+  font-family: 'Silkscreen', var(--font-pixelify), sans-serif;
 }
 
 body::after {
@@ -63,6 +73,7 @@ body::after {
     transform: translateY(40px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -70,8 +81,13 @@ body::after {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fade-in {
@@ -79,35 +95,42 @@ body::after {
 }
 
 @keyframes logo-blink {
+
   0%,
   89%,
   100% {
     opacity: 1;
   }
+
   92% {
     opacity: 0.35;
   }
+
   95% {
     opacity: 0.75;
   }
 }
 
 @keyframes text-blink {
+
   0%,
   72%,
   100% {
     opacity: 1;
   }
+
   76% {
     opacity: 0.5;
   }
 }
 
 @keyframes logo-float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -119,26 +142,26 @@ body::after {
   color: var(--deep-teal);
   padding: 14px 28px;
   border: 6px solid #000;
-  box-shadow: 
-    0 -6px 0 -2px var(--mint), 
-    0 6px 0 -2px var(--mint), 
-    -6px 0 0 -2px var(--mint), 
+  box-shadow:
+    0 -6px 0 -2px var(--mint),
+    0 6px 0 -2px var(--mint),
+    -6px 0 0 -2px var(--mint),
     6px 0 0 -2px var(--mint),
     6px 6px 0px #000;
   font-weight: bold;
   text-transform: lowercase;
   transition: all 0.1s;
   cursor: pointer;
-  font-family: var(--font-pixelify), sans-serif;
+  font-family: 'Silkscreen', var(--font-pixelify), sans-serif;
   letter-spacing: 1px;
 }
 
 .pixel-button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 
-    0 -4px 0 -2px var(--mint-soft), 
-    0 4px 0 -2px var(--mint-soft), 
-    -4px 0 0 -2px var(--mint-soft), 
+  box-shadow:
+    0 -4px 0 -2px var(--mint-soft),
+    0 4px 0 -2px var(--mint-soft),
+    -4px 0 0 -2px var(--mint-soft),
     4px 0 0 -2px var(--mint-soft),
     6px 6px 0px #000;
   background-color: var(--mint-soft);
@@ -158,10 +181,10 @@ body::after {
   background-color: var(--deep-teal);
   /* even blockier pixelated border */
   border: 8px solid #000;
-  box-shadow: 
-    0 -8px 0 -2px var(--mint), 
-    0 8px 0 -2px var(--mint), 
-    -8px 0 0 -2px var(--mint), 
+  box-shadow:
+    0 -8px 0 -2px var(--mint),
+    0 8px 0 -2px var(--mint),
+    -8px 0 0 -2px var(--mint),
     8px 0 0 -2px var(--mint),
     inset 0 0 0 4px var(--mint),
     12px 12px 0px #000;
@@ -174,24 +197,24 @@ body::after {
 .pixel-input {
   background-color: #001715;
   border: 4px solid #000;
-  box-shadow: 
-    0 -4px 0 -1px var(--mint-soft), 
-    0 4px 0 -1px var(--mint-soft), 
-    -4px 0 0 -1px var(--mint-soft), 
+  box-shadow:
+    0 -4px 0 -1px var(--mint-soft),
+    0 4px 0 -1px var(--mint-soft),
+    -4px 0 0 -1px var(--mint-soft),
     4px 0 0 -1px var(--mint-soft);
   color: var(--foreground);
   padding: 14px;
   width: 100%;
-  font-family: var(--font-pixelify), sans-serif;
+  font-family: 'Silkscreen', var(--font-pixelify), sans-serif;
   outline: none;
   transition: all 0.1s;
 }
 
 .pixel-input:focus {
-  box-shadow: 
-    0 -4px 0 -1px var(--mint), 
-    0 4px 0 -1px var(--mint), 
-    -4px 0 0 -1px var(--mint), 
+  box-shadow:
+    0 -4px 0 -1px var(--mint),
+    0 4px 0 -1px var(--mint),
+    -4px 0 0 -1px var(--mint),
     4px 0 0 -1px var(--mint);
 }
 
@@ -205,9 +228,12 @@ body::after {
 }
 
 @keyframes bounce-subtle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) scale(1.1);
   }
+
   50% {
     transform: translateY(-5px) scale(1.1);
   }
@@ -215,9 +241,12 @@ body::after {
 
 @media (min-width: 768px) {
   @keyframes bounce-subtle {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0) scale(1.25);
     }
+
     50% {
       transform: translateY(-8px) scale(1.25);
     }
@@ -229,10 +258,10 @@ body::after {
 }
 
 .pixel-pattern {
-  background-image: 
-    linear-gradient(45deg, rgba(22, 219, 171, 0.03) 25%, transparent 25%), 
-    linear-gradient(-45deg, rgba(22, 219, 171, 0.03) 25%, transparent 25%), 
-    linear-gradient(45deg, transparent 75%, rgba(22, 219, 171, 0.03) 75%), 
+  background-image:
+    linear-gradient(45deg, rgba(22, 219, 171, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(22, 219, 171, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(22, 219, 171, 0.03) 75%),
     linear-gradient(-45deg, transparent 75%, rgba(22, 219, 171, 0.03) 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
@@ -260,6 +289,7 @@ body::after {
     transform: translateY(100vh);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -271,9 +301,20 @@ body::after {
 }
 
 @keyframes success-pop {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .animate-success-pop {
@@ -309,18 +350,30 @@ body::after {
   scrollbar-width: none;
 }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--mint-soft);
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--mint-soft);
+}
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes scroll-with-pause {
-  0%, 20% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-scroll {
@@ -337,24 +390,57 @@ body::after {
 }
 
 @keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 @keyframes glitch-skew {
-  0%, 100% { transform: skew(0deg); }
-  20% { transform: skew(-1deg); }
-  40% { transform: skew(1deg); }
-  60% { transform: skew(-0.5deg); }
-  80% { transform: skew(0.5deg); }
+
+  0%,
+  100% {
+    transform: skew(0deg);
+  }
+
+  20% {
+    transform: skew(-1deg);
+  }
+
+  40% {
+    transform: skew(1deg);
+  }
+
+  60% {
+    transform: skew(-0.5deg);
+  }
+
+  80% {
+    transform: skew(0.5deg);
+  }
 }
 
 .animate-glitch {
-  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
   text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
 }
 
