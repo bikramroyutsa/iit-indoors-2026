@@ -4,30 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
 import { Game, GAMES } from "@/utils/gameInfo";
-
-const SCHEDULE_DATA = [
-  {
-    dayLabel: "day 01",
-    date: "may 08, 2026",
-    events: [
-      { time: "03:00 pm", event: "chess blitz", venue: "IIT" },
-      { time: "05:00 pm", event: "scrabble competition", venue: "IIT" },
-      { time: "all day", event: "ludo, uno, darts, rubiks, typing, wire loop, carrom", venue: "IIT" },
-    ]
-  },
-  {
-    dayLabel: "day 02",
-    date: "may 09, 2026",
-    events: [
-      { time: "09:00 am", event: "cards 29", venue: "IIT" },
-      { time: "02:00 pm", event: "pucket tournament", venue: "IIT" },
-      { time: "04:00 pm", event: "musical chairs", venue: "IIT" },
-      { time: "05:00 pm", event: "dumb charades", venue: "IIT" },
-      { time: "09:00 am", event: "cricket match", venue: "TBA" },
-    ]
-  }
-];
-
+import { SCHEDULE_DATA } from "@/utils/scheduleInfo"
 
 
 export default function ScheduleCarousel() {
@@ -152,11 +129,10 @@ export default function ScheduleCarousel() {
             <button
               key={idx}
               onClick={() => setActiveDayIdx(idx)}
-              className={`px-6 py-2 border-2 border-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest transition-all duration-100 whitespace-nowrap flex-shrink-0 ${
-                activeDayIdx === idx 
-                ? "bg-black text-white shadow-none translate-x-1 translate-y-1" 
-                : "bg-[#f4f1ea] text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] hover:bg-white active:scale-95 active:rotate-1 active:bg-[#16dbab]"
-              }`}
+              className={`px-6 py-2 border-2 border-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest transition-all duration-100 whitespace-nowrap flex-shrink-0 ${activeDayIdx === idx
+                  ? "bg-black text-white shadow-none translate-x-1 translate-y-1"
+                  : "bg-[#f4f1ea] text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] hover:bg-white active:scale-95 active:rotate-1 active:bg-[#16dbab]"
+                }`}
             >
               {day.dayLabel}
             </button>
