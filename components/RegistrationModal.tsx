@@ -483,11 +483,16 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     </div>
 
                     <div className="mt-5 space-y-3 border-t border-mint-soft/40 pt-4">
-                      <p className="text-mint-soft text-sm leading-relaxed mb-4">
-                        Please select your preferred payment method and enter the transaction ID after payment.
-                        Payment Number : 01707984667 (Bkash & Nagad - personal send money)
-
-                      </p>
+                      <div className="text-mint-soft text-sm leading-relaxed mb-4 space-y-2">
+                        <p>Please select your preferred payment method and enter the transaction ID after payment.</p>
+                        <div className="py-4 text-center bg-black/20 rounded-lg border border-mint/30 my-3">
+                          <p className="text-mint-soft text-sm uppercase tracking-wider mb-1">Payment Number</p>
+                          <p className="text-3xl font-bold text-mint tracking-wider font-pixelify drop-shadow-[0_0_8px_rgba(22,219,171,0.5)]">
+                            01707984667
+                          </p>
+                          <p className="text-xs text-mint-soft mt-2 uppercase tracking-wide">(Bkash & Nagad - personal send money)</p>
+                        </div>
+                      </div>
 
                       <div className="space-y-3 mb-4">
                         <label className="pixel-label block">payment method</label>
