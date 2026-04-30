@@ -121,7 +121,7 @@ const GAMES: Game[] = [
   },
   {
     id: 7,
-    name: "rubik's cube",
+    name: "rubiks cube",
     image: "/game-assets/Rubiks-Cube.png",
     date: "may 08-09",
     time: "all day",
@@ -176,7 +176,7 @@ const GAMES: Game[] = [
   },
   {
     id: 10,
-    name: "speed typing",
+    name: "typing speed",
     image: "/game-assets/Typing-Speed-Contest.png",
     date: "may 08-09",
     time: "all day",
