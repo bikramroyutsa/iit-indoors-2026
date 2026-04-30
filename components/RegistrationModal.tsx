@@ -91,14 +91,14 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       const newSelectedGames = isSelected
         ? prev.selectedGames.filter((id) => id !== gameId)
         : [...prev.selectedGames, gameId];
-      
+
       const newTeammates = { ...prev.teammates };
       if (isSelected && game?.members) {
         delete newTeammates[gameId];
       } else if (!isSelected && game?.members) {
         newTeammates[gameId] = Array(game.members - 1).fill('');
       }
-      
+
       return {
         ...prev,
         selectedGames: newSelectedGames,
@@ -152,7 +152,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       const selectedGameNames = formData.selectedGames.map(
         id => GAMES.find(g => g.id === id)?.name || String(id)
       );
-      
+
       // Update teammates map to use game names as keys
       const teammatesByName: Record<string, string[]> = {};
       Object.entries(formData.teammates).forEach(([gameIdStr, mates]) => {
@@ -256,83 +256,83 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 </h2>
 
                 <form onSubmit={handleNextStep} className="flex flex-col gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="pixel-label">name</label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    className="pixel-input"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="enter your name"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="batch" className="pixel-label">iit batch</label>
-                  <select
-                    id="batch"
-                    className="pixel-input cursor-pointer"
-                    value={formData.batch}
-                    onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
-                  >
-                    {Array.from({ length: 18 }, (_, i) => i + 1).filter(i => i !== 17).map((batchNum) => (
-                      <option key={batchNum} value={batchNum} className="bg-deep-teal">
-                        batch {batchNum}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="bsse_roll" className="pixel-label">bsse roll number</label>
-                  <input
-                    id="bsse_roll"
-                    type="number"
-                    required
-                    className="pixel-input"
-                    value={formData.bsse_roll}
-                    onChange={(e) => setFormData({ ...formData, bsse_roll: e.target.value })}
-                    placeholder="e.g., 12345"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="mail" className="pixel-label">email</label>
-                  <input
-                    id="mail"
-                    type="email"
-                    required
-                    className="pixel-input"
-                    value={formData.mail}
-                    onChange={(e) => setFormData({ ...formData, mail: e.target.value })}
-                    placeholder="mail@example.com"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="phone" className="pixel-label">phone number</label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    required
-                    className="pixel-input"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="01xxxxxxxxx"
-                  />
-                </div>
-
-                <button type="submit" className="pixel-button mt-6 w-full">
-                  next
-                </button>
-
-                {errorMessage && (
-                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
-                    {errorMessage}
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="pixel-label">name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      required
+                      className="pixel-input"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="enter your name"
+                    />
                   </div>
-                )}
+
+                  <div className="space-y-2">
+                    <label htmlFor="batch" className="pixel-label">iit batch</label>
+                    <select
+                      id="batch"
+                      className="pixel-input cursor-pointer"
+                      value={formData.batch}
+                      onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
+                    >
+                      {Array.from({ length: 18 }, (_, i) => i + 1).filter(i => i !== 17).map((batchNum) => (
+                        <option key={batchNum} value={batchNum} className="bg-deep-teal">
+                          batch {batchNum}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="bsse_roll" className="pixel-label">bsse roll number</label>
+                    <input
+                      id="bsse_roll"
+                      type="number"
+                      required
+                      className="pixel-input"
+                      value={formData.bsse_roll}
+                      onChange={(e) => setFormData({ ...formData, bsse_roll: e.target.value })}
+                      placeholder="e.g., 12345"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="mail" className="pixel-label">email</label>
+                    <input
+                      id="mail"
+                      type="email"
+                      required
+                      className="pixel-input"
+                      value={formData.mail}
+                      onChange={(e) => setFormData({ ...formData, mail: e.target.value })}
+                      placeholder="mail@example.com"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="phone" className="pixel-label">phone number</label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      required
+                      className="pixel-input"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="01xxxxxxxxx"
+                    />
+                  </div>
+
+                  <button type="submit" className="pixel-button mt-6 w-full">
+                    next
+                  </button>
+
+                  {errorMessage && (
+                    <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                      {errorMessage}
+                    </div>
+                  )}
                 </form>
               </>
             ) : step === 2 ? (
@@ -342,122 +342,120 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 </h2>
 
                 <form onSubmit={handleGameDetailsNext} className="flex flex-col gap-7">
-                {/* Single Player Games */}
-                <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                  <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">single player</h3>
-                  <div className="flex flex-wrap gap-3 justify-center">
-                    {GAMES.filter(g => g.type === 'single' && g.reg_req).map((game) => (
-                      <button
-                        key={game.id}
-                        type="button"
-                        onClick={() => toggleGameSelection(game.id)}
-                        className={`px-4 py-2.5 font-pixelify text-sm font-bold transition-all duration-200 border-2 rounded-md ${
-                          formData.selectedGames.includes(game.id)
-                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-110 transform"
-                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80"
-                        }`}
-                      >
-                        {game.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Multiplayer Games */}
-                <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                  <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">multiplayer</h3>
-                  <div className="flex flex-wrap gap-3 justify-center">
-                    {GAMES.filter(g => g.type === 'multiplayer' && g.reg_req).map((game) => (
-                      <button
-                        key={game.id}
-                        type="button"
-                        onClick={() => toggleGameSelection(game.id)}
-                        className={`px-4 py-2.5 font-pixelify text-sm font-bold transition-all duration-200 border-2 rounded-md ${
-                          formData.selectedGames.includes(game.id)
-                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-110 transform"
-                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80"
-                        }`}
-                      >
-                        {game.name}
-                      </button>
-                    ))
-                  }
-                  </div>
-                </div>
-
-                {/* Teammate Names Section */}
-                {selectedMultiplayerGames.length > 0 && (
+                  {/* Single Player Games */}
                   <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                    <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">team members</h3>
-                    <div className="space-y-5">
-                      {selectedMultiplayerGames.map((game) => (
-                        <div key={game.id} className="bg-deep-teal/50 border border-mint-soft rounded-md p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="text-mint font-bold capitalize text-sm">{game.name}</h4>
-                            <span className="text-mint-soft text-xs bg-mint/20 px-2 py-1 rounded">
-                              {game.members ? `${game.members - 1} more member${game.members - 1 !== 1 ? 's' : ''}` : ''}
-                            </span>
-                          </div>
-                          <div className="space-y-2">
-                            {formData.teammates[game.id]?.map((teammate, idx) => (
-                              <input
-                                key={idx}
-                                type="text"
-                                placeholder={`teammate ${idx + 1}`}
-                                value={teammate}
-                                onChange={(e) => updateTeammate(game.id, idx, e.target.value)}
-                                className="pixel-input w-full text-sm"
-                                required
-                              />
-                            ))}
-                          </div>
-                        </div>
+                    <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">single player</h3>
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      {GAMES.filter(g => g.type === 'single' && g.reg_req).map((game) => (
+                        <button
+                          key={game.id}
+                          type="button"
+                          onClick={() => toggleGameSelection(game.id)}
+                          className={`px-4 py-2.5 font-pixelify text-sm font-bold transition-all duration-200 border-2 rounded-md ${formData.selectedGames.includes(game.id)
+                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-110 transform"
+                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80"
+                            }`}
+                        >
+                          {game.name}
+                        </button>
                       ))}
                     </div>
                   </div>
-                )}
 
-                {/* Game Specific Details */}
-                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18)) && (
+                  {/* Multiplayer Games */}
                   <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                    <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">game details</h3>
-                    <div className="space-y-5">
-                      {formData.selectedGames.includes(19) && (
-                        <div className="space-y-3">
-                          <h4 className="text-mint font-bold capitalize text-sm">Clash of Clans</h4>
-                          <input type="text" placeholder="Player ID (#TAG)" className="pixel-input w-full text-sm" required value={formData.cocPlayerId} onChange={e => setFormData({...formData, cocPlayerId: e.target.value})} />
-                          <input type="text" placeholder="Town Hall Level" className="pixel-input w-full text-sm" required value={formData.cocTownHall} onChange={e => setFormData({...formData, cocTownHall: e.target.value})} />
-                        </div>
-                      )}
-                      {formData.selectedGames.includes(18) && (
-                        <div className="space-y-3">
-                          <h4 className="text-mint font-bold capitalize text-sm">PES</h4>
-                          <input type="text" placeholder="Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({...formData, pesPlayerId: e.target.value})} />
-                          <input type="text" placeholder="OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({...formData, pesOvr: e.target.value})} />
-                        </div>
-                      )}
+                    <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">multiplayer</h3>
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      {GAMES.filter(g => g.type === 'multiplayer' && g.reg_req).map((game) => (
+                        <button
+                          key={game.id}
+                          type="button"
+                          onClick={() => toggleGameSelection(game.id)}
+                          className={`px-4 py-2.5 font-pixelify text-sm font-bold transition-all duration-200 border-2 rounded-md ${formData.selectedGames.includes(game.id)
+                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-110 transform"
+                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80"
+                            }`}
+                        >
+                          {game.name}
+                        </button>
+                      ))
+                      }
                     </div>
                   </div>
-                )}
 
-                <div className="mt-2 flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75"
-                  >
-                    back
-                  </button>
-                  <button type="submit" className="pixel-button w-full" disabled={formData.selectedGames.length === 0}>
-                    next
-                  </button>
-                </div>
+                  {/* Teammate Names Section */}
+                  {selectedMultiplayerGames.length > 0 && (
+                    <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
+                      <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">team members</h3>
+                      <div className="space-y-5">
+                        {selectedMultiplayerGames.map((game) => (
+                          <div key={game.id} className="bg-deep-teal/50 border border-mint-soft rounded-md p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="text-mint font-bold capitalize text-sm">{game.name}</h4>
+                              <span className="text-mint-soft text-xs bg-mint/20 px-2 py-1 rounded">
+                                {game.members ? `${game.members - 1} more member${game.members - 1 !== 1 ? 's' : ''}` : ''}
+                              </span>
+                            </div>
+                            <div className="space-y-2">
+                              {formData.teammates[game.id]?.map((teammate, idx) => (
+                                <input
+                                  key={idx}
+                                  type="text"
+                                  placeholder={`teammate ${idx + 1}`}
+                                  value={teammate}
+                                  onChange={(e) => updateTeammate(game.id, idx, e.target.value)}
+                                  className="pixel-input w-full text-sm"
+                                  required
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                {errorMessage && (
-                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
-                    {errorMessage}
+                  {/* Game Specific Details */}
+                  {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18)) && (
+                    <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
+                      <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">game details</h3>
+                      <div className="space-y-5">
+                        {formData.selectedGames.includes(19) && (
+                          <div className="space-y-3">
+                            <h4 className="text-mint font-bold capitalize text-sm">Clash of Clans</h4>
+                            <input type="text" placeholder="Player ID (#TAG)" className="pixel-input w-full text-sm" required value={formData.cocPlayerId} onChange={e => setFormData({ ...formData, cocPlayerId: e.target.value })} />
+                            <input type="text" placeholder="Town Hall Level" className="pixel-input w-full text-sm" required value={formData.cocTownHall} onChange={e => setFormData({ ...formData, cocTownHall: e.target.value })} />
+                          </div>
+                        )}
+                        {formData.selectedGames.includes(18) && (
+                          <div className="space-y-3">
+                            <h4 className="text-mint font-bold capitalize text-sm">PES</h4>
+                            <input type="text" placeholder="Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
+                            <input type="text" placeholder="OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-2 flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75"
+                    >
+                      back
+                    </button>
+                    <button type="submit" className="pixel-button w-full" disabled={formData.selectedGames.length === 0}>
+                      next
+                    </button>
                   </div>
-                )}
+
+                  {errorMessage && (
+                    <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                      {errorMessage}
+                    </div>
+                  )}
                 </form>
               </>
             ) : (
@@ -467,104 +465,104 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 </h2>
 
                 <form onSubmit={handleFinalSubmit} className="flex flex-col gap-7">
-                {selectedGames.length > 0 && (
-                  <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                    <h3 className="text-lg font-bold text-mint mb-3 tracking-widest uppercase">registration fees</h3>
-                    <div className="space-y-3 mb-4">
-                      {selectedGames.map((game) => (
-                        <div key={game.id} className="flex justify-between items-center text-mint-soft text-sm border-b border-mint-soft pb-1">
-                          <span className="capitalize">{game.name}</span>
-                          <span className="font-bold">৳ {game.fee}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="border-t-2 border-mint pt-3 flex justify-between items-center">
-                      <span className="text-mint font-bold tracking-widest uppercase">total payment</span>
-                      <span className="text-2xl font-bold text-mint drop-shadow-[0_0_8px_rgba(22,219,171,0.8)]">
-                        ৳ {selectedGames.reduce((sum, g) => sum + g.fee, 0)}
-                      </span>
-                    </div>
-
-                    <div className="mt-5 space-y-3 border-t border-mint-soft/40 pt-4">
-                      <p className="text-mint-soft text-sm leading-relaxed mb-4">
-                        Please select your preferred payment method and enter the transaction ID.
-                      </p>
-
+                  {selectedGames.length > 0 && (
+                    <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
+                      <h3 className="text-lg font-bold text-mint mb-3 tracking-widest uppercase">registration fees</h3>
                       <div className="space-y-3 mb-4">
-                        <label className="pixel-label block">payment method</label>
-                        <div className="flex gap-4">
-                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${
-                            formData.paymentMethod === 'bkash' 
-                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold" 
+                        {selectedGames.map((game) => (
+                          <div key={game.id} className="flex justify-between items-center text-mint-soft text-sm border-b border-mint-soft pb-1">
+                            <span className="capitalize">{game.name}</span>
+                            <span className="font-bold">৳ {game.fee}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="border-t-2 border-mint pt-3 flex justify-between items-center">
+                        <span className="text-mint font-bold tracking-widest uppercase">total payment</span>
+                        <span className="text-2xl font-bold text-mint drop-shadow-[0_0_8px_rgba(22,219,171,0.8)]">
+                          ৳ {selectedGames.reduce((sum, g) => sum + g.fee, 0)}
+                        </span>
+                      </div>
+
+                      <div className="mt-5 space-y-3 border-t border-mint-soft/40 pt-4">
+                        <p className="text-mint-soft text-sm leading-relaxed mb-4">
+                          Please select your preferred payment method and enter the transaction ID after payment.
+                          Payment Number : 01707984667 (Bkash & Nagad - personal send money)
+
+                        </p>
+
+                        <div className="space-y-3 mb-4">
+                          <label className="pixel-label block">payment method</label>
+                          <div className="flex gap-4">
+                            <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${formData.paymentMethod === 'bkash'
+                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold"
                               : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
-                          }`}>
-                            <input 
-                              type="radio" 
-                              name="paymentMethod" 
-                              value="bkash" 
-                              checked={formData.paymentMethod === 'bkash'}
-                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                              className="hidden" 
-                            />
-                            <span className="tracking-widest uppercase">bKash</span>
-                          </label>
-                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${
-                            formData.paymentMethod === 'nagad' 
-                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold" 
+                              }`}>
+                              <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="bkash"
+                                checked={formData.paymentMethod === 'bkash'}
+                                onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                                className="hidden"
+                              />
+                              <span className="tracking-widest uppercase">bKash</span>
+                            </label>
+                            <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${formData.paymentMethod === 'nagad'
+                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold"
                               : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
-                          }`}>
-                            <input 
-                              type="radio" 
-                              name="paymentMethod" 
-                              value="nagad" 
-                              checked={formData.paymentMethod === 'nagad'}
-                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                              className="hidden" 
-                            />
-                            <span className="tracking-widest uppercase">Nagad</span>
-                          </label>
+                              }`}>
+                              <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="nagad"
+                                checked={formData.paymentMethod === 'nagad'}
+                                onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                                className="hidden"
+                              />
+                              <span className="tracking-widest uppercase">Nagad</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor="transactionId" className="pixel-label">transaction id</label>
+                          <input
+                            id="transactionId"
+                            type="text"
+                            required
+                            className="pixel-input"
+                            value={formData.transactionId}
+                            onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
+                            placeholder="enter your payment transaction id"
+                          />
                         </div>
                       </div>
-
-                      <div className="space-y-2">
-                        <label htmlFor="transactionId" className="pixel-label">transaction id</label>
-                        <input
-                          id="transactionId"
-                          type="text"
-                          required
-                          className="pixel-input"
-                          value={formData.transactionId}
-                          onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
-                          placeholder="enter your payment transaction id"
-                        />
-                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                <div className="mt-2 flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setStep(2)}
-                    disabled={isSubmitting}
-                    className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    back
-                  </button>
-                  <button 
-                    type="submit" 
-                    className="pixel-button w-full disabled:opacity-50 disabled:cursor-not-allowed" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "submitting..." : "submit"}
-                  </button>
-                </div>
-
-                {errorMessage && (
-                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
-                    {errorMessage}
+                  <div className="mt-2 flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setStep(2)}
+                      disabled={isSubmitting}
+                      className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      back
+                    </button>
+                    <button
+                      type="submit"
+                      className="pixel-button w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "submitting..." : "submit"}
+                    </button>
                   </div>
-                )}
+
+                  {errorMessage && (
+                    <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                      {errorMessage}
+                    </div>
+                  )}
                 </form>
               </>
             )}
