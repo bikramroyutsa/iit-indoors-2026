@@ -10,6 +10,10 @@ interface Game {
   time: string;
   venue: string;
   notes: string;
+  rules: string[];
+  fee: number;
+  type: string;
+  members: number | null;
 }
 
 interface GameInfoModalProps {
@@ -24,7 +28,7 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
   return (
     <Portal>
       <div className="fixed inset-0 z-[9999] flex items-center justify-center pixel-modal-overlay p-4 animate-fade-in">
-        <div className="pixel-modal-content max-w-2xl w-full animate-modal-slide-up bg-[#001a17]">
+        <div className="pixel-modal-content max-w-2xl w-full max-h-[85vh] animate-modal-slide-up bg-[#001a17] flex flex-col overflow-hidden relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-mint-soft hover:text-mint text-2xl transition-colors font-bold z-50"
@@ -33,8 +37,8 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
             [ x ]
           </button>
 
-          <div className="flex flex-col gap-8">
-            <div className="w-full flex justify-center overflow-hidden">
+          <div className="flex-1 overflow-y-auto custom-scrollbar px-6 py-6">
+            <div className="w-full flex justify-center overflow-hidden mb-4">
               <img 
                 src={game.image} 
                 alt={game.name} 
@@ -59,6 +63,20 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
                   <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify">venue</p>
                   <p className="text-xl md:text-2xl text-mint lowercase font-pixelify">{game.venue}</p>
                 </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify">fee</p>
+                  <p className="text-xl md:text-2xl text-mint lowercase font-pixelify">৳ {game.fee}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify">type</p>
+                  <p className="text-xl md:text-2xl text-mint lowercase font-pixelify">{game.type}</p>
+                </div>
+                {game.members && (
+                  <div className="space-y-1">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify">members</p>
+                    <p className="text-xl md:text-2xl text-mint lowercase font-pixelify">{game.members} per team</p>
+                  </div>
+                )}
               </div>
 
               {game.notes && (
@@ -68,6 +86,22 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
                     <p className="text-base md:text-lg text-mint/90 italic lowercase leading-relaxed font-pixelify">
                       "{game.notes}"
                     </p>
+                  </div>
+                </div>
+              )}
+
+              {game.rules && game.rules.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify">rules & regulations</p>
+                  <div className="p-4 bg-black/20 border-l-4 border-mint/40 space-y-2">
+                    {game.rules.map((rule, idx) => (
+                      <div key={idx} className="flex gap-3">
+                        <span className="text-mint font-bold flex-shrink-0 font-pixelify">{idx + 1}.</span>
+                        <p className="text-sm md:text-base text-mint/90 lowercase leading-relaxed font-pixelify">
+                          {rule}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
