@@ -17,10 +17,12 @@ const firebaseConfig = {
 };
 
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { app, analytics, db };
+export { app, analytics, db, auth };

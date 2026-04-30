@@ -113,11 +113,17 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
         teammatesByName[gameName] = mates;
       });
 
+      const totalPayment = formData.selectedGames.reduce((sum, gameId) => {
+        const game = GAMES.find((g) => g.id === gameId);
+        return sum + (game?.fee || 0);
+      }, 0);
+
       const submissionData = {
         ...formData,
         selectedGames: selectedGameNames,
         teammates: teammatesByName,
-        payment_verified: false,
+        total_payment: totalPayment,
+        status: "pending",
         createdAt: serverTimestamp()
       };
 
