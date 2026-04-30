@@ -391,7 +391,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                         <div key={game.id} className="bg-deep-teal/50 border border-mint-soft rounded-md p-4">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                             <h4 className="text-mint font-bold capitalize text-sm">{game.name}</h4>
-                            <span className="text-mint-soft text-[10px] sm:text-xs bg-mint/20 px-2 py-1 rounded w-fit">
+                            <span className="text-mint-soft text-xs bg-mint/20 px-2 py-1 rounded w-fit">
                               {game.members ? `${game.members - 1} more member${game.members - 1 !== 1 ? 's' : ''}` : ''}
                             </span>
                           </div>
@@ -463,38 +463,43 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 payment details
               </h2>
 
-              <form onSubmit={handleFinalSubmit} className="flex flex-col gap-7">
+              <form onSubmit={handleFinalSubmit} className="flex flex-col gap-7 px-1">
+
                 {selectedGames.length > 0 && (
-                  <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
-                    <h3 className="text-lg font-bold text-mint mb-3 tracking-widest uppercase">registration fees</h3>
-                    <div className="space-y-3 mb-4">
-                      {selectedGames.map((game) => (
-                        <div key={game.id} className="flex justify-between items-center text-mint-soft text-sm border-b border-mint-soft pb-1">
-                          <span className="capitalize">{game.name}</span>
-                          <span className="font-bold">৳ {game.fee}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="border-t-2 border-mint pt-3 flex justify-between items-center">
-                      <span className="text-mint font-bold tracking-widest uppercase">total payment</span>
-                      <span className="text-2xl font-bold text-mint drop-shadow-[0_0_8px_rgba(22,219,171,0.8)]">
-                        ৳ {selectedGames.reduce((sum, g) => sum + g.fee, 0)}
-                      </span>
+                  <>
+
+                    <div className="space-y-3">
+                      <h3 className="text-lg font-bold text-mint mb-3 tracking-widest uppercase border-b border-mint/30 pb-2">registration fees</h3>
+                      <div className="space-y-3 mb-4">
+                        {selectedGames.map((game) => (
+                          <div key={game.id} className="flex justify-between items-center text-mint-soft text-sm border-b border-mint-soft pb-1">
+                            <span className="capitalize">{game.name}</span>
+                            <span className="font-bold">৳ {game.fee}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="pt-1 flex justify-between items-center">
+                        <span className="text-mint font-bold tracking-widest uppercase">total payment</span>
+                        <span className="text-2xl font-bold text-mint drop-shadow-[0_0_8px_rgba(22,219,171,0.8)]">
+                          ৳ {selectedGames.reduce((sum, g) => sum + g.fee, 0)}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="mt-5 space-y-3 border-t border-mint-soft/40 pt-4">
-                      <div className="text-mint-soft text-sm leading-relaxed mb-4 space-y-2">
+                    <div className="space-y-4 pt-4 border-t border-mint/30">
+                      <div className="text-mint-soft text-sm leading-relaxed space-y-2">
                         <p>Please select your preferred payment method and enter the transaction ID after payment.</p>
                         <div className="py-4 text-center bg-black/20 rounded-lg border border-mint/30 my-3">
-                          <p className="text-mint-soft text-sm uppercase tracking-wider mb-1">Payment Number</p>
-                          <p className="text-3xl font-bold text-mint tracking-wider font-pixelify drop-shadow-[0_0_8px_rgba(22,219,171,0.5)]">
+                          <p className="text-xs sm:text-sm text-mint-soft uppercase tracking-wider mb-1">Payment Number</p>
+                          <p className="text-2xl sm:text-3xl font-bold text-mint tracking-normal sm:tracking-wider font-pixelify drop-shadow-[0_0_8px_rgba(22,219,171,0.5)]">
                             01707984667
                           </p>
-                          <p className="text-xs text-mint-soft mt-2 uppercase tracking-wide">(Bkash & Nagad - personal send money)</p>
+                          <p className="text-[10px] sm:text-xs text-mint-soft mt-2 uppercase tracking-wide px-2">(Bkash & Nagad - personal send money)</p>
                         </div>
+
                       </div>
 
-                      <div className="space-y-3 mb-4">
+                      <div className="space-y-3">
                         <label className="pixel-label block">payment method</label>
                         <div className="flex gap-4">
                           <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${formData.paymentMethod === 'bkash'
@@ -541,7 +546,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                         />
                       </div>
                     </div>
-                  </div>
+                  </>
                 )}
 
                 <div className="mt-2 flex gap-3 pt-2">

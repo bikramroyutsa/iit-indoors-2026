@@ -37,10 +37,26 @@ export default function AdminPage() {
 
   const handleMasterDelete = async () => {
     const password = window.prompt("Enter Master Password to delete ALL registrations:");
-    if (password !== "ArefinAponImonGay") {
-      if (password !== null) alert("Incorrect password!");
+    if (!password) return;
+
+    // Hashing helper
+    const hashInput = async (str: string) => {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(str);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+    };
+
+    const inputHash = await hashInput(password);
+    const masterHash = "cc147b3d7875ea11bc202d9515c37260c828a76b9d79a327f143410b10814814";
+
+    if (inputHash !== masterHash) {
+      alert("Incorrect password!");
       return;
     }
+
 
     if (!window.confirm("CRITICAL WARNING: This will permanently delete ALL registrations. Are you absolutely sure?")) return;
 
