@@ -23,6 +23,8 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
             bsse_roll: selectedReg.bsse_roll,
             mail: selectedReg.mail,
             phone: selectedReg.phone,
+            total_payment: selectedReg.total_payment || 0,
+            paymentMethod: selectedReg.paymentMethod,
             transactionId: selectedReg.transactionId,
           };
           if (selectedReg.teammates && selectedReg.teammates[gameName]) {
@@ -51,6 +53,7 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
             <div><span className="text-mint-soft">Roll:</span> {selectedReg.bsse_roll}</div>
             <div><span className="text-mint-soft">Phone:</span> {selectedReg.phone}</div>
             <div className="col-span-2"><span className="text-mint-soft">Email:</span> {selectedReg.mail}</div>
+            <div className="col-span-2"><span className="text-mint-soft">Payment Method:</span> <span className="capitalize">{selectedReg.paymentMethod || "—"}</span></div>
             <div className="col-span-2"><span className="text-mint-soft">Transaction ID:</span> {selectedReg.transactionId}</div>
             <div className="col-span-2"><span className="text-mint-soft">Total Payment:</span> ৳ {selectedReg.total_payment || 0}</div>
           </div>

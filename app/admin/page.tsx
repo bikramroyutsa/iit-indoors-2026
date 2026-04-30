@@ -120,7 +120,7 @@ export default function AdminPage() {
             <div className="py-12 text-center text-mint font-pixelify animate-pulse text-xl">
               loading registrations...
             </div>
-          ) : activeTab === "accepted" ? (
+          ) : (
             <div className="overflow-x-auto custom-scrollbar">
               <table className="w-full text-left font-pixelify text-foreground border-collapse">
                 <thead>
@@ -130,6 +130,8 @@ export default function AdminPage() {
                     <th className="p-3 border-2 border-black whitespace-nowrap">Roll</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Email</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Phone</th>
+                    <th className="p-3 border-2 border-black whitespace-nowrap">Amount Paid</th>
+                    <th className="p-3 border-2 border-black whitespace-nowrap">Pay Method</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Txn ID</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Selected Games</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Teammates</th>
@@ -138,8 +140,8 @@ export default function AdminPage() {
                 <tbody>
                   {filteredRegistrations.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="p-4 text-center text-mint-soft border-2 border-black">
-                        No accepted registrations found.
+                      <td colSpan={10} className="p-4 text-center text-mint-soft border-2 border-black">
+                        No {activeTab} registrations found.
                       </td>
                     </tr>
                   ) : (
@@ -154,6 +156,8 @@ export default function AdminPage() {
                         <td className="p-3 border-2 border-black">{reg.bsse_roll}</td>
                         <td className="p-3 border-2 border-black">{reg.mail}</td>
                         <td className="p-3 border-2 border-black">{reg.phone}</td>
+                        <td className="p-3 border-2 border-black whitespace-nowrap">৳ {reg.total_payment || 0}</td>
+                        <td className="p-3 border-2 border-black capitalize">{reg.paymentMethod || "—"}</td>
                         <td className="p-3 border-2 border-black font-mono text-sm">{reg.transactionId}</td>
                         <td className="p-3 border-2 border-black">
                           {reg.selectedGames?.join(", ") || "—"}
@@ -176,23 +180,6 @@ export default function AdminPage() {
                   )}
                 </tbody>
               </table>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {filteredRegistrations.length === 0 ? (
-                <p className="text-mint-soft font-pixelify">No registrations found in this category.</p>
-              ) : (
-                filteredRegistrations.map(reg => (
-                  <div key={reg.id} onClick={() => setSelectedReg(reg)} className="bg-background border-2 border-mint-soft p-4 cursor-pointer hover:bg-opacity-80 transition-all flex flex-wrap gap-4 items-center justify-between">
-                    <div className="flex flex-wrap gap-4 items-center font-pixelify text-mint">
-                      <span className="font-bold text-lg">{reg.name}</span>
-                      <span className="bg-mint text-deep-teal px-2 py-1 text-xs font-bold rounded">Batch {reg.batch}</span>
-                      <span>{reg.phone}</span>
-                    </div>
-                    <div className="text-sm text-mint-soft">{reg.selectedGames?.length || 0} games</div>
-                  </div>
-                ))
-              )}
             </div>
           )}
         </div>

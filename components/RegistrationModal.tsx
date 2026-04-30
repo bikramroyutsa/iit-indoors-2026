@@ -21,6 +21,7 @@ interface FormDataType {
   mail: string;
   phone: string;
   transactionId: string;
+  paymentMethod: string;
   selectedGames: number[];
   teammates: { [gameId: number]: string[] };
 }
@@ -35,11 +36,13 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     bsse_roll: "",
     mail: "",
     phone: "",
+    paymentMethod: "",
     transactionId: "",
     selectedGames: [],
     teammates: {},
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Play success chime when submission is successful
   useEffect(() => {
@@ -135,6 +138,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     try {
       // Validate all fields before final submission
       const validatedData = registrationSchema.parse(formData);
+      setIsSubmitting(true);
 
       // Map game IDs to names
       const selectedGameNames = formData.selectedGames.map(
@@ -165,6 +169,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
       await addDoc(collection(db, "registrations"), submissionData);
       console.log("Final Form Data:", submissionData);
+      setIsSubmitting(false);
       setIsSubmitted(true);
       // Auto-close after 2.5 seconds on success
       setTimeout(() => {
@@ -177,12 +182,14 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           bsse_roll: "",
           mail: "",
           phone: "",
+          paymentMethod: "",
           transactionId: "",
           selectedGames: [],
           teammates: {},
         });
       }, 2500);
     } catch (error) {
+      setIsSubmitting(false);
       if (error instanceof z.ZodError) {
         setErrorMessage(error.issues.map((issue) => issue.message).join("\n"));
         return;
@@ -195,14 +202,29 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
   return (
     <Portal>
       <div className="fixed inset-0 z-[9999] flex items-center justify-center pixel-modal-overlay p-4 animate-fade-in">
-        <div className="pixel-modal-content animate-modal-slide-up max-h-[90vh] w-[min(92vw,720px)] overflow-hidden flex flex-col">
+        <div className="pixel-modal-content animate-modal-slide-up max-h-[90vh] w-[min(92vw,720px)] overflow-hidden flex flex-col relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint text-2xl transition-colors"
+            disabled={isSubmitting}
+            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint text-2xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Close modal"
           >
             ×
           </button>
+
+          {isSubmitting && (
+            <div className="absolute inset-0 bg-deep-teal/80 z-[100] flex items-center justify-center backdrop-blur-sm animate-fade-in">
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-4 animate-spin">⏳</div>
+                <h2 className="text-2xl font-bold text-mint tracking-widest text-center mb-2 animate-pulse">
+                  processing...
+                </h2>
+                <p className="text-mint-soft text-center font-pixelify">
+                  saving your registration
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="custom-scrollbar flex-1 overflow-y-auto px-1 md:px-2 pt-6 pb-2">
             {isSubmitted ? (
@@ -429,10 +451,45 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     </div>
 
                     <div className="mt-5 space-y-3 border-t border-mint-soft/40 pt-4">
-                      <p className="text-mint-soft text-sm leading-relaxed">
-                        Payment instructions placeholder: add your preferred payment method details,
-                        account number, and exact transfer steps here later.
+                      <p className="text-mint-soft text-sm leading-relaxed mb-4">
+                        Please select your preferred payment method and enter the transaction ID.
                       </p>
+
+                      <div className="space-y-3 mb-4">
+                        <label className="pixel-label block">payment method</label>
+                        <div className="flex gap-4">
+                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${
+                            formData.paymentMethod === 'bkash' 
+                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold" 
+                              : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
+                          }`}>
+                            <input 
+                              type="radio" 
+                              name="paymentMethod" 
+                              value="bkash" 
+                              checked={formData.paymentMethod === 'bkash'}
+                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                              className="hidden" 
+                            />
+                            <span className="tracking-widest uppercase">bKash</span>
+                          </label>
+                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${
+                            formData.paymentMethod === 'nagad' 
+                              ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold" 
+                              : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
+                          }`}>
+                            <input 
+                              type="radio" 
+                              name="paymentMethod" 
+                              value="nagad" 
+                              checked={formData.paymentMethod === 'nagad'}
+                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                              className="hidden" 
+                            />
+                            <span className="tracking-widest uppercase">Nagad</span>
+                          </label>
+                        </div>
+                      </div>
 
                       <div className="space-y-2">
                         <label htmlFor="transactionId" className="pixel-label">transaction id</label>
@@ -454,12 +511,17 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75"
+                    disabled={isSubmitting}
+                    className="pixel-button w-full bg-opacity-50 hover:bg-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     back
                   </button>
-                  <button type="submit" className="pixel-button w-full">
-                    submit
+                  <button 
+                    type="submit" 
+                    className="pixel-button w-full disabled:opacity-50 disabled:cursor-not-allowed" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "submitting..." : "submit"}
                   </button>
                 </div>
 

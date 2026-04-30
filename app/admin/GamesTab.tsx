@@ -25,13 +25,15 @@ export default function GamesTab() {
 
   const handleDownloadCSV = () => {
     if (!selectedGameTab || gameParticipants.length === 0) return;
-    const headers = ["Name", "Batch", "Roll", "Email", "Phone", "Transaction ID", "Teammates"];
+    const headers = ["Name", "Batch", "Roll", "Email", "Phone", "Amount Paid", "Pay Method", "Transaction ID", "Teammates"];
     const rows = gameParticipants.map(p => [
       `"${p.name || ""}"`,
       `"${p.batch || ""}"`,
       `"${p.bsse_roll || ""}"`,
       `"${p.mail || ""}"`,
       `"${p.phone || ""}"`,
+      `"${p.total_payment || 0}"`,
+      `"${p.paymentMethod || ""}"`,
       `"${p.transactionId || ""}"`,
       `"${p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : ""}"`
     ]);
@@ -97,6 +99,8 @@ export default function GamesTab() {
                     <th className="p-3 border-2 border-black whitespace-nowrap">Roll</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Email</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Phone</th>
+                    <th className="p-3 border-2 border-black whitespace-nowrap">Amount Paid</th>
+                    <th className="p-3 border-2 border-black whitespace-nowrap">Pay Method</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Txn ID</th>
                     <th className="p-3 border-2 border-black whitespace-nowrap">Teammates</th>
                   </tr>
@@ -104,7 +108,7 @@ export default function GamesTab() {
                 <tbody>
                   {gameParticipants.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="p-4 text-center text-mint-soft border-2 border-black">
+                      <td colSpan={9} className="p-4 text-center text-mint-soft border-2 border-black">
                         No participants found for {selectedGameTab}.
                       </td>
                     </tr>
@@ -116,6 +120,8 @@ export default function GamesTab() {
                         <td className="p-3 border-2 border-black">{p.bsse_roll}</td>
                         <td className="p-3 border-2 border-black">{p.mail}</td>
                         <td className="p-3 border-2 border-black">{p.phone}</td>
+                        <td className="p-3 border-2 border-black">৳ {p.total_payment || 0}</td>
+                        <td className="p-3 border-2 border-black capitalize">{p.paymentMethod || "—"}</td>
                         <td className="p-3 border-2 border-black font-mono text-sm">{p.transactionId}</td>
                         <td className="p-3 border-2 border-black">
                           {p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : "—"}
