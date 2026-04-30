@@ -203,9 +203,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     value={formData.batch}
                     onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
                   >
-                    {Array.from({ length: 18 }, (_, i) => (
-                      <option key={i + 1} value={i + 1} className="bg-deep-teal">
-                        batch {i + 1}
+                    {Array.from({ length: 18 }, (_, i) => i + 1).filter(i => i !== 17).map((batchNum) => (
+                      <option key={batchNum} value={batchNum} className="bg-deep-teal">
+                        batch {batchNum}
                       </option>
                     ))}
                   </select>
@@ -266,7 +266,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
                   <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">single player</h3>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    {GAMES.filter(g => g.type === 'single').map((game) => (
+                    {GAMES.filter(g => g.type === 'single' && g.reg_req).map((game) => (
                       <button
                         key={game.id}
                         type="button"
@@ -287,7 +287,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
                   <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">multiplayer</h3>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    {GAMES.filter(g => g.type === 'multiplayer').map((game) => (
+                    {GAMES.filter(g => g.type === 'multiplayer' && g.reg_req).map((game) => (
                       <button
                         key={game.id}
                         type="button"

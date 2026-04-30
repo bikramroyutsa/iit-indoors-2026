@@ -14,6 +14,7 @@ interface Game {
   fee: number;
   type: string;
   members: number | null;
+  reg_req: boolean;
 }
 
 interface GameInfoModalProps {
@@ -102,6 +103,12 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
                         </p>
                       </div>
                     ))}
+                    <div className="border-t border-mint/40 pt-3 mt-3">
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-mint/50 font-bold font-pixelify mb-1">registration status</p>
+                      <p className="text-sm md:text-base text-mint/90 lowercase font-pixelify">
+                        {game.reg_req ? "registration is required" : "not required"}
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}

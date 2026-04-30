@@ -6,10 +6,11 @@ interface Game {
   time: string;
   venue: string;
   notes: string;
-  rules: string[]; // New field for detailed regulations
+  rules: string[];
   fee: number;
   type: string;
   members: number | null;
+  reg_req: boolean; // Updated interface
 }
 
 const GAMES: Game[] = [
@@ -29,7 +30,8 @@ const GAMES: Game[] = [
     ],
     fee: 200,
     type: "multiplayer",
-    members: 5 
+    members: 5,
+    reg_req: true 
   },
   { 
     id: 2, 
@@ -46,7 +48,8 @@ const GAMES: Game[] = [
     ],
     fee: 250,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 3, 
@@ -62,7 +65,8 @@ const GAMES: Game[] = [
     ], 
     fee: 30,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 4, 
@@ -78,7 +82,8 @@ const GAMES: Game[] = [
     ], 
     fee: 0,
     type: "multiplayer",
-    members: null
+    members: null,
+    reg_req: false
   },
   { 
     id: 5, 
@@ -93,7 +98,8 @@ const GAMES: Game[] = [
     ],
     fee: 0,
     type: "single",
-    members: null
+    members: null,
+    reg_req: false
   },
   { 
     id: 6, 
@@ -110,7 +116,8 @@ const GAMES: Game[] = [
     ],
     fee: 50,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 7, 
@@ -127,7 +134,8 @@ const GAMES: Game[] = [
     ], 
     fee: 30,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 8, 
@@ -145,7 +153,8 @@ const GAMES: Game[] = [
     ], 
     fee: 1500,
     type: "multiplayer",
-    members: 7 
+    members: 7,
+    reg_req: true 
   },
   { 
     id: 9, 
@@ -162,7 +171,8 @@ const GAMES: Game[] = [
     ],
     fee: 50,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 10, 
@@ -179,7 +189,8 @@ const GAMES: Game[] = [
     ], 
     fee: 30,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 11, 
@@ -195,7 +206,8 @@ const GAMES: Game[] = [
     ], 
     fee: 0,
     type: "single",
-    members: null
+    members: null,
+    reg_req: false
   },
   { 
     id: 12, 
@@ -213,7 +225,8 @@ const GAMES: Game[] = [
     ], 
     fee: 150,
     type: "multiplayer",
-    members: 3 
+    members: 3,
+    reg_req: true 
   },
   { 
     id: 13, 
@@ -230,7 +243,8 @@ const GAMES: Game[] = [
     ], 
     fee: 300,
     type: "multiplayer",
-    members: 2 
+    members: 2,
+    reg_req: true 
   },
   { 
     id: 14, 
@@ -247,7 +261,8 @@ const GAMES: Game[] = [
     ], 
     fee: 20,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 15, 
@@ -264,7 +279,8 @@ const GAMES: Game[] = [
     ], 
     fee: 300,
     type: "multiplayer",
-    members: 2 
+    members: 2,
+    reg_req: true 
   },
   { 
     id: 16, 
@@ -277,12 +293,13 @@ const GAMES: Game[] = [
     rules: [
       "Teams must consist of two players.",
       "Standard international doubles rules strictly followed.",
-      "Tournament begins with group stages leading into knockout rounds.", // 
+      "Tournament begins with group stages leading into knockout rounds.", 
       "The organizers reserve the right to modify the tournament structure based on the number of registered teams.",
     ], 
     fee: 500,
     type: "multiplayer",
-    members: 2
+    members: 2,
+    reg_req: true
   },
   { 
     id: 17, 
@@ -300,7 +317,8 @@ const GAMES: Game[] = [
     ], 
     fee: 50,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
   { 
     id: 18, 
@@ -316,25 +334,27 @@ const GAMES: Game[] = [
     ], 
     fee: 50,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
-    { 
+  { 
     id: 19, 
     name: "clash of clans", 
-  image: "YOU WILL HAVE TO GET THIS IMAGE YOURSELF, SORRY.png",  // Please do it Guys :")
+    image: "/game-assets/Clash-of-Clans.png", 
     date: "TBA", 
     time: "TBA", 
     venue: "Online", 
     notes: "The only place where you’ll spend two weeks waiting for a building to finish just to watch a group of wall-breakers ruin your life in thirty seconds.",
     rules: [
       "All players must register individually and provide their unique Player Tag (#ID) at the time of signup for verification.",
-      "Participants will compete in a 1v1 Friendly Challenge format using a Draft System (players take turns picking from a pool of pre-determined army compositions or restrictions).",
-      "The tournament structure (knockout or group stage) will be announced at the start of the session based on the number of participants.",
-      "The organizers reserve the right to modify rules or the tournament structure based on the final number of participants."
+      "Participants will compete in a 1v1 Friendly Challenge format using a Draft System.",
+      "The tournament structure announced at start based on participant count.",
+      "Organizers reserve the right to modify rules based on final participation."
     ], 
     fee: 50,
     type: "single",
-    members: null
+    members: null,
+    reg_req: true
   },
 ];
 
