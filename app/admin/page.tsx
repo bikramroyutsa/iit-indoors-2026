@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { auth, db } from "@/utils/firebase";
 import { signOut, onAuthStateChanged, User } from "firebase/auth";
-import { doc, getDoc, collection, query, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, query, getDocs, deleteDoc } from "firebase/firestore";
 
 import LoginForm from "./LoginForm";
 import GamesTab from "./GamesTab";
@@ -34,6 +34,32 @@ export default function AdminPage() {
       setLoadingRegistrations(false);
     }
   };
+
+  const handleMasterDelete = async () => {
+    const password = window.prompt("Enter Master Password to delete ALL registrations:");
+    if (password !== "ArefinAponImonGay") {
+      if (password !== null) alert("Incorrect password!");
+      return;
+    }
+
+    if (!window.confirm("CRITICAL WARNING: This will permanently delete ALL registrations. Are you absolutely sure?")) return;
+
+    setLoadingRegistrations(true);
+    try {
+      const q = query(collection(db, "registrations"));
+      const snapshot = await getDocs(q);
+      const deletePromises = snapshot.docs.map(docSnap => deleteDoc(doc(db, "registrations", docSnap.id)));
+      await Promise.all(deletePromises);
+      setRegistrations([]);
+      alert("All registrations deleted successfully.");
+    } catch (err) {
+      console.error("Master delete failed", err);
+      alert("Error during master delete.");
+    } finally {
+      setLoadingRegistrations(false);
+    }
+  };
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -89,32 +115,33 @@ export default function AdminPage() {
   const filteredRegistrations = registrations.filter(r => r.status === activeTab || (!r.status && activeTab === "pending"));
 
   return (
-    <div className="min-h-screen bg-background p-8 relative overflow-hidden text-foreground">
+    <div className="h-screen bg-background p-4 md:p-8 pb-20 md:pb-0 relative overflow-hidden text-foreground flex flex-col">
       <div className="absolute inset-0 pixel-pattern opacity-10 pointer-events-none" />
-      
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8 border-b-4 border-mint pb-4">
-          <h1 className="text-4xl font-bold text-mint tracking-widest uppercase">
+
+      <div className="relative z-10 max-w-6xl w-full mx-auto flex-1 flex flex-col min-h-0">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 md:mb-6 border-b-4 border-mint pb-2 md:pb-4 gap-2 md:gap-4 shrink-0">
+          <h1 className="text-xl md:text-4xl font-bold text-mint tracking-widest uppercase text-center sm:text-left">
             admin dashboard
           </h1>
-          <button onClick={handleLogout} disabled={isLoggingOut} className="pixel-button !py-2 !px-4 text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+          <button onClick={handleLogout} disabled={isLoggingOut} className="pixel-button !py-1 md:!py-2 !px-4 text-xs md:text-sm disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto">
             {isLoggingOut ? "logging out..." : "logout"}
           </button>
         </div>
-        
-        <div className="bg-deep-teal border-4 border-black p-6 shadow-[8px_8px_0px_#000] mb-8">
-          <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
-            <div className="flex flex-wrap gap-4">
-              <button className={`pixel-button !py-2 transition-all ${activeTab === 'pending' ? '!bg-white !text-black !shadow-[6px_6px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("pending")}>pending</button>
-              <button className={`pixel-button !py-2 transition-all ${activeTab === 'accepted' ? '!bg-white !text-black !shadow-[6px_6px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("accepted")}>accepted</button>
-              <button className={`pixel-button !py-2 transition-all ${activeTab === 'rejected' ? '!bg-white !text-black !shadow-[6px_6px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("rejected")}>rejected</button>
-              <button className={`pixel-button !py-2 transition-all ${activeTab === 'games' ? '!bg-white !text-black !shadow-[6px_6px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("games")}>games</button>
+
+        <div className="bg-deep-teal border-4 border-black p-3 md:p-6 shadow-[4px_4px_0px_#000] md:shadow-[8px_8px_0px_#000] mb-4 md:mb-8 flex-1 flex flex-col min-h-0">
+          <div className="flex flex-col lg:flex-row justify-between items-center mb-4 md:mb-6 gap-4 shrink-0">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-2 md:gap-4">
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'pending' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("pending")}>pending</button>
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'accepted' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("accepted")}>accepted</button>
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'rejected' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("rejected")}>rejected</button>
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'games' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("games")}>games</button>
             </div>
+
             {activeTab !== "games" && (
-              <button 
+              <button
                 onClick={fetchRegistrations}
                 disabled={loadingRegistrations}
-                className={`pixel-button !py-2 !px-4 text-sm ${loadingRegistrations ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
+                className={`pixel-button !py-2 !px-4 text-[10px] md:text-sm ${loadingRegistrations ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
               >
                 {loadingRegistrations ? "refreshing..." : "refresh"}
               </button>
@@ -122,13 +149,16 @@ export default function AdminPage() {
           </div>
 
           {activeTab === "games" ? (
-            <GamesTab />
+            <div className="flex-1 overflow-auto custom-scrollbar">
+              <GamesTab />
+            </div>
           ) : loadingRegistrations ? (
-            <div className="py-12 text-center text-mint font-pixelify animate-pulse text-xl">
+            <div className="flex-1 flex items-center justify-center text-mint font-pixelify animate-pulse text-xl">
               loading registrations...
             </div>
           ) : (
-            <div className="overflow-x-auto overflow-y-auto max-h-[60vh] border-2 border-black custom-scrollbar">
+            <div className="flex-1 overflow-auto border-2 border-black custom-scrollbar">
+
               <table className="w-full text-left font-pixelify text-foreground border-collapse relative">
                 <thead className="sticky top-0 z-10 shadow-[0_2px_0_0_#000]">
                   <tr className="bg-mint text-deep-teal uppercase text-sm tracking-widest">
@@ -153,8 +183,8 @@ export default function AdminPage() {
                     </tr>
                   ) : (
                     filteredRegistrations.map((reg, i) => (
-                      <tr 
-                        key={reg.id} 
+                      <tr
+                        key={reg.id}
                         onClick={() => setSelectedReg(reg)}
                         className={`cursor-pointer hover:bg-opacity-80 transition-all ${i % 2 === 0 ? "bg-background" : "bg-deep-teal/50"}`}
                       >
@@ -193,6 +223,17 @@ export default function AdminPage() {
       </div>
 
       <RegistrationDetailsModal selectedReg={selectedReg} setSelectedReg={setSelectedReg} setRegistrations={setRegistrations} />
+
+      {/* Master Delete Button at Bottom Right for Safety */}
+      <div className="fixed bottom-4 pb-2 right-4 z-[50]">
+        <button
+          onClick={handleMasterDelete}
+          disabled={loadingRegistrations}
+          className={`pixel-button !py-1 !px-3 !text-[10px] !bg-red-600 !text-white opacity-20 hover:opacity-100 transition-opacity uppercase tracking-tighter ${loadingRegistrations ? 'opacity-10 cursor-not-allowed' : ''}`}
+        >
+          master delete
+        </button>
+      </div>
     </div>
   );
 }

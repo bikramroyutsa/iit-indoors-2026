@@ -38,7 +38,7 @@ const GAMES: Game[] = [
     name: "chess",
     image: "/game-assets/Chess.png",
     date: "may 08",
-    time: "3:00 pm",
+    time: "TBA",
     venue: "IIT",
     notes: "5min + 5s Blitz format using the Swiss System. Expect a high-speed mental gauntlet where every second counts.",
     rules: [
@@ -56,7 +56,7 @@ const GAMES: Game[] = [
     name: "scrabble",
     image: "/game-assets/Scrabble.png",
     date: "may 08",
-    time: "5:00 pm",
+    time: "TBA",
     venue: "IIT",
     notes: "Competitive spelling for high stakes at IIT. Form the highest-scoring words possible and prepare to defend your \"made-up\" vocabulary against skeptical opponents.",
     rules: [
@@ -142,7 +142,7 @@ const GAMES: Game[] = [
     name: "cricket",
     image: "/game-assets/Short-Pitch Cricket.png",
     date: "may 09",
-    time: "9:00 am",
+    time: "TBA",
     venue: "TBA",
     notes: "Group stages leading into knockouts. Form your squad of 7 and prepare for a full day at IIT. Short-pitch format with 6 overs per side. Expect high-scoring matches and plenty of boundary action.",
     rules: [
@@ -161,7 +161,7 @@ const GAMES: Game[] = [
     name: "musical chairs",
     image: "/game-assets/Musical-Chairs.png",
     date: "may 09",
-    time: "4:00 pm",
+    time: "TBA",
     venue: "IIT",
     notes: "A cutthroat elimination sprint happening at IIT. It's essentially high-stakes adult duck-duck-goose where the music stops and friendships end.",
     rules: [
@@ -197,7 +197,7 @@ const GAMES: Game[] = [
     name: "pucket",
     image: "/game-assets/Pucket.png",
     date: "may 09",
-    time: "2:00 pm",
+    time: "TBA",
     venue: "IIT",
     notes: "1v1 rapid-fire dexterity. First person to clear their side of the board moves to the next bracket.",
     rules: [
@@ -214,7 +214,7 @@ const GAMES: Game[] = [
     name: "dumb charades",
     image: "/game-assets/Dumb-Charedes.png",
     date: "may 09",
-    time: "5:00 pm",
+    time: "TBA",
     venue: "IIT",
     notes: "A team-based test of silence and frantic gesturing at IIT. It’s essentially competitive professional mime-work where you’ll watch your teammates guess every possible word in the dictionary except the right one.",
     rules: [
@@ -233,9 +233,9 @@ const GAMES: Game[] = [
     name: "cards",
     image: "/game-assets/Cards-29.png",
     date: "may 09",
-    time: "9:00 am",
+    time: "TBA",
     venue: "IIT",
-    notes: "A strategic trick-taking battle starting Saturday morning at 9:00 AM at IIT. Team up with a partner and pray your communication is better than your bidding strategy.",
+    notes: "A strategic trick-taking battle starting Saturday morning at IIT. Team up with a partner and pray your communication is better than your bidding strategy.",
     rules: [
       "Played in a 2v2 team format with fixed partners.",
       "Standard 29-card game rules apply (bidding and trick-taking).",
@@ -269,7 +269,7 @@ const GAMES: Game[] = [
     name: "carrom",
     image: "/game-assets/Carrom.png",
     date: "may 09",
-    time: "9:00 am",
+    time: "TBA",
     venue: "IIT",
     notes: "Classic 2v2 striker action featuring a intense group stage at IIT. Expect a test of geometry and patience as you try to sink the Queen without scratching like a total rookie.",
     rules: [
@@ -287,7 +287,7 @@ const GAMES: Game[] = [
     name: "table tennis",
     image: "/game-assets/Table-Tennis.png",
     date: "may 09",
-    time: "9:00 am",
+    time: "TBA",
     venue: "IIT",
     notes: "Table Tennis: where lightning-fast reflexes meet the ultimate game of high-speed geometry.",
     rules: [
@@ -323,7 +323,7 @@ const GAMES: Game[] = [
   {
     id: 18,
     name: "efootball (pes)",
-    image: "/game-assets/PES.png",
+    image: "/game-assets/pes.png",
     date: "TBA",
     time: "TBA",
     venue: "Online",

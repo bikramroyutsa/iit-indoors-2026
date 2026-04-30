@@ -389,9 +389,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     <div className="space-y-5">
                       {selectedMultiplayerGames.map((game) => (
                         <div key={game.id} className="bg-deep-teal/50 border border-mint-soft rounded-md p-4">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                             <h4 className="text-mint font-bold capitalize text-sm">{game.name}</h4>
-                            <span className="text-mint-soft text-xs bg-mint/20 px-2 py-1 rounded">
+                            <span className="text-mint-soft text-[10px] sm:text-xs bg-mint/20 px-2 py-1 rounded w-fit">
                               {game.members ? `${game.members - 1} more member${game.members - 1 !== 1 ? 's' : ''}` : ''}
                             </span>
                           </div>
