@@ -30,6 +30,27 @@ const LINKS = [
   },
 ];
 
+const CONTACTS = [
+  {
+    name: "Md. Shamsul Arefin",
+    email: "bsse1732@iit.du.ac.bd",
+    phone: "01568169498",
+    facebook: "https://www.facebook.com/arefin.adeeb",
+  },
+  {
+    name: "Abdul Zoher Imon",
+    email: "bsse1743@iit.du.ac.bd",
+    phone: "01707984667",
+    facebook: "https://www.facebook.com/abdul.zoher.imon",
+  },
+  {
+    name: "Al Araf Apon",
+    email: "bsse1742@iit.du.ac.bd",
+    phone: "01603464470",
+    facebook: "https://www.facebook.com/al.araf.apon.2025",
+  },
+];
+
 const FAQ = [
   {
     q: "when is iit indoors 2026?",
@@ -87,7 +108,7 @@ export default function ContactSection() {
       </div>
 
       {/* contact links */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+      {/* <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
         {LINKS.map((link, i) => (
           <a
             key={link.id}
@@ -125,6 +146,77 @@ export default function ContactSection() {
             </span>
           </a>
         ))}
+      </div> */}
+
+      <div className="w-full space-y-3 md:space-y-4">
+        <h2 className="text-center text-lg md:text-xl tracking-[0.35em] uppercase" style={{ color: "var(--mint-soft)", opacity: 0.75 }}>
+          contact persons
+        </h2>
+        <div className="grid grid-cols-1 gap-3 md:gap-4">
+          {CONTACTS.map((person, index) => (
+            <div
+              key={person.email}
+              className="group flex flex-col gap-3 p-4 md:p-5 rounded-lg border transition-all duration-300"
+              style={{
+                background: "rgba(22, 219, 171, 0.04)",
+                borderColor: "rgba(22, 219, 171, 0.2)",
+                animationDelay: `${index * 80}ms`,
+              }}
+            >
+              <div className="space-y-1">
+                <p className="text-sm md:text-base tracking-widest uppercase" style={{ color: "var(--mint-soft)", opacity: 0.6 }}>
+                  name
+                </p>
+                <p className="text-lg md:text-xl font-bold tracking-wide" style={{ color: "var(--foreground)" }}>
+                  {person.name}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a
+                  href={`mailto:${person.email}`}
+                  className="rounded-md border px-3 py-2 transition-colors duration-300 hover:border-[rgba(102,245,207,0.6)]"
+                  style={{ borderColor: "rgba(22, 219, 171, 0.2)" }}
+                >
+                  <span className="block text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--mint-soft)", opacity: 0.6 }}>
+                    email
+                  </span>
+                  <span className="block text-sm md:text-base break-all" style={{ color: "var(--foreground)" }}>
+                    {person.email}
+                  </span>
+                </a>
+
+                <a
+                  href={`tel:${person.phone}`}
+                  className="rounded-md border px-3 py-2 transition-colors duration-300 hover:border-[rgba(102,245,207,0.6)]"
+                  style={{ borderColor: "rgba(22, 219, 171, 0.2)" }}
+                >
+                  <span className="block text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--mint-soft)", opacity: 0.6 }}>
+                    contact no
+                  </span>
+                  <span className="block text-sm md:text-base" style={{ color: "var(--foreground)" }}>
+                    {person.phone}
+                  </span>
+                </a>
+              </div>
+
+              <a
+                href={person.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border px-3 py-2 transition-colors duration-300 hover:border-[rgba(102,245,207,0.6)]"
+                style={{ borderColor: "rgba(22, 219, 171, 0.2)" }}
+              >
+                <span className="block text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--mint-soft)", opacity: 0.6 }}>
+                  fb id link
+                </span>
+                <span className="block text-sm md:text-base break-all" style={{ color: "var(--foreground)" }}>
+                  {person.facebook}
+                </span>
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* FAQ hidden to save space */}

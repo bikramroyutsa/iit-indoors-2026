@@ -3,178 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
-
-interface Game {
-  id: number;
-  name: string;
-  image: string;
-  date: string;
-  time: string;
-  venue: string;
-  notes: string;
-}
-
-const GAMES: Game[] = [
-  { 
-    id: 1, 
-    name: "valorant", 
-    image: "/game-assets/Valorant.png", 
-    date: "TBA", 
-    time: "TBA", 
-    venue: "Online", 
-    notes: "Standard 5v5 competitive settings (13 rounds). Teams drafted via player auction." 
-  },
-  { 
-    id: 2, 
-    name: "chess", 
-    image: "/game-assets/Chess.png", 
-    date: "may 08", 
-    time: "3:00 pm", 
-    venue: "IIT", 
-    notes: "5min + 5s Blitz format using the Swiss System." 
-  },
-  { 
-    id: 4, 
-    name: "scrabble", 
-    image: "/game-assets/Scrabble.png", 
-    date: "may 08", 
-    time: "5:00 pm", 
-    venue: "IIT", 
-    notes: "Competitive spelling for high stakes. Form the highest-scoring words possible." 
-  },
-  { 
-    id: 5, 
-    name: "ludo", 
-    image: "/game-assets/Ludo.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "No need to say about this game, just come to IIT and have fun." 
-  },
-  { 
-    id: 6, 
-    name: "uno", 
-    image: "/game-assets/UNO.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "Absolute chaos with 'Draw 10' stacks enabled." 
-  },
-  { 
-    id: 7, 
-    name: "dart", 
-    image: "/game-assets/Dart.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "The art of throwing sharp metal sticks at a wall." 
-  },
-  { 
-    id: 8, 
-    name: "rubiks cube", 
-    image: "/game-assets/Rubiks-Cube.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "Aggressive finger aerobics; speed-solving challenge." 
-  },
-  { 
-    id: 9, 
-    name: "cricket", 
-    image: "/game-assets/Short-Pitch Cricket.png", 
-    date: "may 09", 
-    time: "9:00 am", 
-    venue: "TBA", 
-    notes: "Group stages leading into knockouts. Squads of 7." 
-  },
-  { 
-    id: 10, 
-    name: "musical chairs", 
-    image: "/game-assets/Musical-Chairs.png", 
-    date: "may 09", 
-    time: "4:00 pm", 
-    venue: "IIT", 
-    notes: "A cutthroat elimination sprint. High-stakes adult duck-duck-goose." 
-  },
-  { 
-    id: 11, 
-    name: "typing speed", 
-    image: "/game-assets/Typing-Speed-Contest.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "A digital drag race. Prove your WPM is higher than your friends'." 
-  },
-  { 
-    id: 12, 
-    name: "pucket", 
-    image: "/game-assets/Pucket.png", 
-    date: "may 09", 
-    time: "2:00 pm", 
-    venue: "IIT", 
-    notes: "1v1 rapid-fire dexterity. Clear your side to move to the next bracket." 
-  },
-  { 
-    id: 13, 
-    name: "dumb charades", 
-    image: "/game-assets/Dumb-Charedes.png", 
-    date: "may 09", 
-    time: "5:00 pm", 
-    venue: "IIT", 
-    notes: "A team-based test of silence and frantic gesturing." 
-  },
-  { 
-    id: 14, 
-    name: "cards", 
-    image: "/game-assets/Cards-29.png", 
-    date: "may 09", 
-    time: "9:00 am", 
-    venue: "IIT", 
-    notes: "Strategic trick-taking battle in 29 format. Team up with a partner." 
-  },
-  { 
-    id: 15, 
-    name: "wire loop", 
-    image: "/game-assets/Wire-Loop.png", 
-    date: "may 08-09", 
-    time: "all day", 
-    venue: "IIT", 
-    notes: "Don't touch the wire. A test of steady hands and nerves of steel." 
-  },
-  { 
-    id: 16, 
-    name: "carrom", 
-    image: "/game-assets/Carrom.png", 
-    date: "may 09", 
-    time: "9:00 pm", 
-    venue: "IIT", 
-    notes: "Classic 2v2 striker action featuring an intense group stage." 
-  },
-];
-
-const SCHEDULE_DATA = [
-  {
-    dayLabel: "day 01",
-    date: "may 08, 2026",
-    events: [
-      { time: "03:00 pm", event: "chess blitz", venue: "IIT" },
-      { time: "05:00 pm", event: "scrabble competition", venue: "IIT" },
-      { time: "all day", event: "ludo, uno, darts, rubiks, typing, wire loop, carrom", venue: "IIT" },
-    ]
-  },
-  {
-    dayLabel: "day 02",
-    date: "may 09, 2026",
-    events: [
-      { time: "09:00 am", event: "cards 29", venue: "IIT" },
-      { time: "09:00 am", event: "cricket match", venue: "TBA" },
-      { time: "02:00 pm", event: "pucket tournament", venue: "IIT" },
-      { time: "04:00 pm", event: "musical chairs", venue: "IIT" },
-      { time: "05:00 pm", event: "dumb charades", venue: "IIT" },
-    ]
-  }
-];
-
+import { Game, GAMES } from "@/utils/gameInfo";
+import { SCHEDULE_DATA } from "@/utils/scheduleInfo"
 
 
 export default function ScheduleCarousel() {
@@ -299,11 +129,10 @@ export default function ScheduleCarousel() {
             <button
               key={idx}
               onClick={() => setActiveDayIdx(idx)}
-              className={`px-6 py-2 border-2 border-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest transition-all duration-100 whitespace-nowrap flex-shrink-0 ${
-                activeDayIdx === idx 
-                ? "bg-black text-white shadow-none translate-x-1 translate-y-1" 
-                : "bg-[#f4f1ea] text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] hover:bg-white active:scale-95 active:rotate-1 active:bg-[#16dbab]"
-              }`}
+              className={`px-6 py-2 border-2 border-black text-[14px] md:text-[16px] font-bold uppercase tracking-widest transition-all duration-100 whitespace-nowrap flex-shrink-0 ${activeDayIdx === idx
+                  ? "bg-black text-white shadow-none translate-x-1 translate-y-1"
+                  : "bg-[#f4f1ea] text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.8)] hover:bg-white active:scale-95 active:rotate-1 active:bg-[#16dbab]"
+                }`}
             >
               {day.dayLabel}
             </button>
