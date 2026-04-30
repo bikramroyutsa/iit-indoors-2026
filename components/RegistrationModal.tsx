@@ -6,6 +6,8 @@ import { useSound } from "../hooks/useSound";
 import { GAMES } from "@/utils/gameInfo";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/utils/firebase";
+import { z } from "zod";
+import { registrationSchema } from "@/utils/validation";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -26,6 +28,7 @@ interface FormDataType {
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
   const { playSuccessChime } = useSound();
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     batch: "1",
@@ -49,8 +52,24 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
-    if (step === 1) {
-      setStep(2);
+    setErrorMessage(null);
+    try {
+      // Validate step 1 fields
+      registrationSchema.pick({
+        name: true,
+        batch: true,
+        bsse_roll: true,
+        mail: true,
+        phone: true,
+      }).parse(formData);
+
+      if (step === 1) {
+        setStep(2);
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrorMessage(error.issues.map((issue) => issue.message).join("\n"));
+      }
     }
   };
 
@@ -89,7 +108,20 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const handleGameDetailsNext = (e: React.FormEvent) => {
     e.preventDefault();
-    setStep(3);
+    setErrorMessage(null);
+    try {
+      // Validate step 2 fields
+      registrationSchema.pick({
+        selectedGames: true,
+        teammates: true,
+      }).parse(formData);
+
+      setStep(3);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrorMessage(error.issues.map((issue) => issue.message).join("\n"));
+      }
+    }
   };
 
   const selectedGames = GAMES.filter((g) => formData.selectedGames.includes(g.id));
@@ -99,7 +131,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     try {
+      // Validate all fields before final submission
+      const validatedData = registrationSchema.parse(formData);
+
       // Map game IDs to names
       const selectedGameNames = formData.selectedGames.map(
         id => GAMES.find(g => g.id === id)?.name || String(id)
@@ -119,7 +155,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       }, 0);
 
       const submissionData = {
-        ...formData,
+        ...validatedData,
         selectedGames: selectedGameNames,
         teammates: teammatesByName,
         total_payment: totalPayment,
@@ -147,8 +183,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
         });
       }, 2500);
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrorMessage(error.issues.map((issue) => issue.message).join("\n"));
+        return;
+      }
       console.error("Error saving registration: ", error);
-      alert("Error saving registration. Please try again.");
+      setErrorMessage("Error saving registration. Please try again.");
     }
   };
 
@@ -233,7 +273,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     className="pixel-input"
                     value={formData.mail}
                     onChange={(e) => setFormData({ ...formData, mail: e.target.value })}
-                    placeholder="your.email@iit.com"
+                    placeholder="mail@example.com"
                   />
                 </div>
 
@@ -253,6 +293,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <button type="submit" className="pixel-button mt-6 w-full">
                   next
                 </button>
+
+                {errorMessage && (
+                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                    {errorMessage}
+                  </div>
+                )}
                 </form>
               </>
             ) : step === 2 ? (
@@ -349,6 +395,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     next
                   </button>
                 </div>
+
+                {errorMessage && (
+                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                    {errorMessage}
+                  </div>
+                )}
                 </form>
               </>
             ) : (
@@ -410,6 +462,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     submit
                   </button>
                 </div>
+
+                {errorMessage && (
+                  <div className="rounded-lg border-2 border-red-400/70 bg-red-500/10 p-4 text-sm text-red-200 whitespace-pre-line font-pixelify">
+                    {errorMessage}
+                  </div>
+                )}
                 </form>
               </>
             )}
