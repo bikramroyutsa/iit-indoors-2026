@@ -294,7 +294,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                       className="pixel-input"
                       value={formData.bsse_roll}
                       onChange={(e) => setFormData({ ...formData, bsse_roll: e.target.value })}
-                      placeholder="e.g., 12345"
+                      placeholder="e.g., 1702"
                     />
                   </div>
 
