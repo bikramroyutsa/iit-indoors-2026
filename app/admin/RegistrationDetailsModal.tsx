@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from "@/utils/firebase";
 import { doc, updateDoc, collection, addDoc, deleteDoc } from "firebase/firestore";
 
@@ -10,6 +10,16 @@ interface RegistrationDetailsModalProps {
 
 export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, setRegistrations }: RegistrationDetailsModalProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedReg && !updatingStatus) {
+        setSelectedReg(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedReg, updatingStatus, setSelectedReg]);
 
   if (!selectedReg) return null;
 
@@ -75,7 +85,10 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-sm">
       <div className="bg-deep-teal border-4 sm:border-8 border-black shadow-[0_0_0_4px_var(--mint),_8px_8px_0px_#000] sm:shadow-[0_0_0_4px_var(--mint),_12px_12px_0px_#000] p-4 sm:p-6 max-w-2xl w-full max-h-[95vh] overflow-y-auto custom-scrollbar relative">
-        <button onClick={() => setSelectedReg(null)} disabled={!!updatingStatus} className="absolute top-4 right-4 text-mint hover:text-white text-2xl disabled:opacity-50 disabled:cursor-not-allowed">×</button>
+        <button onClick={() => setSelectedReg(null)} disabled={!!updatingStatus} className="absolute top-4 right-4 text-mint hover:text-white flex flex-col items-center disabled:opacity-50 disabled:cursor-not-allowed">
+          <span className="text-2xl leading-none">×</span>
+          <span className="text-[10px] font-pixelify leading-none mt-1 font-normal">esc</span>
+        </button>
         <h2 className="text-xl sm:text-2xl font-bold text-mint tracking-widest uppercase mb-6 border-b-2 border-mint-soft pb-2">registration details</h2>
         <div className="space-y-4 font-pixelify text-foreground">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

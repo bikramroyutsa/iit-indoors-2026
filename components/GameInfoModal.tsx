@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Portal from "./Portal";
 
 interface Game {
@@ -24,6 +25,16 @@ interface GameInfoModalProps {
 }
 
 export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen || !game) return null;
 
   return (
@@ -32,10 +43,11 @@ export default function GameInfoModal({ isOpen, onClose, game }: GameInfoModalPr
         <div className="pixel-modal-content max-w-2xl w-full max-h-[85vh] animate-modal-slide-up bg-[#001a17] overflow-y-auto custom-scrollbar relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-mint-soft hover:text-mint text-2xl transition-colors font-bold z-50"
+            className="absolute top-4 right-4 text-mint-soft hover:text-mint flex flex-col items-center transition-colors font-bold z-50"
             aria-label="Close modal"
           >
-            [ x ]
+            <span className="text-2xl leading-none">[ x ]</span>
+            <span className="text-[10px] font-pixelify leading-none mt-1 font-normal">esc</span>
           </button>
 
           <div className="w-full flex justify-center overflow-hidden mb-4">

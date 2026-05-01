@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import CreditsContent from "./CreditsContent";
 import Portal from "./Portal";
 
@@ -10,6 +11,16 @@ interface CreditsModalProps {
 }
 
 export default function CreditsModal({ isOpen, onClose, team }: CreditsModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -18,10 +29,11 @@ export default function CreditsModal({ isOpen, onClose, team }: CreditsModalProp
       <div className="pixel-modal-content max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-modal-slide-up custom-scrollbar">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-mint-soft hover:text-mint text-3xl transition-colors z-10"
+          className="absolute top-4 right-4 text-mint-soft hover:text-mint flex flex-col items-center transition-colors z-10"
           aria-label="Close modal"
         >
-          ×
+          <span className="text-3xl leading-none">×</span>
+          <span className="text-[10px] font-pixelify leading-none mt-1 font-normal">esc</span>
         </button>
 
         <div className="space-y-6">

@@ -59,6 +59,17 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     }
   }, [isSubmitted, playSuccessChime]);
 
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen && !isSubmitting) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, isSubmitting, onClose]);
+
   if (!isOpen) return null;
 
   const handleNextStep = (e: React.FormEvent) => {
@@ -218,10 +229,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           <button
             onClick={onClose}
             disabled={isSubmitting}
-            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint text-2xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint flex flex-col items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Close modal"
           >
-            ×
+            <span className="text-2xl leading-none">×</span>
+            <span className="text-[10px] font-pixelify leading-none mt-1">esc</span>
           </button>
 
           {isSubmitting && (
