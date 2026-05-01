@@ -28,7 +28,7 @@ const GAMES: Game[] = [
       "Process: Registered players will be added to a dedicated Discord server for auction and scheduling.",
       "The tournament structure (knockout or group stage) determined by final number of teams."
     ],
-    fee: 200,
+    fee: 150,
     type: "multiplayer",
     members: 1,
     reg_req: true
@@ -46,7 +46,7 @@ const GAMES: Game[] = [
       "Structure: Standard Swiss System.",
       "Regulations: FIDE Blitz rules apply."
     ],
-    fee: 250,
+    fee: 150,
     type: "single",
     members: null,
     reg_req: true
@@ -63,7 +63,7 @@ const GAMES: Game[] = [
       "Standard Scrabble rules apply.",
       "Highest total score at the end of the round wins."
     ],
-    fee: 30,
+    fee: 50,
     type: "single",
     members: null,
     reg_req: true
@@ -241,7 +241,7 @@ const GAMES: Game[] = [
       "Standard 29-card game rules apply (bidding and trick-taking).",
       "Tournament structure announced at the start of the session."
     ],
-    fee: 300,
+    fee: 200,
     type: "multiplayer",
     members: 2,
     reg_req: true
@@ -277,7 +277,7 @@ const GAMES: Game[] = [
       "Standard 23-point matches.",
       "Format includes group stages followed by knockouts."
     ],
-    fee: 300,
+    fee: 250,
     type: "multiplayer",
     members: 2,
     reg_req: true
