@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1500" viewBox="0 0 100 150" shape-rendering="crispEdges">
+  <defs>
+    <!-- Paper Texture Pattern (Dots) -->
+    <pattern id="paper-texture" width="2" height="2" patternUnits="userSpaceOnUse">
+      <circle cx="0.5" cy="0.5" r="0.2" fill="#000000" opacity="0.02" />
+    </pattern>
+    
+    <!-- Paper Lines Pattern -->
+    <pattern id="paper-lines" width="100%" height="1.5" patternUnits="userSpaceOnUse">
+      <rect width="100%" height="0.5" fill="#000000" opacity="0.03" />
+    </pattern>
+  </defs>
+
+  <!-- Background Shadow (Crisp Offset) -->
+  <rect x="3" y="3" width="94" height="144" fill="black" opacity="0.8" />
+  
+  <!-- Main Paper Surface -->
+  <rect x="1" y="1" width="94" height="144" fill="#f4f1ea" stroke="black" stroke-width="0.5" />
+  
+  <!-- Texture Overlays -->
+  <rect x="1" y="1" width="94" height="144" fill="url(#paper-texture)" pointer-events="none" />
+  <rect x="1" y="1" width="94" height="144" fill="url(#paper-lines)" pointer-events="none" />
+
+  <!-- Subtle Paper Edge Accents -->
+  <rect x="1" y="1" width="94" height="0.5" fill="white" opacity="0.1" />
+  <rect x="1" y="1" width="0.5" height="144" fill="white" opacity="0.1" />
+</svg>

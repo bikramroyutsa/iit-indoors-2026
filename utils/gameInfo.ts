@@ -18,8 +18,8 @@ const GAMES: Game[] = [
     id: 1,
     name: "valorant",
     image: "/game-assets/Valorant.png",
-    date: "TBA",
-    time: "TBA",
+    date: "tba",
+    time: "tba",
     venue: "Online",
     notes: "Standard 5v5 competitive settings (13 rounds). Individual sign-ups only; teams will be drafted via a high-stakes player auction.",
     rules: [
@@ -28,7 +28,7 @@ const GAMES: Game[] = [
       "Process: Registered players will be added to a dedicated Discord server for auction and scheduling.",
       "The tournament structure (knockout or group stage) determined by final number of teams."
     ],
-    fee: 200,
+    fee: 150,
     type: "multiplayer",
     members: 1,
     reg_req: true
@@ -38,7 +38,7 @@ const GAMES: Game[] = [
     name: "chess",
     image: "/game-assets/Chess.png",
     date: "may 08",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "5min + 5s Blitz format using the Swiss System. Expect a high-speed mental gauntlet where every second counts.",
     rules: [
@@ -46,7 +46,7 @@ const GAMES: Game[] = [
       "Structure: Standard Swiss System.",
       "Regulations: FIDE Blitz rules apply."
     ],
-    fee: 250,
+    fee: 200,
     type: "single",
     members: null,
     reg_req: true
@@ -56,14 +56,14 @@ const GAMES: Game[] = [
     name: "scrabble",
     image: "/game-assets/Scrabble.png",
     date: "may 08",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "Competitive spelling for high stakes at IIT. Form the highest-scoring words possible and prepare to defend your \"made-up\" vocabulary against skeptical opponents.",
     rules: [
       "Standard Scrabble rules apply.",
       "Highest total score at the end of the round wins."
     ],
-    fee: 30,
+    fee: 50,
     type: "single",
     members: null,
     reg_req: true
@@ -132,7 +132,7 @@ const GAMES: Game[] = [
       "Additional attempts granted through on-site re-registration.",
       "Only the fastest solve time will be recorded for final rankings."
     ],
-    fee: 30,
+    fee: 50,
     type: "single",
     members: null,
     reg_req: true
@@ -142,8 +142,8 @@ const GAMES: Game[] = [
     name: "cricket",
     image: "/game-assets/Short-Pitch Cricket.png",
     date: "may 09",
-    time: "TBA",
-    venue: "TBA",
+    time: "tba",
+    venue: "tba",
     notes: "Group stages leading into knockouts. Form your squad of 7 and prepare for a full day at IIT. Short-pitch format with 6 overs per side. Expect high-scoring matches and plenty of boundary action.",
     rules: [
       "Matches follow a Short Pitch format.",
@@ -153,7 +153,7 @@ const GAMES: Game[] = [
     ],
     fee: 1500,
     type: "multiplayer",
-    members: 7,
+    members: 8,
     reg_req: true
   },
   {
@@ -161,7 +161,7 @@ const GAMES: Game[] = [
     name: "musical chairs",
     image: "/game-assets/Musical-Chairs.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "A cutthroat elimination sprint happening at IIT. It's essentially high-stakes adult duck-duck-goose where the music stops and friendships end.",
     rules: [
@@ -169,7 +169,7 @@ const GAMES: Game[] = [
       "Standard elimination rules: when the music stops, participants must find a seat.",
       "One chair removed after each round until a single winner remains."
     ],
-    fee: 50,
+    fee: 0,
     type: "single",
     members: null,
     reg_req: true
@@ -197,7 +197,7 @@ const GAMES: Game[] = [
     name: "pucket",
     image: "/game-assets/Pucket.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "1v1 rapid-fire dexterity. First person to clear their side of the board moves to the next bracket.",
     rules: [
@@ -214,7 +214,7 @@ const GAMES: Game[] = [
     name: "dumb charades",
     image: "/game-assets/Dumb-Charedes.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "A team-based test of silence and frantic gesturing at IIT. It’s essentially competitive professional mime-work where you’ll watch your teammates guess every possible word in the dictionary except the right one.",
     rules: [
@@ -233,7 +233,7 @@ const GAMES: Game[] = [
     name: "cards",
     image: "/game-assets/Cards-29.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "A strategic trick-taking battle starting Saturday morning at IIT. Team up with a partner and pray your communication is better than your bidding strategy.",
     rules: [
@@ -241,7 +241,7 @@ const GAMES: Game[] = [
       "Standard 29-card game rules apply (bidding and trick-taking).",
       "Tournament structure announced at the start of the session."
     ],
-    fee: 300,
+    fee: 200,
     type: "multiplayer",
     members: 2,
     reg_req: true
@@ -269,7 +269,7 @@ const GAMES: Game[] = [
     name: "carrom",
     image: "/game-assets/Carrom.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "Classic 2v2 striker action featuring a intense group stage at IIT. Expect a test of geometry and patience as you try to sink the Queen without scratching like a total rookie.",
     rules: [
@@ -277,7 +277,7 @@ const GAMES: Game[] = [
       "Standard 23-point matches.",
       "Format includes group stages followed by knockouts."
     ],
-    fee: 300,
+    fee: 200,
     type: "multiplayer",
     members: 2,
     reg_req: true
@@ -287,7 +287,7 @@ const GAMES: Game[] = [
     name: "table tennis",
     image: "/game-assets/Table-Tennis.png",
     date: "may 09",
-    time: "TBA",
+    time: "tba",
     venue: "IIT",
     notes: "Table Tennis: where lightning-fast reflexes meet the ultimate game of high-speed geometry.",
     rules: [
@@ -305,8 +305,8 @@ const GAMES: Game[] = [
     id: 17,
     name: "clash royale",
     image: "/game-assets/Clash-Royale.png",
-    date: "TBA",
-    time: "TBA",
+    date: "tba",
+    time: "tba",
     venue: "Online",
     notes: "Three minutes of tactical chaos where one perfectly timed log can turn a tower into a memory.",
     rules: [
@@ -324,8 +324,8 @@ const GAMES: Game[] = [
     id: 18,
     name: "efootball (pes)",
     image: "/game-assets/pes.png",
-    date: "TBA",
-    time: "TBA",
+    date: "tba",
+    time: "tba",
     venue: "Online",
     notes: "The beautiful game refined into a battle of clinical precision, where every tactical adjustment paves the way to glory.",
     rules: [
@@ -341,8 +341,8 @@ const GAMES: Game[] = [
     id: 19,
     name: "clash of clans",
     image: "/game-assets/Clash-of-Clans.png",
-    date: "TBA",
-    time: "TBA",
+    date: "tba",
+    time: "tba",
     venue: "Online",
     notes: "The only place where you’ll spend two weeks waiting for a building to finish just to watch a group of wall-breakers ruin your life in thirty seconds.",
     rules: [
