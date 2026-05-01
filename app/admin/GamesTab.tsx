@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { db } from "@/utils/firebase";
 import { collection, query, getDocs } from "firebase/firestore";
-import { GAMES } from "@/utils/gameInfo";
+import { useGames } from "@/utils/gameInfo";
 
 export default function GamesTab() {
+  const { games: GAMES } = useGames();
   const [selectedGameTab, setSelectedGameTab] = useState<string | null>(null);
   const [gameParticipants, setGameParticipants] = useState<any[]>([]);
   const [loadingParticipants, setLoadingParticipants] = useState(false);

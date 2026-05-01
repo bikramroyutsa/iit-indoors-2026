@@ -3,11 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
-import { Game, GAMES } from "@/utils/gameInfo";
+import { Game, useGames } from "@/utils/gameInfo";
 import { SCHEDULE_DATA } from "@/utils/scheduleInfo"
 
 
 export default function ScheduleCarousel() {
+  const { games: GAMES } = useGames();
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
