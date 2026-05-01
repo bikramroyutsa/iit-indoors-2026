@@ -28,7 +28,7 @@ const GAMES: Game[] = [
       "Process: Registered players will be added to a dedicated Discord server for auction and scheduling.",
       "The tournament structure (knockout or group stage) determined by final number of teams."
     ],
-    fee: 150,
+    fee: 100,
     type: "multiplayer",
     members: 1,
     reg_req: true
@@ -46,7 +46,7 @@ const GAMES: Game[] = [
       "Structure: Standard Swiss System.",
       "Regulations: FIDE Blitz rules apply."
     ],
-    fee: 200,
+    fee: 150,
     type: "single",
     members: null,
     reg_req: true
@@ -296,7 +296,7 @@ const GAMES: Game[] = [
       "Tournament begins with group stages leading into knockout rounds.",
       "The organizers reserve the right to modify the tournament structure based on the number of registered teams.",
     ],
-    fee: 500,
+    fee: 400,
     type: "multiplayer",
     members: 2,
     reg_req: true
