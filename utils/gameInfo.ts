@@ -153,7 +153,7 @@ const GAMES: Game[] = [
     ],
     fee: 1500,
     type: "multiplayer",
-    members: 7,
+    members: 8,
     reg_req: true
   },
   {
