@@ -285,15 +285,15 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="bsse_roll" className="pixel-label">bsse roll number</label>
+                  <label htmlFor="bsse_roll" className="pixel-label">bsse/msse roll number</label>
                   <input
                     id="bsse_roll"
-                    type="number"
+                    type="text"
                     required
                     className="pixel-input"
                     value={formData.bsse_roll}
                     onChange={(e) => setFormData({ ...formData, bsse_roll: e.target.value })}
-                    placeholder="e.g., 1702"
+                    placeholder="e.g., bsse 1702"
                   />
                 </div>
 
