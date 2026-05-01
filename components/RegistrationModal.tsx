@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Portal from "./Portal";
 import { useSound } from "../hooks/useSound";
-import { GAMES } from "@/utils/gameInfo";
+import { useGames } from "@/utils/gameInfo";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { z } from "zod";
@@ -31,6 +31,7 @@ interface FormDataType {
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
+  const { games: GAMES } = useGames();
   const { playSuccessChime } = useSound();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

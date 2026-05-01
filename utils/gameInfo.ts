@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+import { db } from "./firebase";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+
 interface Game {
   id: number;
   name: string;
@@ -358,5 +362,31 @@ const GAMES: Game[] = [
   },
 ];
 
-export { GAMES };
+const useGames = () => {
+  const [games, setGames] = useState<Game[]>(GAMES);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const q = query(collection(db, "game_configs"), orderBy("id", "asc"));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const fetchedGames = snapshot.docs.map(doc => doc.data() as Game);
+          setGames(fetchedGames);
+        }
+      } catch (error) {
+        console.error("Error fetching games from Firestore:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGames();
+  }, []);
+
+  return { games, loading };
+};
+
+export { GAMES, useGames };
 export type { Game };
