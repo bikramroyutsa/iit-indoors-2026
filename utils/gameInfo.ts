@@ -169,7 +169,7 @@ const GAMES: Game[] = [
       "Standard elimination rules: when the music stops, participants must find a seat.",
       "One chair removed after each round until a single winner remains."
     ],
-    fee: 50,
+    fee: 0,
     type: "single",
     members: null,
     reg_req: true
