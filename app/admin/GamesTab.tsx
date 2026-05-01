@@ -2,12 +2,14 @@ import { useState } from "react";
 import { db } from "@/utils/firebase";
 import { collection, query, getDocs } from "firebase/firestore";
 import { useGames } from "@/utils/gameInfo";
+import RegistrationDetailsModal from "./RegistrationDetailsModal";
 
 export default function GamesTab() {
   const { games: GAMES } = useGames();
   const [selectedGameTab, setSelectedGameTab] = useState<string | null>(null);
   const [gameParticipants, setGameParticipants] = useState<any[]>([]);
   const [loadingParticipants, setLoadingParticipants] = useState(false);
+  const [selectedParticipant, setSelectedParticipant] = useState<any | null>(null);
 
   const fetchGameParticipants = async (gameName: string) => {
     setSelectedGameTab(gameName);
@@ -25,7 +27,7 @@ export default function GamesTab() {
   };
 
   const isCoc = selectedGameTab?.toLowerCase() === "clash of clans";
-  const isPes = selectedGameTab?.toLowerCase() === "pes";
+  const isPes = selectedGameTab?.toLowerCase() === "pes" || selectedGameTab?.toLowerCase() === "efootball (pes)" || selectedGameTab?.toLowerCase() === "efootball (pes) multiplayer";
 
   const handleDownloadCSV = () => {
     if (!selectedGameTab || gameParticipants.length === 0) return;
@@ -47,7 +49,11 @@ export default function GamesTab() {
       ];
       if (isCoc) { row.push(`"${p.cocPlayerId || ""}"`, `"${p.cocTownHall || ""}"`); }
       if (isPes) { row.push(`"${p.pesPlayerId || ""}"`, `"${p.pesOvr || ""}"`); }
-      row.push(`"${p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : ""}"`);
+      if (p.pesMultiplayerTeammateName) {
+        row.push(`"Name: ${p.pesMultiplayerTeammateName} | ID: ${p.pesMultiplayerTeammatePlayerId} | OVR: ${p.pesMultiplayerTeammateOvr}"`);
+      } else {
+        row.push(`"${p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : ""}"`);
+      }
       return row;
     });
     const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
@@ -139,7 +145,11 @@ export default function GamesTab() {
                     </tr>
                   ) : (
                     gameParticipants.map((p, i) => (
-                      <tr key={p.id} className={i % 2 === 0 ? "bg-background" : "bg-deep-teal/50"}>
+                      <tr 
+                        key={p.id} 
+                        className={`${i % 2 === 0 ? "bg-background" : "bg-deep-teal/50"} cursor-pointer hover:bg-mint/20 transition-colors`}
+                        onClick={() => setSelectedParticipant(p)}
+                      >
                         <td className="p-3 border-2 border-black whitespace-nowrap">{p.name}</td>
                         <td className="p-3 border-2 border-black">{p.batch}</td>
                         <td className="p-3 border-2 border-black">{p.bsse_roll}</td>
@@ -161,7 +171,13 @@ export default function GamesTab() {
                           </>
                         )}
                         <td className="p-3 border-2 border-black">
-                          {p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : "—"}
+                          {p.pesMultiplayerTeammateName ? (
+                            <div className="text-xs">
+                              <span className="text-mint-soft">Name:</span> {p.pesMultiplayerTeammateName}<br/>
+                              <span className="text-mint-soft">ID:</span> {p.pesMultiplayerTeammatePlayerId}<br/>
+                              <span className="text-mint-soft">OVR:</span> {p.pesMultiplayerTeammateOvr}
+                            </div>
+                          ) : p.teammates && p.teammates.length > 0 ? p.teammates.join(", ") : "—"}
                         </td>
                       </tr>
                     ))
@@ -171,6 +187,14 @@ export default function GamesTab() {
             </div>
           )}
         </>
+      )}
+
+      {selectedParticipant && (
+        <RegistrationDetailsModal
+          selectedReg={selectedParticipant}
+          setSelectedReg={setSelectedParticipant}
+          readOnly={true}
+        />
       )}
     </div>
   );

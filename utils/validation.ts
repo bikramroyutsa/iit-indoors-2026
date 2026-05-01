@@ -14,6 +14,9 @@ export const registrationSchema = z.object({
   cocTownHall: z.string().optional(),
   pesOvr: z.string().optional(),
   pesPlayerId: z.string().optional(),
+  pesMultiplayerTeammateName: z.string().optional(),
+  pesMultiplayerTeammateOvr: z.string().optional(),
+  pesMultiplayerTeammatePlayerId: z.string().optional(),
 });
 
 export type RegistrationData = z.infer<typeof registrationSchema>;

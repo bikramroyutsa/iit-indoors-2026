@@ -28,6 +28,9 @@ interface FormDataType {
   cocTownHall: string;
   pesOvr: string;
   pesPlayerId: string;
+  pesMultiplayerTeammateName: string;
+  pesMultiplayerTeammateOvr: string;
+  pesMultiplayerTeammatePlayerId: string;
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
@@ -49,6 +52,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     cocTownHall: "",
     pesOvr: "",
     pesPlayerId: "",
+    pesMultiplayerTeammateName: "",
+    pesMultiplayerTeammateOvr: "",
+    pesMultiplayerTeammatePlayerId: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -149,7 +155,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const selectedGames = GAMES.filter((g) => formData.selectedGames.includes(g.id));
   const selectedMultiplayerGames = GAMES.filter(
-    (g) => g.type === "multiplayer" && formData.selectedGames.includes(g.id)
+    (g) => g.type === "multiplayer" && formData.selectedGames.includes(g.id) && g.id !== 20
   );
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
@@ -210,6 +216,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           cocTownHall: "",
           pesOvr: "",
           pesPlayerId: "",
+          pesMultiplayerTeammateName: "",
+          pesMultiplayerTeammateOvr: "",
+          pesMultiplayerTeammatePlayerId: "",
         });
       }, 2500);
     } catch (error) {
@@ -428,7 +437,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 )}
 
                 {/* Game Specific Details */}
-                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18)) && (
+                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18) || formData.selectedGames.includes(20)) && (
                   <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
                     <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">game details</h3>
                     <div className="space-y-5">
@@ -441,9 +450,21 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                       )}
                       {formData.selectedGames.includes(18) && (
                         <div className="space-y-3">
-                          <h4 className="text-mint font-bold capitalize text-sm">PES</h4>
+                          <h4 className="text-mint font-bold capitalize text-sm">PES (Single Player)</h4>
                           <input type="text" placeholder="Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
                           <input type="text" placeholder="OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
+                        </div>
+                      )}
+                      {formData.selectedGames.includes(20) && (
+                        <div className="space-y-3">
+                          <h4 className="text-mint font-bold capitalize text-sm">eFootball (PES) Multiplayer - Your Info</h4>
+                          <input type="text" placeholder="Your Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
+                          <input type="text" placeholder="Your OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
+                          
+                          <h4 className="text-mint font-bold capitalize text-sm mt-4">Teammate Info</h4>
+                          <input type="text" placeholder="Teammate Name" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammateName} onChange={e => setFormData({ ...formData, pesMultiplayerTeammateName: e.target.value })} />
+                          <input type="text" placeholder="Teammate Player ID" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammatePlayerId} onChange={e => setFormData({ ...formData, pesMultiplayerTeammatePlayerId: e.target.value })} />
+                          <input type="text" placeholder="Teammate OVR" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammateOvr} onChange={e => setFormData({ ...formData, pesMultiplayerTeammateOvr: e.target.value })} />
                         </div>
                       )}
                     </div>

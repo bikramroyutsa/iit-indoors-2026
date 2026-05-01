@@ -5,10 +5,11 @@ import { doc, updateDoc, collection, addDoc, deleteDoc } from "firebase/firestor
 interface RegistrationDetailsModalProps {
   selectedReg: any;
   setSelectedReg: (reg: any | null) => void;
-  setRegistrations: React.Dispatch<React.SetStateAction<any[]>>;
+  setRegistrations?: React.Dispatch<React.SetStateAction<any[]>>;
+  readOnly?: boolean;
 }
 
-export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, setRegistrations }: RegistrationDetailsModalProps) {
+export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, setRegistrations, readOnly = false }: RegistrationDetailsModalProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
 
   useEffect(() => {
@@ -27,7 +28,9 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
     setUpdatingStatus(newStatus);
     try {
       await updateDoc(doc(db, "registrations", id), { status: newStatus });
-      setRegistrations(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
+      if (setRegistrations) {
+        setRegistrations(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
+      }
 
       if (newStatus === "accepted") {
         for (const gameName of (selectedReg.selectedGames || [])) {
@@ -48,9 +51,14 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
             gameData.cocPlayerId = selectedReg.cocPlayerId || "";
             gameData.cocTownHall = selectedReg.cocTownHall || "";
           }
-          if (gameName.toLowerCase() === "pes") {
+          if (gameName.toLowerCase() === "pes" || gameName.toLowerCase() === "efootball (pes)" || gameName.toLowerCase() === "efootball (pes) multiplayer") {
             gameData.pesPlayerId = selectedReg.pesPlayerId || "";
             gameData.pesOvr = selectedReg.pesOvr || "";
+            if (selectedReg.pesMultiplayerTeammateName) {
+              gameData.pesMultiplayerTeammateName = selectedReg.pesMultiplayerTeammateName;
+              gameData.pesMultiplayerTeammatePlayerId = selectedReg.pesMultiplayerTeammatePlayerId || "";
+              gameData.pesMultiplayerTeammateOvr = selectedReg.pesMultiplayerTeammateOvr || "";
+            }
           }
           await addDoc(collection(db, gameName), gameData);
         }
@@ -71,7 +79,9 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
     setUpdatingStatus("deleting");
     try {
       await deleteDoc(doc(db, "registrations", id));
-      setRegistrations(prev => prev.filter(r => r.id !== id));
+      if (setRegistrations) {
+        setRegistrations(prev => prev.filter(r => r.id !== id));
+      }
       setSelectedReg(null);
     } catch (err) {
       console.error("Failed to delete registration", err);
@@ -112,6 +122,14 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
                 <div><span className="text-mint-soft">PES OVR:</span> {selectedReg.pesOvr}</div>
               </>
             )}
+            {selectedReg.pesMultiplayerTeammateName && (
+              <>
+                <div className="col-span-1 sm:col-span-2 border-t border-mint-soft/50 pt-2 mt-2 font-bold text-mint">PES Teammate Info</div>
+                <div><span className="text-mint-soft">Teammate Name:</span> {selectedReg.pesMultiplayerTeammateName}</div>
+                <div><span className="text-mint-soft">Teammate ID:</span> {selectedReg.pesMultiplayerTeammatePlayerId}</div>
+                <div><span className="text-mint-soft">Teammate OVR:</span> {selectedReg.pesMultiplayerTeammateOvr}</div>
+              </>
+            )}
           </div>
           <div className="mt-6">
             <h3 className="text-lg text-mint uppercase border-b border-mint-soft mb-2">Selected Games</h3>
@@ -135,21 +153,23 @@ export default function RegistrationDetailsModal({ selectedReg, setSelectedReg, 
             </div>
           )}
         </div>
-        <div className="flex flex-col md:flex-row gap-4 mt-8 pt-4 border-t-2 border-mint-soft">
-          {selectedReg.status !== "accepted" && (
-            <button onClick={() => handleUpdateStatus(selectedReg.id, "accepted")} disabled={!!updatingStatus} className="pixel-button flex-1 bg-mint text-deep-teal hover:bg-mint-soft disabled:opacity-50 disabled:cursor-not-allowed">
-              {updatingStatus === "accepted" ? "accepting..." : "accept"}
+        {!readOnly && (
+          <div className="flex flex-col md:flex-row gap-4 mt-8 pt-4 border-t-2 border-mint-soft">
+            {selectedReg.status !== "accepted" && (
+              <button onClick={() => handleUpdateStatus(selectedReg.id, "accepted")} disabled={!!updatingStatus} className="pixel-button flex-1 bg-mint text-deep-teal hover:bg-mint-soft disabled:opacity-50 disabled:cursor-not-allowed">
+                {updatingStatus === "accepted" ? "accepting..." : "accept"}
+              </button>
+            )}
+            {selectedReg.status !== "rejected" && (
+              <button onClick={() => handleUpdateStatus(selectedReg.id, "rejected")} disabled={!!updatingStatus} className="pixel-button flex-1 !bg-orange-600 !border-black !text-white hover:!bg-orange-500 disabled:opacity-50 disabled:cursor-not-allowed" style={{ boxShadow: '0 -6px 0 -2px #f97316, 0 6px 0 -2px #f97316, -6px 0 0 -2px #f97316, 6px 0 0 -2px #f97316, 6px 6px 0px #000' }}>
+                {updatingStatus === "rejected" ? "rejecting..." : "reject"}
+              </button>
+            )}
+            <button onClick={() => handleDelete(selectedReg.id)} disabled={!!updatingStatus} className="pixel-button flex-1 !bg-red-500 !border-black !text-white hover:!bg-red-400 disabled:opacity-50 disabled:cursor-not-allowed" style={{ boxShadow: '0 -6px 0 -2px #f87171, 0 6px 0 -2px #f87171, -6px 0 0 -2px #f87171, 6px 0 0 -2px #f87171, 6px 6px 0px #000' }}>
+              {updatingStatus === "deleting" ? "deleting..." : "delete"}
             </button>
-          )}
-          {selectedReg.status !== "rejected" && (
-            <button onClick={() => handleUpdateStatus(selectedReg.id, "rejected")} disabled={!!updatingStatus} className="pixel-button flex-1 !bg-orange-600 !border-black !text-white hover:!bg-orange-500 disabled:opacity-50 disabled:cursor-not-allowed" style={{ boxShadow: '0 -6px 0 -2px #f97316, 0 6px 0 -2px #f97316, -6px 0 0 -2px #f97316, 6px 0 0 -2px #f97316, 6px 6px 0px #000' }}>
-              {updatingStatus === "rejected" ? "rejecting..." : "reject"}
-            </button>
-          )}
-          <button onClick={() => handleDelete(selectedReg.id)} disabled={!!updatingStatus} className="pixel-button flex-1 !bg-red-500 !border-black !text-white hover:!bg-red-400 disabled:opacity-50 disabled:cursor-not-allowed" style={{ boxShadow: '0 -6px 0 -2px #f87171, 0 6px 0 -2px #f87171, -6px 0 0 -2px #f87171, 6px 0 0 -2px #f87171, 6px 6px 0px #000' }}>
-            {updatingStatus === "deleting" ? "deleting..." : "delete"}
-          </button>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
