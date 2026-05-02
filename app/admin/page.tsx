@@ -131,6 +131,45 @@ export default function AdminPage() {
 
   const filteredRegistrations = registrations.filter(r => r.status === activeTab || (!r.status && activeTab === "pending"));
 
+  const handleDownloadAcceptedCSV = () => {
+    if (filteredRegistrations.length === 0) return;
+    const headers = ["Name", "Batch", "Roll", "Email", "Phone", "Amount Paid", "Pay Method", "Transaction ID", "Selected Games", "Teammates"];
+    
+    const rows = filteredRegistrations.map(reg => {
+      const selectedGamesStr = reg.selectedGames?.join("; ") || "";
+      let teammatesStr = "";
+      if (reg.teammates && Object.keys(reg.teammates).length > 0) {
+        teammatesStr = Object.entries(reg.teammates).map(([game, mates]: [string, any]) => {
+          return `${game}: ${Array.isArray(mates) ? mates.filter(m => m).join("; ") : ""}`;
+        }).join(" | ");
+      }
+
+      return [
+        `"${reg.name || ""}"`,
+        `"${reg.batch || ""}"`,
+        `"${reg.bsse_roll || ""}"`,
+        `"${reg.mail || ""}"`,
+        `"${reg.phone || ""}"`,
+        `"${reg.total_payment || 0}"`,
+        `"${reg.paymentMethod || ""}"`,
+        `"${reg.transactionId || ""}"`,
+        `"${selectedGamesStr}"`,
+        `"${teammatesStr}"`
+      ];
+    });
+
+    const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `accepted_registrations.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="h-screen bg-background p-4 md:p-8 pb-20 md:pb-0 relative overflow-hidden text-foreground flex flex-col">
       <div className="absolute inset-0 pixel-pattern opacity-10 pointer-events-none" />
@@ -156,13 +195,24 @@ export default function AdminPage() {
             </div>
 
             {activeTab !== "games" && (
-              <button
-                onClick={fetchRegistrations}
-                disabled={loadingRegistrations}
-                className={`pixel-button !py-2 !px-4 text-[10px] md:text-sm ${loadingRegistrations ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
-              >
-                {loadingRegistrations ? "refreshing..." : "refresh"}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={fetchRegistrations}
+                  disabled={loadingRegistrations}
+                  className={`pixel-button !py-2 !px-4 text-[10px] md:text-sm ${loadingRegistrations ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
+                >
+                  {loadingRegistrations ? "refreshing..." : "refresh"}
+                </button>
+                {activeTab === "accepted" && (
+                  <button
+                    onClick={handleDownloadAcceptedCSV}
+                    disabled={filteredRegistrations.length === 0}
+                    className={`pixel-button !py-2 !px-4 text-[10px] md:text-sm ${filteredRegistrations.length === 0 ? 'opacity-50 cursor-not-allowed' : '!bg-white !text-black shadow-[4px_4px_0px_#000] hover:scale-105'}`}
+                  >
+                    download csv
+                  </button>
+                )}
+              </div>
             )}
           </div>
 
