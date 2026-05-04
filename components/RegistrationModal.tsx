@@ -163,7 +163,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     setErrorMessage(null);
     try {
       // Validate all fields before final submission
-      const validatedData = registrationSchema.parse(formData);
+      const dataToValidate = {
+        ...formData,
+        transactionId: formData.paymentMethod === 'offline' ? 'N/A' : formData.transactionId
+      };
+      const validatedData = registrationSchema.parse(dataToValidate);
       setIsSubmitting(true);
 
       // Map game IDs to names
@@ -460,7 +464,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                           <h4 className="text-mint font-bold capitalize text-sm">eFootball (PES) Multiplayer - Your Info</h4>
                           <input type="text" placeholder="Your Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
                           <input type="text" placeholder="Your OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
-                          
+
                           <h4 className="text-mint font-bold capitalize text-sm mt-4">Teammate Info</h4>
                           <input type="text" placeholder="Teammate Name" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammateName} onChange={e => setFormData({ ...formData, pesMultiplayerTeammateName: e.target.value })} />
                           <input type="text" placeholder="Teammate Player ID" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammatePlayerId} onChange={e => setFormData({ ...formData, pesMultiplayerTeammatePlayerId: e.target.value })} />
@@ -522,7 +526,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
                     <div className="space-y-4 pt-4 border-t border-mint/30">
                       <div className="text-mint-soft text-sm leading-relaxed space-y-2">
-                        <p>Please select your preferred payment method and enter the transaction ID after payment.</p>
+                        <p>Please select your preferred payment method and enter the transaction ID after payment. Or you can pay offline at the reception desk on event day</p>
                         <div className="py-4 text-center bg-black/20 rounded-lg border border-mint/30 my-3">
                           <p className="text-xs sm:text-sm text-mint-soft uppercase tracking-wider mb-1">Payment Number</p>
                           <p className="text-2xl sm:text-3xl font-bold text-mint tracking-normal sm:tracking-wider font-pixelify drop-shadow-[0_0_8px_rgba(22,219,171,0.5)]">
@@ -564,21 +568,37 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                             />
                             <span className="tracking-widest uppercase">Nagad</span>
                           </label>
+                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${formData.paymentMethod === 'offline'
+                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold"
+                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
+                            }`}>
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="offline"
+                              checked={formData.paymentMethod === 'offline'}
+                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                              className="hidden"
+                            />
+                            <span className="tracking-widest uppercase">Offline</span>
+                          </label>
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <label htmlFor="transactionId" className="pixel-label">transaction id</label>
-                        <input
-                          id="transactionId"
-                          type="text"
-                          required
-                          className="pixel-input"
-                          value={formData.transactionId}
-                          onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
-                          placeholder="enter your payment transaction id"
-                        />
-                      </div>
+                      {formData.paymentMethod !== 'offline' && (
+                        <div className="space-y-2">
+                          <label htmlFor="transactionId" className="pixel-label">transaction id</label>
+                          <input
+                            id="transactionId"
+                            type="text"
+                            required
+                            className="pixel-input"
+                            value={formData.transactionId}
+                            onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
+                            placeholder="enter your payment transaction id"
+                          />
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
