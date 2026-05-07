@@ -4,11 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameInfoModal from "./GameInfoModal";
 import { Game, useGames } from "@/utils/gameInfo";
-import { SCHEDULE_DATA } from "@/utils/scheduleInfo"
+import { useSchedule } from "@/utils/scheduleInfo"
 
 
 export default function ScheduleCarousel() {
   const { games: GAMES } = useGames();
+  const { schedule: SCHEDULE_DATA, loading: loadingSchedule } = useSchedule();
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -126,7 +127,7 @@ export default function ScheduleCarousel() {
 
         {/* Day Switcher - Mobile only */}
         <div className="flex lg:hidden gap-3 mb-4 overflow-x-auto pb-1 scrollbar-hide w-full justify-center px-4">
-          {SCHEDULE_DATA.map((day, idx) => (
+          {!loadingSchedule && SCHEDULE_DATA.map((day, idx) => (
             <button
               key={idx}
               onClick={() => setActiveDayIdx(idx)}
@@ -138,13 +139,14 @@ export default function ScheduleCarousel() {
               {day.dayLabel}
             </button>
           ))}
+          {loadingSchedule && <div className="text-white/50 animate-pulse text-sm">Loading schedule...</div>}
         </div>
 
         {/* Schedule Display */}
         <div className="w-full px-2 md:px-0">
           {/* Desktop Layout: Grid (Day 1 and Day 2 side by side) */}
           <div className="hidden lg:grid lg:grid-cols-2 gap-20 w-full">
-            {SCHEDULE_DATA.map((day, idx) => (
+            {!loadingSchedule && SCHEDULE_DATA.map((day, idx) => (
               <div key={idx} className="h-full">
                 <ScheduleDayCard day={day} />
               </div>
@@ -154,16 +156,23 @@ export default function ScheduleCarousel() {
           {/* Mobile Layout: Single Box with Transition */}
           <div className="lg:hidden w-full overflow-hidden min-h-[450px]">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeDayIdx}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="w-full"
-              >
-                <ScheduleDayCard day={SCHEDULE_DATA[activeDayIdx]} />
-              </motion.div>
+              {!loadingSchedule && SCHEDULE_DATA.length > 0 && (
+                <motion.div
+                  key={activeDayIdx}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="w-full"
+                >
+                  <ScheduleDayCard day={SCHEDULE_DATA[activeDayIdx]} />
+                </motion.div>
+              )}
+              {loadingSchedule && (
+                <div className="w-full flex items-center justify-center py-12">
+                   <div className="text-white/50 animate-pulse">synchronizing interface...</div>
+                </div>
+              )}
             </AnimatePresence>
           </div>
         </div>
