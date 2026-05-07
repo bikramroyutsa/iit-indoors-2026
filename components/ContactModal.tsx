@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Portal from "./Portal";
 
 interface ContactModalProps {
@@ -28,6 +29,16 @@ const CONTACTS = [
 ];
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -36,10 +47,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <div className="pixel-modal-content max-w-xl w-full max-h-[90vh] overflow-y-auto animate-modal-slide-up custom-scrollbar">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-mint-soft hover:text-mint text-3xl transition-colors z-10"
+            className="absolute top-4 right-4 text-mint-soft hover:text-mint flex flex-col items-center transition-colors z-10"
             aria-label="Close modal"
           >
-            ×
+            <span className="text-3xl leading-none">×</span>
+            <span className="text-[10px] font-pixelify leading-none mt-1 font-normal">esc</span>
           </button>
 
           <div className="space-y-8">

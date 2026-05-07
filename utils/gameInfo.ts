@@ -360,6 +360,23 @@ const GAMES: Game[] = [
     members: null,
     reg_req: true
   },
+  {
+    id: 20,
+    name: "efootball (pes) multiplayer",
+    image: "/game-assets/pes.png",
+    date: "tba",
+    time: "tba",
+    venue: "Online",
+    notes: "The beautiful game refined into a battle of clinical precision, where every tactical adjustment paves the way to glory.",
+    rules: [
+      "All matches governed by General Games Rules.",
+      "Matches follow a 10-minute total duration (5 minutes per half)."
+    ],
+    fee: 100,
+    type: "multiplayer",
+    members: 2,
+    reg_req: true
+  },
 ];
 
 const useGames = () => {

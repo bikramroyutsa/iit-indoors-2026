@@ -28,6 +28,9 @@ interface FormDataType {
   cocTownHall: string;
   pesOvr: string;
   pesPlayerId: string;
+  pesMultiplayerTeammateName: string;
+  pesMultiplayerTeammateOvr: string;
+  pesMultiplayerTeammatePlayerId: string;
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
@@ -49,6 +52,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     cocTownHall: "",
     pesOvr: "",
     pesPlayerId: "",
+    pesMultiplayerTeammateName: "",
+    pesMultiplayerTeammateOvr: "",
+    pesMultiplayerTeammatePlayerId: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,6 +65,17 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       playSuccessChime();
     }
   }, [isSubmitted, playSuccessChime]);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen && !isSubmitting) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, isSubmitting, onClose]);
 
   if (!isOpen) return null;
 
@@ -138,7 +155,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
   const selectedGames = GAMES.filter((g) => formData.selectedGames.includes(g.id));
   const selectedMultiplayerGames = GAMES.filter(
-    (g) => g.type === "multiplayer" && formData.selectedGames.includes(g.id)
+    (g) => g.type === "multiplayer" && formData.selectedGames.includes(g.id) && g.id !== 20
   );
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
@@ -146,7 +163,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
     setErrorMessage(null);
     try {
       // Validate all fields before final submission
-      const validatedData = registrationSchema.parse(formData);
+      const dataToValidate = {
+        ...formData,
+        transactionId: formData.paymentMethod === 'offline' ? 'N/A' : formData.transactionId
+      };
+      const validatedData = registrationSchema.parse(dataToValidate);
       setIsSubmitting(true);
 
       // Map game IDs to names
@@ -199,6 +220,9 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           cocTownHall: "",
           pesOvr: "",
           pesPlayerId: "",
+          pesMultiplayerTeammateName: "",
+          pesMultiplayerTeammateOvr: "",
+          pesMultiplayerTeammatePlayerId: "",
         });
       }, 2500);
     } catch (error) {
@@ -219,10 +243,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
           <button
             onClick={onClose}
             disabled={isSubmitting}
-            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint text-2xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute top-4 right-4 z-20 text-mint-soft hover:text-mint flex flex-col items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Close modal"
           >
-            ×
+            <span className="text-2xl leading-none">×</span>
+            <span className="text-[10px] font-pixelify leading-none mt-1">esc</span>
           </button>
 
           {isSubmitting && (
@@ -416,7 +441,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 )}
 
                 {/* Game Specific Details */}
-                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18)) && (
+                {(formData.selectedGames.includes(19) || formData.selectedGames.includes(18) || formData.selectedGames.includes(20)) && (
                   <div className="bg-deep-teal border-2 border-mint rounded-lg p-5 md:p-6">
                     <h3 className="text-lg font-bold text-mint mb-4 tracking-widest uppercase">game details</h3>
                     <div className="space-y-5">
@@ -429,9 +454,21 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                       )}
                       {formData.selectedGames.includes(18) && (
                         <div className="space-y-3">
-                          <h4 className="text-mint font-bold capitalize text-sm">PES</h4>
+                          <h4 className="text-mint font-bold capitalize text-sm">PES (Single Player)</h4>
                           <input type="text" placeholder="Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
                           <input type="text" placeholder="OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
+                        </div>
+                      )}
+                      {formData.selectedGames.includes(20) && (
+                        <div className="space-y-3">
+                          <h4 className="text-mint font-bold capitalize text-sm">eFootball (PES) Multiplayer - Your Info</h4>
+                          <input type="text" placeholder="Your Player ID" className="pixel-input w-full text-sm" required value={formData.pesPlayerId} onChange={e => setFormData({ ...formData, pesPlayerId: e.target.value })} />
+                          <input type="text" placeholder="Your OVR" className="pixel-input w-full text-sm" required value={formData.pesOvr} onChange={e => setFormData({ ...formData, pesOvr: e.target.value })} />
+
+                          <h4 className="text-mint font-bold capitalize text-sm mt-4">Teammate Info</h4>
+                          <input type="text" placeholder="Teammate Name" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammateName} onChange={e => setFormData({ ...formData, pesMultiplayerTeammateName: e.target.value })} />
+                          <input type="text" placeholder="Teammate Player ID" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammatePlayerId} onChange={e => setFormData({ ...formData, pesMultiplayerTeammatePlayerId: e.target.value })} />
+                          <input type="text" placeholder="Teammate OVR" className="pixel-input w-full text-sm" required value={formData.pesMultiplayerTeammateOvr} onChange={e => setFormData({ ...formData, pesMultiplayerTeammateOvr: e.target.value })} />
                         </div>
                       )}
                     </div>
@@ -489,7 +526,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
                     <div className="space-y-4 pt-4 border-t border-mint/30">
                       <div className="text-mint-soft text-sm leading-relaxed space-y-2">
-                        <p>Please select your preferred payment method and enter the transaction ID after payment.</p>
+                        <p>Please select your preferred payment method and enter the transaction ID after payment. Or you can pay offline at the reception desk on event day</p>
                         <div className="py-4 text-center bg-black/20 rounded-lg border border-mint/30 my-3">
                           <p className="text-xs sm:text-sm text-mint-soft uppercase tracking-wider mb-1">Payment Number</p>
                           <p className="text-2xl sm:text-3xl font-bold text-mint tracking-normal sm:tracking-wider font-pixelify drop-shadow-[0_0_8px_rgba(22,219,171,0.5)]">
@@ -531,21 +568,37 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                             />
                             <span className="tracking-widest uppercase">Nagad</span>
                           </label>
+                          <label className={`flex-1 flex items-center justify-center p-3 border-2 rounded-md cursor-pointer font-pixelify transition-all duration-200 ${formData.paymentMethod === 'offline'
+                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.8)] drop-shadow-[0_0_8px_rgba(22,219,171,0.8)] scale-105 transform z-10 font-bold"
+                            : "bg-deep-teal text-mint border-mint-soft hover:border-mint hover:bg-opacity-80 font-bold"
+                            }`}>
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="offline"
+                              checked={formData.paymentMethod === 'offline'}
+                              onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
+                              className="hidden"
+                            />
+                            <span className="tracking-widest uppercase">Offline</span>
+                          </label>
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <label htmlFor="transactionId" className="pixel-label">transaction id</label>
-                        <input
-                          id="transactionId"
-                          type="text"
-                          required
-                          className="pixel-input"
-                          value={formData.transactionId}
-                          onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
-                          placeholder="enter your payment transaction id"
-                        />
-                      </div>
+                      {formData.paymentMethod !== 'offline' && (
+                        <div className="space-y-2">
+                          <label htmlFor="transactionId" className="pixel-label">transaction id</label>
+                          <input
+                            id="transactionId"
+                            type="text"
+                            required
+                            className="pixel-input"
+                            value={formData.transactionId}
+                            onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
+                            placeholder="enter your payment transaction id"
+                          />
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
