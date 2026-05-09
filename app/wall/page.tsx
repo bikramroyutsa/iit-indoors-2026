@@ -171,7 +171,7 @@ export default function WallPage() {
                     <div className="note-content font-pixelify">
                       <p className="exp-text">"{exp.experience}"</p>
                       <div className="exp-signature">
-                        — {exp.name.toLowerCase()} <span className="batch">[{exp.batch}]</span>
+                        — {exp.name.toLowerCase()} <span className="batch">[{exp.roll}]</span>
                       </div>
                     </div>
                   </div>
