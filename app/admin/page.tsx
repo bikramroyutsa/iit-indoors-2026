@@ -9,6 +9,8 @@ import LoginForm from "./LoginForm";
 import GamesTab from "./GamesTab";
 import RegistrationDetailsModal from "./RegistrationDetailsModal";
 import CustomizerTab from "./CustomizerTab";
+import ResultsTab from "./ResultsTab";
+import WallTab from "./WallTab";
 
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -17,7 +19,7 @@ export default function AdminPage() {
 
   // Admin Dashboard State
   const [registrations, setRegistrations] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "rejected" | "games" | "customizer">("pending");
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "rejected" | "games" | "customizer" | "results" | "wall">("pending");
   const [selectedReg, setSelectedReg] = useState<any | null>(null);
   const [loadingRegistrations, setLoadingRegistrations] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -192,6 +194,8 @@ export default function AdminPage() {
               <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'rejected' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("rejected")}>rejected</button>
               <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'games' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("games")}>games</button>
               <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'customizer' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("customizer")}>customizer</button>
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'results' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("results")}>results</button>
+              <button className={`pixel-button !py-2 !px-3 text-[10px] md:text-sm transition-all ${activeTab === 'wall' ? '!bg-white !text-black !shadow-[4px_4px_0px_rgba(255,255,255,0.3)] scale-105' : '!bg-deep-teal !text-mint opacity-60 hover:opacity-100'}`} onClick={() => setActiveTab("wall")}>the wallz</button>
             </div>
 
             {activeTab !== "games" && (
@@ -223,6 +227,14 @@ export default function AdminPage() {
           ) : activeTab === "customizer" ? (
             <div className="flex-1 overflow-auto custom-scrollbar">
               <CustomizerTab />
+            </div>
+          ) : activeTab === "results" ? (
+            <div className="flex-1 overflow-auto custom-scrollbar">
+              <ResultsTab />
+            </div>
+          ) : activeTab === "wall" ? (
+            <div className="flex-1 overflow-auto custom-scrollbar">
+              <WallTab />
             </div>
           ) : loadingRegistrations ? (
             <div className="flex-1 flex items-center justify-center text-mint font-pixelify animate-pulse text-xl">

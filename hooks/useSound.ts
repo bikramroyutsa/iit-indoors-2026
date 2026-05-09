@@ -205,11 +205,52 @@ export const useSound = () => {
       osc.stop(startTime + duration);
     };
 
-    // Major arpeggio
-    playNote(523.25, now, 0.1); // C5
-    playNote(659.25, now + 0.1, 0.1); // E5
-    playNote(783.99, now + 0.2, 0.1); // G5
     playNote(1046.50, now + 0.3, 0.4); // C6
+  }, [getAudioContext]);
+
+  // Paste Sound: Filtered noise "thwack" for sticky notes
+  const playPaste = useCallback(() => {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    const bufferSize = ctx.sampleRate * 0.15;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(800, now);
+    filter.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    noise.start(now);
+
+    // Subtle sine "body"
+    const osc = ctx.createOscillator();
+    const oscGain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
+    oscGain.gain.setValueAtTime(0.1, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+    osc.connect(oscGain);
+    oscGain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.15);
   }, [getAudioContext]);
 
   // Battle Drum: Dramatic low-frequency thump for TechUnderground
@@ -307,5 +348,5 @@ export const useSound = () => {
     }, 100);
   }, []);
 
-  return { playDigitalBird, startBirds, stopBirds, playDiceThump, playSuccessChime, playBattleDrum, startBGM, stopBGM, toggleMute, isMuted };
+  return { playDigitalBird, startBirds, stopBirds, playDiceThump, playSuccessChime, playPaste, playBattleDrum, startBGM, stopBGM, toggleMute, isMuted };
 };

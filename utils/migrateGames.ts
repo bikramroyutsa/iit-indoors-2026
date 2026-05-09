@@ -35,3 +35,21 @@ export const migrateScheduleToFirestore = async () => {
     return { success: false, error };
   }
 };
+
+export const migrateResultsToFirestore = async (resultsData: any[]) => {
+  console.log("Starting results migration...");
+  try {
+    for (const result of resultsData) {
+      // Use game name as ID (slugified)
+      const gameId = result.game.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const resultRef = doc(db, "tournament_results", gameId);
+      await setDoc(resultRef, result);
+      console.log(`Migrated result: ${result.game}`);
+    }
+    console.log("Results migration completed successfully!");
+    return { success: true };
+  } catch (error) {
+    console.error("Results migration failed:", error);
+    return { success: false, error };
+  }
+};

@@ -1,0 +1,344 @@
+[
+  {
+    "game": "cards",
+    "champion": [
+      {
+        "name": "mostafizur rahman rifat",
+        "batch": "bsse15"
+      },
+      {
+        "name": "sizan",
+        "batch": "bsse15"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "nafis fuad",
+        "batch": "bsse9"
+      },
+      {
+        "name": "rabbi",
+        "batch": "bsse9"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "carrom",
+    "champion": [
+      {
+        "name": "md. ahasanul islam",
+        "batch": "bsse10"
+      },
+      {
+        "name": "sabbir",
+        "batch": "bsse10"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "md. nowsad hossen munna",
+        "batch": "bsse14"
+      },
+      {
+        "name": "sazzad hossain",
+        "batch": "bsse14"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "chess",
+    "champion": [
+      {
+        "name": "mohammad ahnaf shahriar",
+        "batch": "bsse18"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "asim alam chowdhury",
+        "batch": "bsse16"
+      }
+    ],
+    "secondRunnerUp": [
+      {
+        "name": "muhtasim nasif shafin",
+        "batch": "bsse18"
+      }
+    ]
+  },
+  {
+    "game": "clash of clans",
+    "champion": [
+      {
+        "name": "md. samsarabbi suborno",
+        "batch": "bsse9"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "syed tasnim ferdus tanim",
+        "batch": "bsse18"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "clash royale",
+    "champion": [
+      {
+        "name": "sajid tahmid",
+        "batch": "bsse18"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "alfi shahrin tamim",
+        "batch": "bsse18"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "cricket",
+    "champion": [
+      {
+        "name": "bsse 10th batch",
+        "batch": "bsse10",
+        "type": "batch"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "bsse 13th batch",
+        "batch": "bsse13",
+        "type": "batch"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "dart",
+    "champion": [
+      {
+        "name": "rakib",
+        "batch": "bsse9"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "mohsin",
+        "batch": "bsse14"
+      }
+    ],
+    "secondRunnerUp": [
+      {
+        "name": "a. m samdani mozumder",
+        "batch": "bsse14"
+      }
+    ]
+  },
+  {
+    "game": "dumb charades",
+    "champion": [
+      {
+        "name": "muhaimeen",
+        "batch": "bsse14"
+      },
+      {
+        "name": "toha",
+        "batch": "bsse14"
+      },
+      {
+        "name": "mustakim",
+        "batch": "bsse14"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "tawrat nibir",
+        "batch": "bsse16"
+      },
+      {
+        "name": "prottasha",
+        "batch": "bsse16"
+      },
+      {
+        "name": "shohidur rahman",
+        "batch": "bsse16"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "efootball (pes) multiplayer",
+    "champion": [
+      {
+        "name": "saimon",
+        "batch": "bsse14"
+      },
+      {
+        "name": "mohammed yasin",
+        "batch": "bsse14"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "sajid tahmid",
+        "batch": "bsse18"
+      },
+      {
+        "name": "md. shoyeb uddin shibli",
+        "batch": "bsse18"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "efootball (pes)",
+    "champion": [
+      {
+        "name": "ibtihad imon",
+        "batch": "bsse10"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "syed tasnim ferdus tanim",
+        "batch": "bsse18"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "musical chairs (female)",
+    "champion": [
+      {
+        "name": "nusaiba mahnez",
+        "batch": "bsse16"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "eva",
+        "batch": "bsse16"
+      }
+    ],
+    "secondRunnerUp": [
+      {
+        "name": "mithila",
+        "batch": "bsse16"
+      }
+    ]
+  },
+  {
+    "game": "musical chairs (male)",
+    "champion": [
+      {
+        "name": "saimun",
+        "batch": "bsse14"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "ratul",
+        "batch": "bsse16"
+      }
+    ],
+    "secondRunnerUp": [
+      {
+        "name": "ashish",
+        "batch": "bsse16"
+      }
+    ]
+  },
+  {
+    "game": "rubiks cube",
+    "champion": [
+      {
+        "name": "md. nahin hasan shobhon",
+        "batch": "bsse18"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "rudro bashar",
+        "batch": "bsse18"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "scrabble",
+    "champion": [
+      {
+        "name": "hasebur sinha",
+        "batch": "bsse16"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "sakib ahmed",
+        "batch": "bsse11"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "typing speed",
+    "champion": [
+      {
+        "name": "arithro choudhury",
+        "batch": "bsse16"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "nazmus sakib ahmed",
+        "batch": "bsse11"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "table tennis",
+    "champion": [
+      {
+        "name": "abir ashbab",
+        "batch": "bsse13"
+      },
+      {
+        "name": "sabbir hossain",
+        "batch": "bsse13"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "nazmus shakib",
+        "batch": "bsse14"
+      },
+      {
+        "name": "zahin abdullah rakin",
+        "batch": "bsse14"
+      }
+    ],
+    "secondRunnerUp": []
+  },
+  {
+    "game": "wire loop",
+    "champion": [
+      {
+        "name": "nasir uddin",
+        "batch": "bsse13"
+      }
+    ],
+    "runnerUp": [
+      {
+        "name": "sakib ahmed",
+        "batch": "bsse11"
+      }
+    ],
+    "secondRunnerUp": []
+  }
+]
