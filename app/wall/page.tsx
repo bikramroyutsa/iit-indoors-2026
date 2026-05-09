@@ -19,14 +19,23 @@ interface Experience {
 
 export default function WallPage() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [columnCount, setColumnCount] = useState(3);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', roll: '', experience: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [columnCount, setColumnCount] = useState(3);
   const [lastSubmittedId, setLastSubmittedId] = useState<string | null>(null);
   const { playSuccessChime, playPaste } = useSound();
   const wallContainerRef = React.useRef<HTMLDivElement>(null);
+
+  // Distribute experiences into columns more efficiently
+  const columns = React.useMemo(() => {
+    const cols: Experience[][] = Array.from({ length: columnCount }, () => []);
+    experiences.forEach((exp, idx) => {
+      cols[idx % columnCount].push(exp);
+    });
+    return cols;
+  }, [experiences, columnCount]);
 
   useEffect(() => {
     const q = query(collection(db, "wall_experiences"), orderBy("timestamp", "asc"));
@@ -121,16 +130,16 @@ export default function WallPage() {
 
     const skewX = (hash % 9) - 4;     // -4 to 4
     const skewY = (hash % 7) - 3;     // -3 to 3
-    const translateX = (hash % 21) - 10; // -10 to 10px
-    const translateY = (hash % 21) - 10; // -10 to 10px
+    const translateX = (hash % 11) - 5; // -5 to 5px
+    const translateY = (hash % 11) - 5; // -5 to 5px
 
     // High variability widths for desktop (thin to wide)
     // On mobile, keep width consistent to avoid overflow clipping
-    const widths = columnCount > 1 ? ['65%', '80%', '95%', '100%', '115%', '125%'] : ['100%'];
+    const widths = columnCount > 1 ? ['85%', '90%', '95%', '100%', '105%'] : ['100%'];
     const width = widths[hash % widths.length];
 
     return {
-      transform: `rotate(${rotation}deg) skew(${skewX}deg, ${skewY}deg) translate(${translateX}px, ${translateY}px)`,
+      transform: `rotate(${rotation}deg) skew(${skewX}deg, ${skewY}deg) translate(${translateX}px, ${translateY}px) translateZ(0)`,
       backgroundColor: getStickyColor(id),
       width: width,
       maxWidth: columnCount === 1 ? '92%' : 'none',
@@ -156,12 +165,11 @@ export default function WallPage() {
         </header>
 
         <div className="experiences-grid">
-          {Array.from({ length: columnCount }).map((_, colIndex) => (
+          {columns.map((column, colIndex) => (
             <div key={colIndex} className="wall-column">
-              {experiences
-                .map((exp, originalIdx) => ({ exp, originalIdx }))
-                .filter(({ originalIdx }) => originalIdx % columnCount === colIndex)
-                .map(({ exp, originalIdx }) => (
+              {column.map((exp, idxInCol) => {
+                const originalIdx = idxInCol * columnCount + colIndex;
+                return (
                   <div
                     key={exp.id}
                     id={`note-${exp.id}`}
@@ -171,11 +179,12 @@ export default function WallPage() {
                     <div className="note-content font-pixelify">
                       <p className="exp-text">"{exp.experience}"</p>
                       <div className="exp-signature">
-                        — {exp.name.toLowerCase()} <span className="batch">[{exp.roll}]</span>
+                        — {exp.name.toLowerCase()} <span className="batch"><br></br>[bsse{exp.roll}]</span>
                       </div>
                     </div>
                   </div>
-                ))}
+                );
+              })}
             </div>
           ))}
         </div>
@@ -391,6 +400,8 @@ export default function WallPage() {
           box-shadow: 6px 6px 0px rgba(0,0,0,0.4);
           border: 1px solid rgba(0,0,0,0.1);
           transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transform: translateZ(0); /* Hardware acceleration */
+          contain: layout style; /* Render isolation without clipping tape */
         }
 
         .paper-note:hover {
@@ -418,8 +429,7 @@ export default function WallPage() {
           transform: translateX(-50%) rotate(var(--tape-rotate));
           width: 80px;
           height: 30px;
-          background: rgba(255, 255, 255, 0.4);
-          backdrop-filter: blur(2px);
+          background: rgba(255, 255, 255, 0.5); /* Increased opacity instead of blur */
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
           z-index: 2;
         }
