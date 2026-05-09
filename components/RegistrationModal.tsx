@@ -33,6 +33,8 @@ interface FormDataType {
   pesMultiplayerTeammatePlayerId: string;
 }
 
+const REGISTRATION_CLOSED = true;
+
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
   const { games: GAMES } = useGames();
   const { playSuccessChime } = useSound();
@@ -264,7 +266,17 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
             </div>
           )}
 
-          {isSubmitted ? (
+          {REGISTRATION_CLOSED ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <div className="text-6xl mb-4">🚫</div>
+              <h2 className="text-2xl font-bold text-mint tracking-widest mb-3">
+                registration closed
+              </h2>
+              <p className="text-mint-soft font-pixelify max-w-md mb-8">
+                See you next year
+              </p>
+            </div>
+          ) : isSubmitted ? (
             <div className="flex flex-col items-center justify-center py-10 animate-success-pop">
               <div className="text-6xl mb-4">👾</div>
               <h2 className="text-2xl font-bold text-mint tracking-widest text-center mb-2">
