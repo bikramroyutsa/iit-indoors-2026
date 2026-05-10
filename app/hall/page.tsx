@@ -124,11 +124,10 @@ export default function HallPage() {
       <style jsx>{`
         .hall-container {
           position: relative;
-          width: 100vw;
-          height: 100vh;
+          width: 100%;
+          min-height: 100vh;
           background-color: #8b3434;
           overflow-x: hidden;
-          overflow-y: auto;
         }
 
         .brick-wall {
@@ -154,6 +153,7 @@ export default function HallPage() {
           padding: 4rem 2rem;
           max-width: 1400px;
           margin: 0 auto;
+          width: 100%;
         }
 
         .hall-header {
@@ -179,17 +179,11 @@ export default function HallPage() {
           font-size: 0.9rem;
         }
 
-        .snap-button {
-          background-color: #ffeb3b;
-          color: #000;
-          font-size: 1.2rem;
-          padding: 1rem 2rem;
-        }
-
         .photos-grid {
           display: flex;
           gap: 2rem;
           align-items: flex-start;
+          width: 100%;
         }
 
         .hall-column {
@@ -197,6 +191,7 @@ export default function HallPage() {
           display: flex;
           flex-direction: column;
           gap: 3rem;
+          min-width: 0; /* Prevents flex children from overflowing */
         }
 
         .polaroid-frame {
@@ -205,6 +200,7 @@ export default function HallPage() {
           box-shadow: 10px 10px 0px rgba(0,0,0,0.4);
           position: relative;
           transition: transform 0.3s ease;
+          width: 100%;
         }
 
         .polaroid-frame:hover {
@@ -252,15 +248,6 @@ export default function HallPage() {
           font-weight: bold;
         }
 
-        .caption-meta {
-          font-size: 0.8rem;
-          color: #666;
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          opacity: 0.8;
-        }
-
         .highlight-new-photo {
           animation: photo-highlight 2s ease-out;
           z-index: 100;
@@ -274,9 +261,19 @@ export default function HallPage() {
 
         @media (max-width: 768px) {
           .hall-content { padding: 2rem 1rem; }
-          .photos-grid { gap: 1rem; }
-          .hall-column { gap: 2rem; }
-          .polaroid-frame { padding: 0.8rem 0.8rem 2rem 0.8rem; }
+          .photos-grid { 
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+          }
+          .hall-column { 
+            width: 100%;
+            gap: 3rem;
+          }
+          .polaroid-frame { 
+            padding: 0.8rem 0.8rem 2rem 0.8rem;
+            max-width: 90% !important; /* Force containment even with rotation */
+          }
         }
       `}</style>
     </main>
